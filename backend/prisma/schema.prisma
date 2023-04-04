@@ -11,7 +11,7 @@ datasource db {
 }
 
 model User {
-  id           Int        @id @default(autoincrement())
+  id           String        @id @default(uuid())
   name         String
   email        String     @unique
   cpf          String
@@ -21,7 +21,8 @@ model User {
   accountType  String
   profileImage String
   createdAt    DateTime
-  Address      Address[]
+  addressId    String
+  address      Address? @relation(fields: [addressId], references: [id])
   Cars         Cars[]
   Comments     Comments[]
 
@@ -29,21 +30,19 @@ model User {
 }
 
 model Address {
-  id         Int    @id @default(autoincrement())
+  id         String    @id @default(uuid())
   cep        String
   state      String
   city       String
   street     String
   number     Int
   complement String
-  userId     Int
-  user       User?  @relation(fields: [userId], references: [id])
 
   @@map("address")
 }
 
 model Cars {
-  id          Int      @id @default(autoincrement())
+  id          String      @id @default(uuid())
   brand       String
   model       String
   year        DateTime
@@ -66,23 +65,24 @@ model Cars {
 }
 
 model CarImages {
-  id  Int    @id @default(autoincrement())
+  id  String    @id @default(uuid())
   url String
 
-  carId Int
+  carId String
   car   Cars? @relation(fields: [carId], references: [id])
 
   @@map("carImages")
 }
 
 model Comments {
-  id          Int      @id @default(autoincrement())
+  id          String      @id @default(uuid())
   description String
-  createdAt   DateTime
+  createdAt   DateTime @default(now())
+  updatedAt    DateTime @updatedAt
 
-  userId Int
+  userId String
   user   User? @relation(fields: [userId], references: [id])
-  carId  Int
+  carId  String
   car    Cars? @relation(fields: [carId], references: [id])
 
   @@map("comments")
