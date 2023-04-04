@@ -20,6 +20,7 @@ model User {
   password     String
   accountType  String
   profileImage String
+  createdAt    DateTime
   Address      Address[]
   Cars         Cars[]
   Comments     Comments[]
@@ -42,7 +43,7 @@ model Address {
 }
 
 model Cars {
-  id          Int         @id @default(autoincrement())
+  id          Int      @id @default(autoincrement())
   brand       String
   model       String
   year        DateTime
@@ -53,30 +54,36 @@ model Cars {
   price       Decimal
   imagesUrl   String
   isActive    Boolean
+  createdAt   DateTime
   userId      Int
-  user        User?       @relation(fields: [userId], references: [id])
-  Comments    Comments[]
-  Images      CarImages[]
+
+  user User? @relation(fields: [userId], references: [id])
+
+  Comments Comments[]
+  Images   CarImages[]
 
   @@map("cars")
 }
 
 model CarImages {
-  id    Int    @id @default(autoincrement())
+  id  Int    @id @default(autoincrement())
+  url String
+
   carId Int
-  url   String
-  car   Cars?  @relation(fields: [carId], references: [id])
+  car   Cars? @relation(fields: [carId], references: [id])
 
   @@map("carImages")
 }
 
 model Comments {
-  id          Int    @id @default(autoincrement())
+  id          Int      @id @default(autoincrement())
   description String
-  userId      Int
-  user        User?  @relation(fields: [userId], references: [id])
-  carId       Int
-  car         Cars?  @relation(fields: [carId], references: [id])
+  createdAt   DateTime
+
+  userId Int
+  user   User? @relation(fields: [userId], references: [id])
+  carId  Int
+  car    Cars? @relation(fields: [carId], references: [id])
 
   @@map("comments")
 }
