@@ -1,0 +1,71 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id          Int        @id @default(autoincrement())
+  name        String
+  email       String     @unique
+  cpf         String
+  birthdate   DateTime
+  description String
+  password    String
+  accountType String
+  Address     Address[]
+  Cars        Cars[]
+  Comments    Comments[]
+
+  @@map("users")
+}
+
+model Address {
+  id         Int    @id @default(autoincrement())
+  cep        String
+  state      String
+  city       String
+  street     String
+  number     Int
+  complement String
+  userId     Int
+  user       User?  @relation(fields: [userId], references: [id])
+
+  @@map("address")
+}
+
+model Cars {
+  id          Int        @id @default(autoincrement())
+  brand       String
+  model       String
+  year        DateTime
+  fuelType    String
+  miles       String
+  color       String
+  description String
+  price       Decimal
+  imagesUrl   String
+  isActive    Boolean
+  userId      Int
+  user        User?      @relation(fields: [userId], references: [id])
+  Comments    Comments[]
+
+  @@map("cars")
+}
+
+model Comments {
+  id          Int    @id @default(autoincrement())
+  description String
+  userId      Int
+  user        User?  @relation(fields: [userId], references: [id])
+  carId       Int
+  car         Cars?  @relation(fields: [carId], references: [id])
+
+  @@map("comments")
+}
