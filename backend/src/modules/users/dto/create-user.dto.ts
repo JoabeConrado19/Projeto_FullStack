@@ -21,9 +21,9 @@ export class CreateUserDto {
   @MinLength(11)
   cpf: string;
 
-  @IsDate()
+  @IsString()
   @IsNotEmpty()
-  birthdate: Date;
+  birthdate: string;
 
   @IsString()
   @IsNotEmpty()

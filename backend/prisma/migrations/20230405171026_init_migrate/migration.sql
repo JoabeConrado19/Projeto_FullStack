@@ -4,13 +4,12 @@ CREATE TABLE "users" (
     "name" TEXT NOT NULL,
     "email" TEXT NOT NULL,
     "cpf" TEXT NOT NULL,
-    "birthdate" TIMESTAMP(3) NOT NULL,
+    "birthdate" TEXT NOT NULL,
     "description" TEXT NOT NULL,
     "password" TEXT NOT NULL,
     "accountType" TEXT NOT NULL,
     "profileImage" TEXT NOT NULL,
-    "createdAt" TIMESTAMP(3) NOT NULL,
-    "addressId" TEXT NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT "users_pkey" PRIMARY KEY ("id")
 );
@@ -24,6 +23,7 @@ CREATE TABLE "address" (
     "street" TEXT NOT NULL,
     "number" INTEGER NOT NULL,
     "complement" TEXT NOT NULL,
+    "userId" TEXT NOT NULL,
 
     CONSTRAINT "address_pkey" PRIMARY KEY ("id")
 );
@@ -33,7 +33,7 @@ CREATE TABLE "cars" (
     "id" TEXT NOT NULL,
     "brand" TEXT NOT NULL,
     "model" TEXT NOT NULL,
-    "year" TIMESTAMP(3) NOT NULL,
+    "year" TEXT NOT NULL,
     "fuelType" TEXT NOT NULL,
     "miles" TEXT NOT NULL,
     "color" TEXT NOT NULL,
@@ -41,7 +41,7 @@ CREATE TABLE "cars" (
     "price" DECIMAL(65,30) NOT NULL,
     "imagesUrl" TEXT NOT NULL,
     "isActive" BOOLEAN NOT NULL,
-    "createdAt" TIMESTAMP(3) NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "userId" TEXT NOT NULL,
 
     CONSTRAINT "cars_pkey" PRIMARY KEY ("id")
@@ -71,8 +71,14 @@ CREATE TABLE "comments" (
 -- CreateIndex
 CREATE UNIQUE INDEX "users_email_key" ON "users"("email");
 
+-- CreateIndex
+CREATE UNIQUE INDEX "users_cpf_key" ON "users"("cpf");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "address_userId_key" ON "address"("userId");
+
 -- AddForeignKey
-ALTER TABLE "users" ADD CONSTRAINT "users_addressId_fkey" FOREIGN KEY ("addressId") REFERENCES "address"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "address" ADD CONSTRAINT "address_userId_fkey" FOREIGN KEY ("userId") REFERENCES "users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "cars" ADD CONSTRAINT "cars_userId_fkey" FOREIGN KEY ("userId") REFERENCES "users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

@@ -6,12 +6,11 @@ export class User {
   name: string;
   email: string;
   cpf: string;
-  birthdate: Date;
+  birthdate: string;
   description: string;
   accountType: string;
   profileImage: string;
   readonly createdAt: Date;
-  readonly addressId: string;
 
   @Exclude()
   password: string;
