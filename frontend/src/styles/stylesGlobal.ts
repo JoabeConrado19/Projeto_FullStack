@@ -48,5 +48,123 @@ const GlobalStyle = createGlobalStyle`
         --random-11: #5700E3;  
         --random-12: #30007D;
     }
+
+    #headline-1-700 {
+        font-weight: 700
+        font-size: 2.75rem
+        line-height: 3.5rem
+    }
+
+    #headline-2-600 {
+        font-weight: 700
+        font-size: 2.25rem
+        line-height: 2.813rem
+    }
+
+    #headline-3-600 {
+        font-weight: 600
+        font-size: 2rem
+        line-height: 2.5rem
+    }
+
+    #headline-3-500 {
+        font-weight: 500
+        font-size: 2rem
+        line-height: 2.5rem
+    }
+
+    #headline-4-600 {
+        font-weight: 600
+        font-size: 1.75rem
+        line-height: 2.188rem
+    }
+
+    #headline-4-500 {
+        font-weight: 500
+        font-size: 1.75rem
+        line-height: 2.188rem
+    }
+
+    #headline-5-600 {
+        font-weight: 600
+        font-size: 1.5rem
+        line-height: 1.875rem
+    }
+
+    #headline-5-500 {
+        font-weight: 500
+        font-size: 1.5rem
+        line-height: 1.875rem
+    }
+
+    #headline-6-600 {
+        font-weight: 600
+        font-size: 1.25rem
+        line-height: 1.563rem
+    }
+
+    #headline-6-500 {
+        font-weight: 500
+        font-size: 1.25rem
+        line-height: 1.563rem
+    }
+
+    #headline-7-600 {
+        font-weight: 600
+        font-size: 1rem
+        line-height: 1.25rem
+    }
+
+    #headline-7-500 {
+        font-weight: 500
+        font-size: 1rem
+        line-height: 1.25rem
+    }
+
+    #body-1-400 {
+        font-weight: 400
+        font-size: 1rem
+        line-height: 1.75rem
+    }
+
+    #body-1-600 {
+        font-weight: 600
+        font-size: 1rem
+        line-height: 1.75rem
+    }
+
+    #body-2-400 {
+        font-weight: 400
+        font-size: 0.875rem
+        line-height: 1.5rem
+    }
+
+    #body-2-500 {
+        font-weight: 500
+        font-size: 0.875rem
+        line-height: 1.5rem
+    }
+
+    #button-big-text {
+        font-weight: 600
+        font-size: 1rem
+    }
+
+    #button-medium-text {
+        font-weight: 600
+        font-size: 1rem
+    }
+
+    #input-placeholder {
+        font-weight: 400
+        font-size: 1rem
+    }
+
+    #input-label {
+        font-weight: 500
+        font-size: 0.875rem
+        line-height: 1.063rem
+    }
 `
+
 export default GlobalStyle
