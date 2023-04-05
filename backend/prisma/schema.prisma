@@ -20,9 +20,11 @@ model User {
   password     String
   accountType  String     
   profileImage String
+
   createdAt    DateTime   @default(now())
 
   address      Address?
+
 
   Cars         Cars[]
   Comments     Comments[]
@@ -31,6 +33,7 @@ model User {
 }
 
 model Address {
+
   id         String @id @default(uuid())
   cep        String
   state      String
@@ -42,12 +45,12 @@ model Address {
   userId     String  @unique 
   User       User    @relation(fields: [userId], references: [id])
 
+
   @@map("address")
 }
 
 model Cars {
   id          String   @id @default(uuid())
-  brand       String
   model       String
   year        String
   fuelType    String
@@ -59,21 +62,32 @@ model Cars {
   isActive    Boolean
   createdAt   DateTime @default(now())
 
-  userId String
-  user   User?  @relation(fields: [userId], references: [id])
+  brandId     String
+  brand       Brands? @relation(fields: [brandId], references: [id])
+  userId      String
+  user        User?  @relation(fields: [userId], references: [id])
 
-  Comments Comments[]
-  Images   CarImages[]
+  Comments    Comments[]
+  Images      CarImages[]
 
   @@map("cars")
 }
 
-model CarImages {
-  id  String @id @default(uuid())
-  url String
+model Brands {
+  id          String  @id @default(uuid())
+  brandName   String 
 
-  carId String
-  car   Cars?  @relation(fields: [carId], references: [id])
+  cars        Cars[]
+
+  @@map("brands")
+}
+
+model CarImages {
+  id          String @id @default(uuid())
+  url         String
+
+  carId       String
+  car         Cars?  @relation(fields: [carId], references: [id])
 
   @@map("carImages")
 }
@@ -84,10 +98,10 @@ model Comments {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
-  userId String
-  user   User?  @relation(fields: [userId], references: [id])
-  carId  String
-  car    Cars?  @relation(fields: [carId], references: [id])
+  userId      String
+  user        User?  @relation(fields: [userId], references: [id])
+  carId       String
+  car         Cars?  @relation(fields: [carId], references: [id])
 
   @@map("comments")
 }
