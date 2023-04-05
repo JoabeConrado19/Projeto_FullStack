@@ -6,6 +6,7 @@ import { User } from 'src/modules/users/entities/user.entity';
 import { plainToInstance } from 'class-transformer';
 import { UpdateUserDto } from 'src/modules/users/dto/update-user.dto';
 
+//FALTA INCLUDE DAS RELAÇÕES COM A MODEL USER
 @Injectable()
 export class UsersPrismaRepository implements UsersRepository {
   constructor(private prisma: PrismaService) {}
