@@ -21,8 +21,10 @@ model User {
   accountType  String
   profileImage String
   createdAt    DateTime
+
   addressId    String
-  address      Address? @relation(fields: [addressId], references: [id])
+  address      Address?   @relation(fields: [addressId], references: [id])
+
   Cars         Cars[]
   Comments     Comments[]
 
@@ -30,20 +32,21 @@ model User {
 }
 
 model Address {
-  id         String    @id @default(uuid())
-  cep        String
-  state      String
-  city       String
-  street     String
-  number     Int
-  complement String
+  id          String @id @default(uuid())
+  cep         String
+  state       String
+  city        String
+  street      String
+  number      String
+  complement  String
+  
+  User        User[]
 
   @@map("address")
 }
 
 model Cars {
-  id          String      @id @default(uuid())
-  brand       String
+  id          String   @id @default(uuid())
   model       String
   year        DateTime
   fuelType    String
@@ -54,22 +57,33 @@ model Cars {
   imagesUrl   String
   isActive    Boolean
   createdAt   DateTime
-  userId      Int
 
-  user User? @relation(fields: [userId], references: [id])
+  brandId     String
+  brand       Brands? @relation(fields: [brandId], references: [id])
+  userId      String
+  user        User?  @relation(fields: [userId], references: [id])
 
-  Comments Comments[]
-  Images   CarImages[]
+  Comments    Comments[]
+  Images      CarImages[]
 
   @@map("cars")
 }
 
-model CarImages {
-  id  String    @id @default(uuid())
-  url String
+model Brands {
+  id          String  @id @default(uuid())
+  brandName   String 
 
-  carId String
-  car   Cars? @relation(fields: [carId], references: [id])
+  cars        Cars[]
+
+  @@map("brands")
+}
+
+model CarImages {
+  id          String @id @default(uuid())
+  url         String
+
+  carId       String
+  car         Cars?  @relation(fields: [carId], references: [id])
 
   @@map("carImages")
 }
@@ -80,10 +94,10 @@ model Comments {
   createdAt   DateTime @default(now())
   updatedAt    DateTime @updatedAt
 
-  userId String
-  user   User? @relation(fields: [userId], references: [id])
-  carId  String
-  car    Cars? @relation(fields: [carId], references: [id])
+  userId      String
+  user        User?  @relation(fields: [userId], references: [id])
+  carId       String
+  car         Cars?  @relation(fields: [carId], references: [id])
 
   @@map("comments")
 }
