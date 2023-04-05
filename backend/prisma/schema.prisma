@@ -21,8 +21,10 @@ model User {
   accountType  String
   profileImage String
   createdAt    DateTime
+
   addressId    String
   address      Address?   @relation(fields: [addressId], references: [id])
+
   Cars         Cars[]
   Comments     Comments[]
 
@@ -37,6 +39,7 @@ model Address {
   street     String
   number     Int
   complement String
+  
   User       User[]
 
   @@map("address")
