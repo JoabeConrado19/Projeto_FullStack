@@ -15,12 +15,21 @@ export class UsersPrismaRepository implements UsersRepository {
     Object.assign(user, {
       ...data,
     });
+
     const newUser = await this.prisma.user.create({
-      data: { ...user },
-      include: { address: true },
+      data: { ...user, address: {} },
     });
 
-    return plainToInstance(User, newUser);
+    await this.prisma.address.create({
+      data: { ...data.address, userId: newUser.id },
+    });
+
+    const id = newUser.id;
+    const findUser = await this.prisma.user.findFirst({
+      where: { id },
+      include: { address: true },
+    });
+    return plainToInstance(User, findUser);
   }
 
   async findAll(): Promise<User[]> {
@@ -39,9 +48,12 @@ export class UsersPrismaRepository implements UsersRepository {
   }
 
   async update(id: string, data: UpdateUserDto): Promise<User> {
+    const address = await this.prisma.address.findUnique({
+      where: { id },
+    });
     const user = await this.prisma.user.update({
       where: { id },
-      data: { ...data },
+      data: { ...address },
       include: { address: true },
     });
     return plainToInstance(User, user);
