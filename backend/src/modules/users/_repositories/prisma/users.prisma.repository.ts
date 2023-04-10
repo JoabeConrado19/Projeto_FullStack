@@ -6,7 +6,6 @@ import { User } from 'src/modules/users/entities/user.entity';
 import { plainToInstance } from 'class-transformer';
 import { UpdateUserDto } from 'src/modules/users/dto/update-user.dto';
 
-//FALTA INCLUDE DAS RELAÇÕES COM A MODEL USER
 @Injectable()
 export class UsersPrismaRepository implements UsersRepository {
   constructor(private prisma: PrismaService) {}
@@ -18,19 +17,23 @@ export class UsersPrismaRepository implements UsersRepository {
     });
     const newUser = await this.prisma.user.create({
       data: { ...user },
+      include: { address: true },
     });
 
     return plainToInstance(User, newUser);
   }
 
   async findAll(): Promise<User[]> {
-    const users = await this.prisma.user.findMany();
+    const users = await this.prisma.user.findMany({
+      include: { address: true },
+    });
     return plainToInstance(User, users);
   }
 
   async findOne(id: string): Promise<User> {
     const user = await this.prisma.user.findUnique({
       where: { id },
+      include: { address: true },
     });
     return plainToInstance(User, user);
   }
@@ -39,6 +42,7 @@ export class UsersPrismaRepository implements UsersRepository {
     const user = await this.prisma.user.update({
       where: { id },
       data: { ...data },
+      include: { address: true },
     });
     return plainToInstance(User, user);
   }
@@ -52,6 +56,7 @@ export class UsersPrismaRepository implements UsersRepository {
   async findByEmail(email: string): Promise<User> {
     const user = await this.prisma.user.findUnique({
       where: { email },
+      include: { address: true },
     });
     return user;
   }
