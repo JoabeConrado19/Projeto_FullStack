@@ -11,21 +11,21 @@ datasource db {
 }
 
 model User {
-  id           String     @id @default(uuid())
+  id           String   @id @default(uuid())
   name         String
-  email        String     @unique
-  cpf          String     @unique
+  email        String   @unique
+  cpf          String   @unique
   birthdate    String
   description  String
   password     String
-  accountType  String     
+  accountType  String
   profileImage String
-  createdAt    DateTime   @default(now())
+  createdAt    DateTime @default(now())
 
-  address      Address?
+  address Address?
 
-  Cars         Cars[]
-  Comments     Comments[]
+  Cars     Cars[]
+  Comments Comments[]
 
   @@map("users")
 }
@@ -38,9 +38,9 @@ model Address {
   street     String
   number     Int
   complement String
-  
-  userId     String  @unique 
-  User       User    @relation(fields: [userId], references: [id])
+
+  userId String @unique
+  User   User   @relation(fields: [userId], references: [id])
 
   @@map("address")
 }
