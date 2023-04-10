@@ -4,7 +4,9 @@ import { CreateAddressDto } from '../../dto/create-address.dto';
 import { Address } from '../../entities/address.entity';
 import { plainToInstance } from 'class-transformer';
 import { UpdateAddressDto } from '../../dto/update-address.dto';
+import { Injectable } from '@nestjs/common';
 
+@Injectable()
 export class AddressPrismaRepository implements AddressRepository {
   constructor(private prisma: PrismaService) {}
 

@@ -14,11 +14,11 @@ export class AddressController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.addressService.findOne(+id);
+    return this.addressService.findOne(id);
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateAddressDto: UpdateAddressDto) {
-    return this.addressService.update(+id, updateAddressDto);
+    return this.addressService.update(id, updateAddressDto);
   }
 }
