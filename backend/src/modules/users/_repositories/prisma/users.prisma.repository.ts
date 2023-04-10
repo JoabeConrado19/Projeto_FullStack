@@ -2,11 +2,10 @@ import { Injectable } from '@nestjs/common';
 import { UsersRepository } from '../users.repository';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateUserDto } from 'src/modules/users/dto/create-user.dto';
-import { User } from 'src/modules/users/entities/user.entity';
+import { Address, User } from 'src/modules/users/entities/user.entity';
 import { plainToInstance } from 'class-transformer';
 import { UpdateUserDto } from 'src/modules/users/dto/update-user.dto';
 
-//FALTA INCLUDE DAS RELAÇÕES COM A MODEL USER
 @Injectable()
 export class UsersPrismaRepository implements UsersRepository {
   constructor(private prisma: PrismaService) {}
@@ -16,29 +15,51 @@ export class UsersPrismaRepository implements UsersRepository {
     Object.assign(user, {
       ...data,
     });
+
     const newUser = await this.prisma.user.create({
-      data: { ...user },
+      data: { ...user, address: {} },
     });
 
-    return plainToInstance(User, newUser);
+    const address = new Address();
+    Object.assign(address, {
+      ...data.address,
+    });
+
+    await this.prisma.address.create({
+      data: { ...data.address, userId: newUser.id },
+    });
+
+    const id = newUser.id;
+    const findUser = await this.prisma.user.findFirst({
+      where: { id },
+      include: { address: true },
+    });
+    return plainToInstance(User, findUser);
   }
 
   async findAll(): Promise<User[]> {
-    const users = await this.prisma.user.findMany();
+    const users = await this.prisma.user.findMany({
+      include: { address: true },
+    });
     return plainToInstance(User, users);
   }
 
   async findOne(id: string): Promise<User> {
     const user = await this.prisma.user.findUnique({
       where: { id },
+      include: { address: true },
     });
     return plainToInstance(User, user);
   }
 
   async update(id: string, data: UpdateUserDto): Promise<User> {
+    const address = await this.prisma.address.findUnique({
+      where: { id },
+    });
     const user = await this.prisma.user.update({
       where: { id },
-      data: { ...data },
+      data: { ...address },
+      include: { address: true },
     });
     return plainToInstance(User, user);
   }
@@ -52,6 +73,7 @@ export class UsersPrismaRepository implements UsersRepository {
   async findByEmail(email: string): Promise<User> {
     const user = await this.prisma.user.findUnique({
       where: { email },
+      include: { address: true },
     });
     return user;
   }
