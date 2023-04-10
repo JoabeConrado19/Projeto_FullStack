@@ -40,7 +40,7 @@ model Address {
   complement String
 
   userId String @unique
-  User   User   @relation(fields: [userId], references: [id])
+  User   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("address")
 }
@@ -60,7 +60,7 @@ model Cars {
   createdAt   DateTime @default(now())
 
   userId String
-  user   User?  @relation(fields: [userId], references: [id])
+  user   User?  @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   Comments Comments[]
   Images   CarImages[]
@@ -73,7 +73,7 @@ model CarImages {
   url String
 
   carId String
-  car   Cars?  @relation(fields: [carId], references: [id])
+  car   Cars?  @relation(fields: [carId], references: [id], onDelete: Cascade)
 
   @@map("carImages")
 }

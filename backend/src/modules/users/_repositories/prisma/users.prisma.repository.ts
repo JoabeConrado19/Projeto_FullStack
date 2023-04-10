@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { UsersRepository } from '../users.repository';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateUserDto } from 'src/modules/users/dto/create-user.dto';
-import { User } from 'src/modules/users/entities/user.entity';
+import { Address, User } from 'src/modules/users/entities/user.entity';
 import { plainToInstance } from 'class-transformer';
 import { UpdateUserDto } from 'src/modules/users/dto/update-user.dto';
 
@@ -18,6 +18,11 @@ export class UsersPrismaRepository implements UsersRepository {
 
     const newUser = await this.prisma.user.create({
       data: { ...user, address: {} },
+    });
+
+    const address = new Address();
+    Object.assign(address, {
+      ...data.address,
     });
 
     await this.prisma.address.create({
