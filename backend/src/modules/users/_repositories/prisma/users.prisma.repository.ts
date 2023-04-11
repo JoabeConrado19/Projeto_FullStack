@@ -39,7 +39,7 @@ export class UsersPrismaRepository implements UsersRepository {
     const users = await this.prisma.user.findMany({
       include: { address: true },
     });
-    return users;
+    return plainToInstance(User, users);
   }
 
   async findOne(id: string): Promise<User> {
