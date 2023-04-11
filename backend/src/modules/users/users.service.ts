@@ -12,12 +12,17 @@ export class UsersService {
   constructor(private usersRepository: UsersRepository) {}
 
   async create(createUserDto: CreateUserDto) {
-    const findUser = await this.usersRepository.findByEmail(
+    const findEmail = await this.usersRepository.findByEmail(
       createUserDto.email,
     );
+    const findCpf = await this.usersRepository.findByCpf(createUserDto.cpf);
 
-    if (findUser) {
-      throw new ConflictException('Email already exists');
+    if (findEmail) {
+      throw new ConflictException('Email já cadastrado');
+    }
+
+    if (findCpf) {
+      throw new ConflictException('Cpf já cadastrado');
     }
 
     const user = await this.usersRepository.create(createUserDto);
@@ -32,7 +37,7 @@ export class UsersService {
     const findUser = await this.usersRepository.findOne(id);
 
     if (!findUser) {
-      throw new NotFoundException('User not found');
+      throw new NotFoundException('Usuário não encontrado');
     }
     return this.usersRepository.findOne(id);
   }
@@ -44,8 +49,22 @@ export class UsersService {
 
   async update(id: string, updateUserDto: UpdateUserDto) {
     const findUser = await this.usersRepository.findOne(id);
+
+    const findEmail = await this.usersRepository.findByEmail(
+      updateUserDto.email,
+    );
+    const findCpf = await this.usersRepository.findByCpf(updateUserDto.cpf);
+
+    if (findEmail && findEmail.id != id) {
+      throw new ConflictException('Email já cadastrado');
+    }
+
+    if (findCpf && findCpf.id != id) {
+      throw new ConflictException('Cpf já cadastrado');
+    }
+
     if (!findUser) {
-      throw new NotFoundException('User not found');
+      throw new NotFoundException('Usuário não encontrado');
     }
 
     return this.usersRepository.update(id, updateUserDto);
@@ -54,7 +73,7 @@ export class UsersService {
   async delete(id: string) {
     const findUser = await this.usersRepository.findOne(id);
     if (!findUser) {
-      throw new NotFoundException('User not found');
+      throw new NotFoundException('Usuário não encontrado');
     }
 
     return this.usersRepository.delete(id);
