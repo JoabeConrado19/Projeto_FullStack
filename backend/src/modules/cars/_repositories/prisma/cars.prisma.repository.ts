@@ -7,6 +7,7 @@ import { Car } from '../../entities/car.entity';
 import { CarsRepository } from '../cars.repository';
 
 
+
 @Injectable()
 export class CarsPrismaRepository implements CarsRepository {
   constructor(private prisma: PrismaService) { }
@@ -51,9 +52,22 @@ export class CarsPrismaRepository implements CarsRepository {
 
   async findAll(): Promise<Car[]> {
     const cars = await this.prisma.cars.findMany({
-      include: { images: true, comments: true, user: true }
+      include: {
+        images: true, comments: true, user: {
+          select: {
+            id: true,
+            name: true,
+            email: true,
+            cpf: true,
+            birthdate: true,
+            description: true,
+            accountType: true,
+            profileImage: true,
+            createdAt: true,
+          }
+        }
+      },
     })
-
     return plainToInstance(Car, cars)
   }
 
@@ -62,7 +76,21 @@ export class CarsPrismaRepository implements CarsRepository {
       where: {
         id
       },
-      include: { images: true, comments: true, user: true }
+      include: {
+        images: true, comments: true, user: {
+          select: {
+            id: true,
+            name: true,
+            email: true,
+            cpf: true,
+            birthdate: true,
+            description: true,
+            accountType: true,
+            profileImage: true,
+            createdAt: true,
+          }
+        }
+      }
     })
 
     return plainToInstance(Car, car)
