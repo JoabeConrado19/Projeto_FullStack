@@ -1,43 +1,53 @@
 import {
-    IsBoolean,
-    IsNotEmpty,
-    IsString
+  IsArray,
+  IsBoolean,
+  IsNotEmpty,
+  IsNumber,
+  IsString,
 } from 'class-validator';
+import { CarImages } from '../entities/car.entity';
 
 export class CreateCarsDto {
-    @IsString()
-    @IsNotEmpty()
-    model: string;
+  @IsString()
+  @IsNotEmpty()
+  model: string;
 
-    @IsString()
-    year: string;
+  @IsString()
+  year: string;
 
-    @IsString()
-    @IsNotEmpty()
-    fuelType: string;
+  @IsString()
+  @IsNotEmpty()
+  fuelType: string;
 
-    @IsString()
-    @IsNotEmpty()
-    miles: string;
+  @IsString()
+  @IsNotEmpty()
+  miles: string;
 
-    @IsString()
-    @IsNotEmpty()
-    color: string;
+  @IsString()
+  @IsNotEmpty()
+  color: string;
 
-    @IsString()
-    @IsNotEmpty()
-    description: string;
+  @IsString()
+  @IsNotEmpty()
+  description: string;
 
-    @IsString()
-    @IsNotEmpty()
-    price: string;
+  @IsNumber({ maxDecimalPlaces: 2 })
+  @IsNotEmpty()
+  price: number;
 
-    @IsString()
-    @IsNotEmpty()
-    imagesUrl: string;
+  @IsString()
+  @IsNotEmpty()
+  imagesUrl: string;
 
-    @IsBoolean()
-    @IsNotEmpty()
-    isActive: Boolean;
+  @IsBoolean()
+  @IsNotEmpty()
+  isActive: boolean;
 
+  @IsArray()
+  images?: CarImages[] | null;
+}
+
+export class CreateImagesDto {
+  @IsString()
+  url: string;
 }
