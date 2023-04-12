@@ -1,5 +1,20 @@
+import { Exclude } from 'class-transformer';
 import { randomUUID } from 'crypto';
-import { User } from 'src/modules/users/entities/user.entity';
+
+export class UserCar {
+  id: string
+  name: string
+  email: string
+  cpf: string
+  birthdate: Date
+  description: string
+  accountType: string
+  profileImage: string
+  createdAt: Date
+
+  @Exclude()
+  password: string
+}
 
 export class Car {
   readonly id: string;
@@ -15,12 +30,11 @@ export class Car {
   createdAt: Date;
   userId: string;
   images: CarImages[];
-  user: User
+  user: UserCar
 
   constructor() {
     this.id = randomUUID();
   }
-
 }
 
 export class CarImages {
@@ -32,3 +46,5 @@ export class CarImages {
     this.id = randomUUID();
   }
 }
+
+
