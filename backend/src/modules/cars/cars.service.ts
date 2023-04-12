@@ -5,7 +5,7 @@ import { UpdateCarsDto } from './dto/update-car.dto';
 
 @Injectable()
 export class CarsService {
-  constructor(private carsRepository: CarsRepository) {}
+  constructor(private carsRepository: CarsRepository) { }
 
   async create(userId: string, createCarsDto: CreateCarsDto) {
     const cars = await this.carsRepository.create(userId, createCarsDto);
@@ -27,11 +27,12 @@ export class CarsService {
 
   async update(id: string, updateCarsDto: UpdateCarsDto) {
     const findCar = await this.carsRepository.findOne(id);
+
     if (!findCar) {
       throw new NotFoundException('Car not found');
     }
 
-    return this.carsRepository.update(id, new UpdateCarsDto());
+    return this.carsRepository.update(id, updateCarsDto);
   }
 
   async delete(id: string) {

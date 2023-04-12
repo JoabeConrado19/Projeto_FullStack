@@ -1,14 +1,15 @@
+import { Injectable } from '@nestjs/common';
+import { plainToInstance } from 'class-transformer';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateCarsDto } from '../../dto/create-car.dto';
 import { UpdateCarsDto } from '../../dto/update-car.dto';
-import { CarsRepository } from '../cars.repository';
-import { plainToInstance } from 'class-transformer';
 import { Car } from '../../entities/car.entity';
-import { Injectable } from '@nestjs/common';
+import { CarsRepository } from '../cars.repository';
+
 
 @Injectable()
 export class CarsPrismaRepository implements CarsRepository {
-  constructor(private prisma: PrismaService) {}
+  constructor(private prisma: PrismaService) { }
 
   async create(user: string, data: CreateCarsDto): Promise<Car> {
     const car = new Car();
@@ -48,16 +49,61 @@ export class CarsPrismaRepository implements CarsRepository {
     return plainToInstance(Car, findCar);
   }
 
-  findAll(): Promise<Car[]> {
-    throw new Error('Method not implemented.');
+  async findAll(): Promise<Car[]> {
+    const cars = await this.prisma.cars.findMany({
+      include: { images: true, comments: true, user: true }
+    })
+
+    return plainToInstance(Car, cars)
   }
 
-  findOne(id: string): Promise<Car> {
-    throw new Error('Method not implemented.');
+  async findOne(id: string): Promise<Car> {
+    const car = await this.prisma.cars.findUnique({
+      where: {
+        id
+      },
+      include: { images: true, comments: true, user: true }
+    })
+
+    return plainToInstance(Car, car)
   }
 
-  update(id: string, data: UpdateCarsDto): Promise<Car> {
-    throw new Error('Method not implemented.');
+  async update(id: string, data: UpdateCarsDto): Promise<Car> {
+    await this.prisma.cars.update({
+      where: { id },
+      data: {
+        color: data.color,
+        description: data.description,
+        fuelType: data.fuelType,
+        imagesUrl: data.imagesUrl,
+        isActive: data.isActive,
+        miles: data.miles,
+        model: data.model,
+        price: data.price,
+        year: data.year,
+      },
+    })
+
+    const cars = await this.prisma.cars.findUnique({
+      where: { id },
+      include: { images: true }
+    })
+
+
+    for (let i = 0; i < cars.images.length; i++) {
+      let element = cars.images[i];
+      await this.prisma.carImages.update({
+        where: { id: element.id },
+        data: {}
+      })
+    }
+
+    const carsUpdated = await this.prisma.cars.findUnique({
+      where: { id },
+      include: { images: true }
+    })
+
+    return plainToInstance(Car, carsUpdated)
   }
 
   async delete(id: string): Promise<void> {
