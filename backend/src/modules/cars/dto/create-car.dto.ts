@@ -3,6 +3,7 @@ import {
   IsBoolean,
   IsNotEmpty,
   IsNumber,
+  IsObject,
   IsString,
 } from 'class-validator';
 import { CarImages } from '../entities/car.entity';
@@ -45,6 +46,9 @@ export class CreateCarsDto {
 
   @IsArray()
   images?: CarImages[] | null;
+
+  @IsObject()
+  brand?: object
 }
 
 export class CreateImagesDto {

@@ -3,7 +3,7 @@ import { plainToInstance } from 'class-transformer';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateCarsDto } from '../../dto/create-car.dto';
 import { UpdateCarsDto } from '../../dto/update-car.dto';
-import { Car } from '../../entities/car.entity';
+import { Brand, Car } from '../../entities/car.entity';
 import { CarsRepository } from '../cars.repository';
 
 
@@ -18,6 +18,11 @@ export class CarsPrismaRepository implements CarsRepository {
     Object.assign(car, {
       ...rest,
     });
+
+    const brand = new Brand()
+    Object.assign(brand, {
+      ...data.brand
+    })
 
     const newCar = await this.prisma.cars.create({
       data: {
@@ -34,6 +39,10 @@ export class CarsPrismaRepository implements CarsRepository {
       },
     });
 
+    await this.prisma.brands.create({
+      data: { ...brand, carId: newCar.id }
+    })
+
     if (data.images.length) {
       for (let i = 0; i < data.images.length; i++) {
         await this.prisma.carImages.create({
@@ -45,7 +54,7 @@ export class CarsPrismaRepository implements CarsRepository {
     const id = newCar.id;
     const findCar = await this.prisma.cars.findFirst({
       where: { id },
-      include: { images: true },
+      include: { images: true, brand: true },
     });
     return plainToInstance(Car, findCar);
   }
@@ -53,7 +62,7 @@ export class CarsPrismaRepository implements CarsRepository {
   async findAll(): Promise<Car[]> {
     const cars = await this.prisma.cars.findMany({
       include: {
-        images: true, comments: true, user: {
+        images: true, comments: true, brand: true, user: {
           select: {
             id: true,
             name: true,
@@ -77,7 +86,7 @@ export class CarsPrismaRepository implements CarsRepository {
         id
       },
       include: {
-        images: true, comments: true, user: {
+        images: true, comments: true, brand: true, user: {
           select: {
             id: true,
             name: true,
