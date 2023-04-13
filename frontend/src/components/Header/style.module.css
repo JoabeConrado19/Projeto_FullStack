@@ -1,0 +1,14 @@
+.page_header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 1rem;
+}
+
+.page_header .page_header_buttons {
+    border-left: solid #0b0d0d3d 2px;
+    padding-left: 24px;
+
+    height: 100%;
+}
