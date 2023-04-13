@@ -6,11 +6,9 @@ import { UpdateCarsDto } from '../../dto/update-car.dto';
 import { Brand, Car } from '../../entities/car.entity';
 import { CarsRepository } from '../cars.repository';
 
-
-
 @Injectable()
 export class CarsPrismaRepository implements CarsRepository {
-  constructor(private prisma: PrismaService) { }
+  constructor(private prisma: PrismaService) {}
 
   async create(user: string, data: CreateCarsDto): Promise<Car> {
     const car = new Car();
@@ -19,10 +17,10 @@ export class CarsPrismaRepository implements CarsRepository {
       ...rest,
     });
 
-    const brand = new Brand()
+    const brand = new Brand();
     Object.assign(brand, {
-      ...data.brand
-    })
+      ...data.brand,
+    });
 
     const newCar = await this.prisma.cars.create({
       data: {
@@ -40,8 +38,8 @@ export class CarsPrismaRepository implements CarsRepository {
     });
 
     await this.prisma.brands.create({
-      data: { ...brand, carId: newCar.id }
-    })
+      data: { ...brand, carId: newCar.id },
+    });
 
     if (data.images.length) {
       for (let i = 0; i < data.images.length; i++) {
@@ -62,7 +60,10 @@ export class CarsPrismaRepository implements CarsRepository {
   async findAll(): Promise<Car[]> {
     const cars = await this.prisma.cars.findMany({
       include: {
-        images: true, comments: true, brand: true, user: {
+        images: true,
+        comments: true,
+        brand: true,
+        user: {
           select: {
             id: true,
             name: true,
@@ -73,20 +74,23 @@ export class CarsPrismaRepository implements CarsRepository {
             accountType: true,
             profileImage: true,
             createdAt: true,
-          }
-        }
+          },
+        },
       },
-    })
-    return plainToInstance(Car, cars)
+    });
+    return plainToInstance(Car, cars);
   }
 
   async findOne(id: string): Promise<Car> {
     const car = await this.prisma.cars.findUnique({
       where: {
-        id
+        id,
       },
       include: {
-        images: true, comments: true, brand: true, user: {
+        images: true,
+        comments: true,
+        brand: true,
+        user: {
           select: {
             id: true,
             name: true,
@@ -97,12 +101,12 @@ export class CarsPrismaRepository implements CarsRepository {
             accountType: true,
             profileImage: true,
             createdAt: true,
-          }
-        }
-      }
-    })
+          },
+        },
+      },
+    });
 
-    return plainToInstance(Car, car)
+    return plainToInstance(Car, car);
   }
 
   async update(id: string, data: UpdateCarsDto): Promise<Car> {
@@ -119,28 +123,27 @@ export class CarsPrismaRepository implements CarsRepository {
         price: data.price,
         year: data.year,
       },
-    })
+    });
 
     const cars = await this.prisma.cars.findUnique({
       where: { id },
-      include: { images: true }
-    })
-
+      include: { images: true },
+    });
 
     for (let i = 0; i < cars.images.length; i++) {
-      let element = cars.images[i];
+      const element = cars.images[i];
       await this.prisma.carImages.update({
         where: { id: element.id },
-        data: {}
-      })
+        data: {},
+      });
     }
 
     const carsUpdated = await this.prisma.cars.findUnique({
       where: { id },
-      include: { images: true }
-    })
+      include: { images: true },
+    });
 
-    return plainToInstance(Car, carsUpdated)
+    return plainToInstance(Car, carsUpdated);
   }
 
   async delete(id: string): Promise<void> {
