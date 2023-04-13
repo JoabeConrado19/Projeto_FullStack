@@ -30,14 +30,14 @@ export class UsersPrismaRepository implements UsersRepository {
     const id = newUser.id;
     const findUser = await this.prisma.user.findFirst({
       where: { id },
-      include: { address: true },
+      include: { address: true, cars: true, comments: true },
     });
     return plainToInstance(User, findUser);
   }
 
   async findAll(): Promise<User[]> {
     const users = await this.prisma.user.findMany({
-      include: { address: true },
+      include: { address: true, cars: true, comments: true },
     });
     return plainToInstance(User, users);
   }
@@ -45,7 +45,7 @@ export class UsersPrismaRepository implements UsersRepository {
   async findOne(id: string): Promise<User> {
     const user = await this.prisma.user.findUnique({
       where: { id },
-      include: { address: true },
+      include: { address: true, cars: true, comments: true },
     });
     return plainToInstance(User, user);
   }
@@ -63,7 +63,7 @@ export class UsersPrismaRepository implements UsersRepository {
 
     const findUser = await this.prisma.user.findFirst({
       where: { id },
-      include: { address: true },
+      include: { address: true, cars: true, comments: true },
     });
     return plainToInstance(User, findUser);
   }
@@ -77,7 +77,7 @@ export class UsersPrismaRepository implements UsersRepository {
   async findByEmail(email: string): Promise<User> {
     const user = await this.prisma.user.findUnique({
       where: { email },
-      include: { address: true },
+      include: { address: true, cars: true, comments: true },
     });
     return user;
   }
@@ -85,7 +85,7 @@ export class UsersPrismaRepository implements UsersRepository {
   async findByCpf(cpf: string): Promise<User> {
     const user = await this.prisma.user.findUnique({
       where: { cpf },
-      include: { address: true },
+      include: { address: true, cars: true, comments: true },
     });
 
     return user;
