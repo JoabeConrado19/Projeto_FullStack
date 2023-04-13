@@ -1,0 +1,42 @@
+.baseForm {
+  background-color:var(--gray-10); 
+  width: 22%;
+  border-radius: var(--radius-1);
+  height: max-content;
+  padding-bottom: 35px;
+  display: flex;
+  flex-direction: column;
+}
+.mainTitle {
+  margin-left: 20px;
+}
+
+.inputsArea {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+.buttonsArea {
+   width: 100%;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   gap: 5px;
+}
+.loginBackground {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--gray-8);
+}
+
+.passwordWarning {
+   align-self: flex-end;
+   margin-right: 15px;
+}

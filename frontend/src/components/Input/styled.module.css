@@ -1,0 +1,28 @@
+.inputDivOne {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    width: 90%;
+ }
+
+ .inputDivTwo {
+    display: flex;
+    width: 90%;
+ }
+
+ .inputOne {
+    width: 100%;
+    margin-top: 5px;
+    height: 35px;
+    border: solid var(--gray-7) 1.5px;
+    border-radius: var(--radius-1);
+}
+
+.inputTwo {
+    width: 50%;
+    margin-top: 5px;
+    height: 35px;
+    border: solid var(--gray-7) 1.5px;
+    border-radius: var(--radius-1);
+}
