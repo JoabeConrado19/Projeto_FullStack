@@ -47,4 +47,11 @@ export class CarImages {
   }
 }
 
+export class Brand {
+  readonly id: string
+  brandName: string
 
+  constructor() {
+    this.id = randomUUID();
+  }
+}

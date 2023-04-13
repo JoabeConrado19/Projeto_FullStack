@@ -57,13 +57,11 @@ model Cars {
   createdAt   DateTime @default(now())
 
   userId String?
-  user   User?  @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  // brandId String
-  // brand   Brands? @relation(fields: [brandId], references: [id])
+  user   User?   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   comments Comments[]
   images   CarImages[]
+  brand    Brands?
 
   @@map("cars")
 }
@@ -72,7 +70,8 @@ model Brands {
   id        String @id @default(uuid())
   brandName String
 
-  // cars Cars[]
+  carId String @unique
+  cars  Cars   @relation(fields: [carId], references: [id], onDelete: Cascade)
 
   @@map("brands")
 }
@@ -82,7 +81,7 @@ model CarImages {
   url String
 
   carId String?
-  car   Cars?  @relation(fields: [carId], references: [id], onDelete: Cascade)
+  car   Cars?   @relation(fields: [carId], references: [id], onDelete: Cascade)
 
   @@map("carImages")
 }
