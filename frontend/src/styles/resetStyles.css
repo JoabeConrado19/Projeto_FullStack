@@ -1,14 +1,12 @@
 html, body, div, span, h1, h2, h3, h4, h5, h6, p,
-a, img, small, ol, ul, li, fieldset, form, label, table, caption, 
-article, aside, footer, header, nav {
+a, img, small, ol, ul, li, form, label, article, aside, footer, header, nav 
+{
 	margin: 0;
 	padding: 0;
 	border: 0;
 	font-size: 100%;
-	font: inherit;
 	vertical-align: baseline;
 }
-
 article, aside, details, figcaption, figure, 
 footer, header, menu, nav, section {
 	display: block;
