@@ -4,18 +4,24 @@ import style from "./style.module.css"
 
 interface IDetailContainerComponent {
     children: React.ReactNode
-    containerPadding?: number
+    containerPadding?: string
+    customClassName?: string
 }
 
 export default function DetailContainerComponent({
     children, 
-    containerPadding = 16
+    containerPadding = "16px",
+    customClassName
 }: IDetailContainerComponent) {
     return (
         <div 
-            className={style.detail_container}
+            className={
+                customClassName ? 
+                `${style.detail_container} ${customClassName}` 
+                : style.detail_container
+            }
             style={{
-                padding: `${containerPadding}px`
+                padding: `${containerPadding}`
             }}
         >
             {children}
