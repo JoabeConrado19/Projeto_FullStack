@@ -160,6 +160,10 @@
     outline: none;
 }
 
+.comment_textarea > textarea::placeholder {
+    font-family: "Roboto", sans-serif;
+}
+
 .page_third_section {
     padding-bottom: 48px;
 }
