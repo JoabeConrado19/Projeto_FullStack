@@ -12,8 +12,8 @@ declare module '@mui/material/styles' {
   }
 
   interface PaletteOptions {
-    third: PaletteOptions['primary'];
-    fourth: PaletteOptions['primary'];
+    third?: PaletteOptions['primary'];
+    fourth?: PaletteOptions['primary'];
   }
 
   interface ThemeOptions {

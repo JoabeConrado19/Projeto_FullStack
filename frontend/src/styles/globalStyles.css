@@ -46,7 +46,12 @@
   --random-10: #6100ff;
   --random-11: #5700e3;
   --random-12: #30007d;
+
+
+  /*radios parameters*/
+  --radius-1: 4px
 }
+
 
 .headline-1-700 {
   font-weight: 700;
@@ -163,4 +168,5 @@
   font-weight: 500;
   font-size: 0.875rem;
   line-height: 1.063rem;
+  
 }
