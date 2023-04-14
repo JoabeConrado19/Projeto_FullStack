@@ -14,32 +14,31 @@ model User {
   id           String     @id @default(uuid())
   name         String
   email        String     @unique
-  cpf          String
-  birthdate    DateTime
+  cpf          String     @unique
+  birthdate    String
   description  String
   password     String
   accountType  String
   profileImage String
-  createdAt    DateTime
-
-  addressId    String
-  address      Address?   @relation(fields: [addressId], references: [id])
-  Cars         Cars[]
-  Comments     Comments[]
+  createdAt    DateTime   @default(now())
+  address      Address?
+  cars         Cars[]
+  comments     Comments[]
 
   @@map("users")
 }
 
 model Address {
-  id          String @id @default(uuid())
-  cep         String
-  state       String
-  city        String
-  street      String
-  number      String
-  complement  String
-  
-  User        User[]
+  id         String @id @default(uuid())
+  cep        String
+  state      String
+  city       String
+  street     String
+  number     Int
+  complement String
+
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("address")
 }
@@ -47,42 +46,42 @@ model Address {
 model Cars {
   id          String   @id @default(uuid())
   model       String
-  year        DateTime
+  year        String
   fuelType    String
   miles       String
   color       String
   description String
-  price       Decimal
+  price       Int
   imagesUrl   String
   isActive    Boolean
-  createdAt   DateTime
+  createdAt   DateTime @default(now())
 
-  brandId     String
-  brand       Brands? @relation(fields: [brandId], references: [id])
-  userId      String
-  user        User?  @relation(fields: [userId], references: [id])
+  userId String?
+  user   User?   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  Comments    Comments[]
-  Images      CarImages[]
+  comments Comments[]
+  images   CarImages[]
+  brand    Brands?
 
   @@map("cars")
 }
 
 model Brands {
-  id          String  @id @default(uuid())
-  brandName   String 
+  id        String @id @default(uuid())
+  brandName String
 
-  cars        Cars[]
+  carId String @unique
+  cars  Cars   @relation(fields: [carId], references: [id], onDelete: Cascade)
 
   @@map("brands")
 }
 
 model CarImages {
-  id          String @id @default(uuid())
-  url         String
+  id  String @id @default(uuid())
+  url String
 
-  carId       String
-  car         Cars?  @relation(fields: [carId], references: [id])
+  carId String?
+  car   Cars?   @relation(fields: [carId], references: [id], onDelete: Cascade)
 
   @@map("carImages")
 }
@@ -93,10 +92,10 @@ model Comments {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
-  userId      String
-  user        User?  @relation(fields: [userId], references: [id])
-  carId       String
-  car         Cars?  @relation(fields: [carId], references: [id])
+  userId String
+  user   User?  @relation(fields: [userId], references: [id])
+  carId  String
+  car    Cars?  @relation(fields: [carId], references: [id])
 
   @@map("comments")
 }
