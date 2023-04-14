@@ -1,0 +1,224 @@
+.carName {
+    margin-bottom: 16px;
+}
+
+.page {
+    font-family: 'Roboto', sans-serif;
+
+    min-height: 100vh;
+
+    padding-top: 48px;
+
+    background: linear-gradient(
+        to bottom, 
+        var(--brand-1) 0% 15%, 
+        var(--gray-8) 15% 100%
+    );
+}
+
+.main_content {
+    width: 90%;
+    max-width: 1000px;
+
+    margin: auto;
+}
+
+.main_content > div > div > div {
+    margin-bottom: 16px;
+}
+
+.mainCarImage {
+    width: fit-content;
+    height: fit-content;
+
+    margin: 0 auto;
+}
+
+.car_price_and_details {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+
+.car_details_list {
+    display: flex;
+    gap: 8px;
+}
+
+.car_details_list > li {
+    background-color: var(--brand-4);
+    color: var(--brand-2);
+
+    width: fit-content;
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+
+.car_images_list {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.car_images_list > li {
+    width: 25%;
+
+    padding: 16px 4px;
+
+    background-color: var(--gray-8);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.car_images_list > li > img {
+    width: 90%;
+    max-width: 120px;
+    height: fit-content;
+
+    aspect-ratio: 1.5 / 1;
+}
+
+.profile_container {
+    text-align: center;
+}
+
+.profile_pic {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 140px;
+    margin: 0 auto;
+
+    background-color: var(--brand-4);
+    border-radius: 50%;
+}
+
+.profile_pic > img {
+    object-fit: contain;
+    max-width: 100px;
+    max-height: 120px;
+
+    aspect-ratio: unset;
+}
+
+.commentary_list {
+    
+}
+
+.commentary_list > li {
+    margin-bottom: 32px;
+}
+
+.perfil_infos {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    margin-bottom: 24px;
+}
+
+.perfil_infos > span {
+    color: var(--gray-4);
+}
+
+.comments_profile_pic {
+    background-color: var(--brand-4);
+    padding: 8px;
+
+    border-radius: 50%;
+}
+
+.gray_dot {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+
+    background-color: gray;
+}
+
+.comment_textarea {
+    border: solid 1px var(--gray-6);
+    padding: 12px;
+
+    text-align: end;
+}
+
+.comment_textarea > textarea {
+    resize: none;
+    width: 100%;
+    margin-bottom: 16px;
+    
+    border: none;
+}
+
+.comment_textarea > textarea:focus {
+    outline: none;
+}
+
+.comment_textarea > textarea::placeholder {
+    font-family: "Roboto", sans-serif;
+}
+
+.page_third_section {
+    padding-bottom: 48px;
+}
+
+.page_third_section > div {
+    margin-bottom: 24px;
+}
+
+@media (min-width: 700px){
+    .mainCarImage { 
+        height: 250px;
+    }
+}
+
+@media (min-width: 900px){
+    .car_price_and_details {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .page {
+        background: linear-gradient(
+            to bottom, 
+            var(--brand-1) 0% 25%, 
+            var(--gray-8) 25% 100%
+        );
+    }
+}
+
+@media (min-width: 1320px) {
+    .page {
+        background: linear-gradient(
+            to bottom, 
+            var(--brand-1) 0% 30%, 
+            var(--gray-8) 30% 100%
+        );
+    }
+
+    .main_content {
+        width: 95%;
+        max-width: 1320px;
+        
+        margin: 0 auto;
+    }
+
+    .wrap_container {
+        display: flex;
+    }
+
+    .page_second_section > div {
+        width: 95%;
+        margin-left: auto;
+    }
+
+    .page_third_section {
+        width: 60%;
+    }
+}

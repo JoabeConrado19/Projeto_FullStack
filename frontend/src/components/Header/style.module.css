@@ -12,3 +12,7 @@
 
     height: 100%;
 }
+
+.page_header .page_header_buttons > button {
+    margin-right: 16px;
+}
