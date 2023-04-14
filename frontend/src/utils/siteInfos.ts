@@ -3,7 +3,6 @@ interface ISiteInfos {
     secondLogoName: string
     copyright: string
 }
-
 export const siteInfos: ISiteInfos = {
     firstLogoName: "Motors",
     secondLogoName: "shop",
