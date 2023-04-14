@@ -4,6 +4,8 @@
     justify-content: space-between;
 
     padding: 1rem;
+    
+    font-family: "Roboto", sans-serif;
 }
 
 .page_header .page_header_buttons {
