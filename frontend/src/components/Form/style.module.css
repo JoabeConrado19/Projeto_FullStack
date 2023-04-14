@@ -1,33 +1,52 @@
 .baseForm {
   background-color:var(--gray-10); 
   width: 22%;
+  min-width: 250px;
+  max-width: 400px;
   border-radius: var(--radius-1);
   height: max-content;
   padding-bottom: 35px;
+  padding-left: 20px;
   display: flex;
   flex-direction: column;
 }
-.mainTitle {
-  margin-left: 20px;
-}
 
-.inputsArea {
+
+.inputsAreaOne {
   width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   gap: 15px;
 }
-.buttonsArea {
+
+.inputsAreaTwo{
+  width: 91%;
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+}
+ 
+.buttonsAreaOne {
    width: 100%;
    display: flex;
    flex-direction: column;
    align-items: center;
    gap: 5px;
 }
-.loginBackground {
+.buttonsAreaTwo{
+  width: 91%;
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+}
+ 
+
+
+.BackgroundOne {
   width: 100%;
-  height: 100%;
+  min-height: 100vh;
+  height: auto;
   position: absolute;
   display: flex;
   flex-direction: column;
@@ -39,4 +58,15 @@
 .passwordWarning {
    align-self: flex-end;
    margin-right: 15px;
+   color: var(--gray-2);
+}
+
+.acountWarningOne {
+  color: var(--gray-2);
+}
+
+.acountWarningTwo {
+  color: var(--gray-2);
+  align-self: flex-start;
+  
 }

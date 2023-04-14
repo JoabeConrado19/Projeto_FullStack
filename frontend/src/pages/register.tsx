@@ -1,12 +1,12 @@
-import {LoginForm, RegisterForm} from "@/components/Form";
+import {RegisterForm} from "@/components/Form";
 import styles from "../components/Form/style.module.css";
 
-const LoginPage = () => {
+const RegisterPage = () => {
   return (
     <section className={styles.BackgroundOne}>
-      <LoginForm />
+      <RegisterForm/>
     </section>
   );
 };
 
-export default LoginPage;
+export default RegisterPage;

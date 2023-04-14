@@ -1,6 +1,5 @@
-import { TextField } from "@mui/material";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
 import styles from "./styled.module.css";
+
 
 interface IProps {
   placeHolder: string;
@@ -11,7 +10,7 @@ interface IProps {
 export const InputOne = ({ placeHolder, inputId, label }: IProps) => {
   return (
     <div className={styles.inputDivOne}>
-      <label htmlFor={inputId}>{label}</label>
+      <label className={`${styles.labelOne} input-label`} htmlFor={inputId}>{label}</label>
       <input
         id={inputId}
         placeholder={placeHolder}
@@ -24,7 +23,7 @@ export const InputOne = ({ placeHolder, inputId, label }: IProps) => {
 export const InputTwo = ({ placeHolder, inputId, label }: IProps) => {
   return (
     <div className={styles.inputDivOne}>
-      <label htmlFor={inputId}>{label}</label>
+      <label className={`${styles.labelOne} input-label`} htmlFor={inputId}>{label}</label>
       <input
         id={inputId}
         placeholder={placeHolder}

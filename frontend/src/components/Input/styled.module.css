@@ -1,3 +1,8 @@
+.labelOne {
+    color: var(--gray-1);
+    font-weight: 600;
+}
+
 .inputDivOne {
     display: flex;
     flex-direction: column;
@@ -6,10 +11,6 @@
     width: 90%;
  }
 
- .inputDivTwo {
-    display: flex;
-    width: 90%;
- }
 
  .inputOne {
     width: 100%;
@@ -19,10 +20,22 @@
     border-radius: var(--radius-1);
 }
 
+.inputOne::placeholder {
+    color: var(--gray-3);
+    font-weight: 400;
+    font-size: 1rem;
+}
+
 .inputTwo {
-    width: 50%;
+    width: 98%;
     margin-top: 5px;
     height: 35px;
     border: solid var(--gray-7) 1.5px;
     border-radius: var(--radius-1);
+}
+
+.inputTwo::placeholder {
+    color: var(--gray-3);
+    font-weight: 400;
+    font-size: 1rem;
 }
