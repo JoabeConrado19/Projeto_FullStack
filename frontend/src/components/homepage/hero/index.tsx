@@ -7,7 +7,7 @@ export default function Hero() {
         <h2>Motors Shop</h2>
         <p>A melhor plataforma de anúncios de carros do país</p>
       </div>
-      <img src='car2.png' />
+      <img src='car2.png' alt="Car banner"/>
     </div>
   )
 }
