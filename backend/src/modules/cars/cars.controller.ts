@@ -1,4 +1,15 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  ClassSerializerInterceptor,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+  UseGuards,
+  UseInterceptors
+} from '@nestjs/common';
 import { JwtAuthGuard } from '../auth/jwt.auth.guard';
 import { CarsService } from './cars.service';
 import { CreateCarsDto } from './dto/create-car.dto';
@@ -8,18 +19,20 @@ import { UpdateCarsDto } from './dto/update-car.dto';
 export class CarsController {
   constructor(private readonly carsService: CarsService) { }
 
-  @Post()
   @UseGuards(JwtAuthGuard)
-  create(@Body() createCarDto: CreateCarsDto) {
-    return this.carsService.create(createCarDto);
+  @Post('user/:id')
+  create(@Body() createCarDto: CreateCarsDto, @Param('id') userId: string) {
+    return this.carsService.create(userId, createCarDto);
   }
 
   @Get()
+  @UseInterceptors(ClassSerializerInterceptor)
   findAll() {
     return this.carsService.findAll();
   }
 
   @Get(':id')
+  @UseInterceptors(ClassSerializerInterceptor)
   findOne(@Param('id') id: string) {
     return this.carsService.findOne(id);
   }

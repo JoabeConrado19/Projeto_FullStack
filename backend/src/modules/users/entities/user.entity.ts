@@ -28,6 +28,7 @@ export class Address {
   street: string;
   number: number;
   complement: string;
+  userId: string;
 
   constructor() {
     this.id = randomUUID();

@@ -13,8 +13,8 @@ import { CarsService } from './cars.service';
     {
       provide: CarsRepository,
       useClass: CarsPrismaRepository,
-    }
+    },
   ],
-  exports: [CarsService]
+  exports: [CarsService],
 })
-export class CarsModule { }
+export class CarsModule {}
