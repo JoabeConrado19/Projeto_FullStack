@@ -10,7 +10,7 @@ export default function HeaderComponent() {
         >
             <LogoComponent />
             <div className={style.page_header_buttons}>
-                <Button>
+                <Button >
                     Fazer login
                 </Button>
                 <Button

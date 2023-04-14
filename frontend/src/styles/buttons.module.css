@@ -1,0 +1,13 @@
+.fit_content_button {
+    width: fit-content;
+    padding: 8px 16px;
+}
+
+.black_white_button {
+    background-color: var(--gray-0);
+    color: var(--whiteFixed);
+}
+
+.black_white_button:hover {
+    background-color: var(--gray-2);
+}

@@ -4,17 +4,15 @@
 
 .page_logo > p {
     display: inline;
+
+    font-family: 'Inter', sans-serif;
 }
 
 .page_logo_firstName {
-    font-family: 'Inter', sans-serif;
-
     font-size: 1.5rem;
     font-weight: 700;
 }
 
-.page_logo_secondName {
-    font-family: 'Inter', sans-serif;
-    
+.page_logo_secondName {    
     font-weight: 600;
 }
