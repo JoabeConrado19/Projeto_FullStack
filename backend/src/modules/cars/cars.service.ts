@@ -5,15 +5,15 @@ import { UpdateCarsDto } from './dto/update-car.dto';
 
 @Injectable()
 export class CarsService {
-  constructor(private carsRepository: CarsRepository) { }
+  constructor(private carsRepository: CarsRepository) {}
 
   async create(userId: string, createCarsDto: CreateCarsDto) {
     const cars = await this.carsRepository.create(userId, createCarsDto);
     return cars;
   }
 
-  async findAll() {
-    return this.carsRepository.findAll();
+  async findAll(page: string, limit: string) {
+    return this.carsRepository.findAll(page, limit);
   }
 
   async findOne(id: string) {

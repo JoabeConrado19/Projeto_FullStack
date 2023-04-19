@@ -18,6 +18,7 @@ model User {
   birthdate    String
   description  String
   password     String
+  phone        String
   accountType  String
   profileImage String
   createdAt    DateTime   @default(now())
@@ -51,7 +52,7 @@ model Cars {
   miles       String
   color       String
   description String
-  price       Int
+  price       Float
   imagesUrl   String
   isActive    Boolean
   createdAt   DateTime @default(now())
