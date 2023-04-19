@@ -1,19 +1,20 @@
+import { Decimal } from '@prisma/client/runtime';
 import { Exclude } from 'class-transformer';
 import { randomUUID } from 'crypto';
 
 export class UserCar {
-  id: string
-  name: string
-  email: string
-  cpf: string
-  birthdate: Date
-  description: string
-  accountType: string
-  profileImage: string
-  createdAt: Date
+  id: string;
+  name: string;
+  email: string;
+  cpf: string;
+  birthdate: Date;
+  description: string;
+  accountType: string;
+  profileImage: string;
+  createdAt: Date;
 
   @Exclude()
-  password: string
+  password: string;
 }
 
 export class Car {
@@ -24,13 +25,13 @@ export class Car {
   miles: string;
   color: string;
   description: string;
-  price: string;
+  price: Decimal;
   imagesUrl: string;
   isActive: boolean;
   createdAt: Date;
   userId: string;
   images: CarImages[];
-  user: UserCar
+  user: UserCar;
 
   constructor() {
     this.id = randomUUID();
@@ -48,8 +49,8 @@ export class CarImages {
 }
 
 export class Brand {
-  readonly id: string
-  brandName: string
+  readonly id: string;
+  brandName: string;
 
   constructor() {
     this.id = randomUUID();
