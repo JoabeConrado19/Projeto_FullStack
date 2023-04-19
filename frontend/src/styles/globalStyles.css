@@ -49,7 +49,10 @@
   --random-12: #30007d;
 
   font-family: "Inter", sans-serif;
+
+  --radius-1: 4px
 }
+
 
 .headline-1-700 {
   font-weight: 700;
@@ -166,4 +169,5 @@
   font-weight: 500;
   font-size: 0.875rem;
   line-height: 1.063rem;
+  
 }

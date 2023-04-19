@@ -8,7 +8,7 @@ import { CarsRepository } from '../cars.repository';
 
 @Injectable()
 export class CarsPrismaRepository implements CarsRepository {
-  constructor(private prisma: PrismaService) {}
+  constructor(private prisma: PrismaService) { }
 
   async create(user: string, data: CreateCarsDto): Promise<Car> {
     const car = new Car();
@@ -60,20 +60,23 @@ export class CarsPrismaRepository implements CarsRepository {
   async findAll(): Promise<Car[]> {
     const cars = await this.prisma.cars.findMany({
       include: {
-        images: true,
+        images: {
+          select: {
+            url: true
+          }
+        },
         comments: true,
-        brand: true,
+        brand: {
+          select: {
+            brandName: true
+          }
+        },
         user: {
           select: {
             id: true,
             name: true,
-            email: true,
-            cpf: true,
-            birthdate: true,
             description: true,
-            accountType: true,
             profileImage: true,
-            createdAt: true,
           },
         },
       },
@@ -87,20 +90,23 @@ export class CarsPrismaRepository implements CarsRepository {
         id,
       },
       include: {
-        images: true,
+        images: {
+          select: {
+            url: true
+          }
+        },
         comments: true,
-        brand: true,
+        brand: {
+          select: {
+            brandName: true
+          }
+        },
         user: {
           select: {
             id: true,
             name: true,
-            email: true,
-            cpf: true,
-            birthdate: true,
             description: true,
-            accountType: true,
             profileImage: true,
-            createdAt: true,
           },
         },
       },

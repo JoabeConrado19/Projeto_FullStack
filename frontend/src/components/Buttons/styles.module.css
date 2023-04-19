@@ -1,0 +1,18 @@
+.buttonConfirm {
+background-color: var(--brand-1);
+color: var(--whiteFixed);
+border: none;
+width: 92%;
+height: 40px;
+border-radius: var(--radius-1);
+
+}
+
+.registerButton {
+    color: var(--gray-0);
+    background-color: transparent;
+    border: solid var(--gray-4) 1.5px;
+    width: 92%;
+    height: 40px;
+    border-radius: var(--radius-1);
+}

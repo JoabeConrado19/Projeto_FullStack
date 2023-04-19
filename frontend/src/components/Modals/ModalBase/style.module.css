@@ -18,6 +18,7 @@
     max-width: 500px;
 
     background-color: var(--whiteFixed);
+    border-radius: 4px;
 }
 
 .modal_header {
