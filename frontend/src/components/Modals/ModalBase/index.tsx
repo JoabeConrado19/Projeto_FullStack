@@ -22,7 +22,7 @@ export default function ModalBase({
         <div className={style.modal_background}>
             <div className={style.modal_container}>
                 <div className={style.modal_header}>
-                    <p className="headline-7-500">{modalTitle}</p>
+                    <p className="headline-6-600">{modalTitle}</p>
                     <Button
                         onClick={() => {
                             closeModal((prevState) => !prevState)
