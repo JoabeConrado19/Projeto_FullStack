@@ -48,7 +48,7 @@ export class CreateCarsDto {
   images?: CarImages[] | null;
 
   @IsObject()
-  brand?: object
+  brand?: object;
 }
 
 export class CreateImagesDto {
