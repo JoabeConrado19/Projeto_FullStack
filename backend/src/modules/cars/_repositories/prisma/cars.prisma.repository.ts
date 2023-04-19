@@ -8,20 +8,18 @@ import { CarsRepository } from '../cars.repository';
 
 @Injectable()
 export class CarsPrismaRepository implements CarsRepository {
-  constructor(private prisma: PrismaService) { }
+  constructor(private prisma: PrismaService) {}
 
   async create(user: string, data: CreateCarsDto): Promise<Car> {
     const car = new Car();
-    const { ...rest } = data;
     Object.assign(car, {
-      ...rest,
+      ...data,
     });
 
     const brand = new Brand();
     Object.assign(brand, {
       ...data.brand,
     });
-
     const newCar = await this.prisma.cars.create({
       data: {
         color: data.color,
@@ -57,31 +55,60 @@ export class CarsPrismaRepository implements CarsRepository {
     return plainToInstance(Car, findCar);
   }
 
-  async findAll(): Promise<Car[]> {
-    const cars = await this.prisma.cars.findMany({
-      include: {
-        images: {
-          select: {
-            url: true
-          }
-        },
-        comments: true,
-        brand: {
-          select: {
-            brandName: true
-          }
-        },
-        user: {
-          select: {
-            id: true,
-            name: true,
-            description: true,
-            profileImage: true,
+  async findAll(page: string, limit: string): Promise<Car[]> {
+    if (limit) {
+      const cars = await this.prisma.cars.findMany({
+        skip: parseInt(page),
+        take: parseInt(limit),
+        include: {
+          images: {
+            select: {
+              url: true,
+            },
+          },
+          comments: true,
+          brand: {
+            select: {
+              brandName: true,
+            },
+          },
+          user: {
+            select: {
+              id: true,
+              name: true,
+              description: true,
+              profileImage: true,
+            },
           },
         },
-      },
-    });
-    return plainToInstance(Car, cars);
+      });
+      return plainToInstance(Car, cars);
+    } else {
+      const cars = await this.prisma.cars.findMany({
+        include: {
+          images: {
+            select: {
+              url: true,
+            },
+          },
+          comments: true,
+          brand: {
+            select: {
+              brandName: true,
+            },
+          },
+          user: {
+            select: {
+              id: true,
+              name: true,
+              description: true,
+              profileImage: true,
+            },
+          },
+        },
+      });
+      return plainToInstance(Car, cars);
+    }
   }
 
   async findOne(id: string): Promise<Car> {
@@ -92,14 +119,14 @@ export class CarsPrismaRepository implements CarsRepository {
       include: {
         images: {
           select: {
-            url: true
-          }
+            url: true,
+          },
         },
         comments: true,
         brand: {
           select: {
-            brandName: true
-          }
+            brandName: true,
+          },
         },
         user: {
           select: {

@@ -5,19 +5,21 @@ import {
   Delete,
   Get,
   Param,
+  ParseUUIDPipe,
   Patch,
   Post,
+  Query,
   UseGuards,
-  UseInterceptors
+  UseInterceptors,
 } from '@nestjs/common';
 import { JwtAuthGuard } from '../auth/jwt.auth.guard';
 import { CarsService } from './cars.service';
 import { CreateCarsDto } from './dto/create-car.dto';
 import { UpdateCarsDto } from './dto/update-car.dto';
-
+// Colocar parse uuid pipe em todos ids
 @Controller('cars')
 export class CarsController {
-  constructor(private readonly carsService: CarsService) { }
+  constructor(private readonly carsService: CarsService) {}
 
   @UseGuards(JwtAuthGuard)
   @Post('user/:id')
@@ -27,13 +29,13 @@ export class CarsController {
 
   @Get()
   @UseInterceptors(ClassSerializerInterceptor)
-  findAll() {
-    return this.carsService.findAll();
+  findAll(@Query('page') page = '0', @Query('limit') limit?: string) {
+    return this.carsService.findAll(page, limit);
   }
 
   @Get(':id')
   @UseInterceptors(ClassSerializerInterceptor)
-  findOne(@Param('id') id: string) {
+  findOne(@Param('id', ParseUUIDPipe) id: string) {
     return this.carsService.findOne(id);
   }
 
