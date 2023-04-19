@@ -5,9 +5,11 @@ interface IProps {
   placeHolder: string;
   inputId: string;
   label: string;
+  register:{name:string}
 }
 
-export const InputOne = ({ placeHolder, inputId, label }: IProps) => {
+export const InputOne = ({ placeHolder, inputId, label, register }: IProps) => {
+  
   return (
     <div className={styles.inputDivOne}>
       <label className={`${styles.labelOne} input-label`} htmlFor={inputId}>{label}</label>
@@ -15,12 +17,13 @@ export const InputOne = ({ placeHolder, inputId, label }: IProps) => {
         id={inputId}
         placeholder={placeHolder}
         className={styles.inputOne}
+        {...register}
       />
     </div>
   );
 };
 
-export const InputTwo = ({ placeHolder, inputId, label }: IProps) => {
+export const InputTwo = ({ placeHolder, inputId, label, register }: IProps) => {
   return (
     <div className={styles.inputDivOne}>
       <label className={`${styles.labelOne} input-label`} htmlFor={inputId}>{label}</label>
@@ -28,6 +31,7 @@ export const InputTwo = ({ placeHolder, inputId, label }: IProps) => {
         id={inputId}
         placeholder={placeHolder}
         className={styles.inputTwo}
+        {...register}
       />
     </div>
   );
