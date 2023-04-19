@@ -11,3 +11,18 @@
 .black_white_button:hover {
     background-color: var(--gray-2);
 }
+
+.modal_header_button {
+    font-size: 24px;
+    
+    min-width: unset;
+
+    background-color: unset;
+    color: var(--gray-3);
+}
+
+.modal_header_button:hover {
+    background-color: unset;
+
+    color: var(--gray-0);
+}
