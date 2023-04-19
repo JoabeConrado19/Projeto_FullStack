@@ -18,9 +18,12 @@ export const RegisterUserProvider = ({ children }: IProviderProps) => {
   const router = useRouter();
   const registerUser = async (data: IRegisterSubmit) => {
     const { passwordConfirmation, ...newBody } = data;
+    newBody.accountType = "Vendedor"
+    console.log(newBody)
     await api
       .post("/users", newBody)
       .then((resp) => {
+        console.log(resp.data)
         router.push("/login");
       })
       .catch((err) => {

@@ -6,6 +6,8 @@ import {IRegisterSubmit, formRegisterSchema} from "../../schemas/RegisterSchema"
 import {ILoginSubmit, formLoginSchema} from "../../schemas/LoginSchema"
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm} from "react-hook-form";
+import { useContext } from "react";
+import { UserContext } from "@/context/RegisterContext";
 
 export const LoginForm = () => {
   const {
@@ -46,9 +48,7 @@ export const RegisterForm = () => {
     resolver: yupResolver(formRegisterSchema),
   });
 
-const registerUser = (data:IRegisterSubmit) => {
-  console.log(data)
-}
+  const { registerUser} = useContext(UserContext);
 
   return (
     <form className={styles.baseForm} onSubmit={handleSubmit(registerUser)}>
@@ -66,8 +66,8 @@ const registerUser = (data:IRegisterSubmit) => {
         <p className={styles.errorMessage}>{errors.email?.message}</p>
         <InputOne placeHolder={"Ex: 02896500510"} inputId="cpf" label="CPF" register={register("cpf")}/>
         <p className={styles.errorMessage}>{errors.cpf?.message}</p>
-        <InputOne placeHolder={"(DDD) 90000-0000"} inputId="celular" label="Celular" register={register("celphone")} />
-        <p className={styles.errorMessage}>{errors.celphone?.message}</p>
+        <InputOne placeHolder={"(DDD) 90000-0000"} inputId="celular" label="Celular" register={register("phone")} />
+        <p className={styles.errorMessage}>{errors.phone?.message}</p>
         <InputOne placeHolder={"00/00/00"} inputId="Data de nascimento" label="data nascimento" register={register("date")} />
         <p className={styles.errorMessage}>{errors.date?.message}</p>
         <InputOne placeHolder={"Digitar descrição"} inputId="Descrição" label="Descrição" register={register("description")} />

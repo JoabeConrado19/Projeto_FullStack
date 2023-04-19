@@ -1,16 +1,11 @@
 import { ReactNode } from "react";
-
-
+import { RegisterUserProvider } from "../RegisterContext";
 
 interface IProvidersPropps {
-children:ReactNode
+  children: ReactNode;
 }
 
-const Providers = ({ children }:IProvidersPropps) => {
-  return 
-    {children}
-   
-    
-    
+const Providers = ({ children }: IProvidersPropps) => {
+  return <RegisterUserProvider>{children}</RegisterUserProvider>;
 };
 export default Providers;

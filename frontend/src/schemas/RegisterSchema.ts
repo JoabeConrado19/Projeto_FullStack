@@ -1,11 +1,13 @@
 import * as yup from "yup";
 export interface IRegisterSubmit {
+  id?: string;
   name: string;
   email: string;
   cpf: number;
-  celphone: number;
+  phone: number;
   date: string;
   description: string;
+  accountType: string;
   cep: number;
   state: string;
   city: string;
@@ -22,7 +24,7 @@ export const formRegisterSchema = yup.object().shape({
     .required("obrigatorio")
     .email("tem que ser um email válido"),
   cpf: yup.string().required("obrigatorio"),
-  celphone: yup.string().required("obrigatorio"),
+  phone: yup.string().required("obrigatorio"),
   date: yup.string().required("obrigatorio"),
   description: yup.string().required("obrigatorio"),
   cep: yup.string().required("obrigtório"),
