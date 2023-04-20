@@ -11,9 +11,6 @@ export const ButtonOne = ({ children, click, buttonType }: IProps) => {
   return (
     <button
       type={buttonType!}
-      onClick={() => {
-      setUserType(click!);
-      }}
       className={styled.buttonConfirm}
     >
       {children}
@@ -26,9 +23,6 @@ export const ButtonTwo = ({ children, click, buttonType }: IProps) => {
   return (
     <button
       type={buttonType!}
-      onClick={() => {
-        setUserType(click!);
-      }}
       className={styled.registerButton}
     >
       {children}

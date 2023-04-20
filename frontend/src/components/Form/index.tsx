@@ -1,6 +1,6 @@
 import styles from "./style.module.css";
 import { ButtonOne, ButtonTwo } from "../Buttons";
-import { InputOne, InputTwo } from "../Input";
+import { InputOne, InputTwo, TextFieldOne } from "../Input";
 import {
   IRegisterSubmit,
   formRegisterSchema,
@@ -11,6 +11,7 @@ import { useForm } from "react-hook-form";
 import { useContext } from "react";
 import { UserContext } from "@/context/RegisterLoginContext";
 import Link from "next/link";
+import buttonStyle from "../Buttons/styles.module.css"
 
 
 export const LoginForm = () => {
@@ -70,7 +71,7 @@ export const RegisterForm = () => {
     resolver: yupResolver(formRegisterSchema),
   });
 
-  const { registerUser } = useContext(UserContext);
+  const { registerUser, setUserType, userType } = useContext(UserContext);
 
   return (
     <form className={styles.baseForm} onSubmit={handleSubmit(registerUser)}>
@@ -112,7 +113,7 @@ export const RegisterForm = () => {
         <InputOne
           placeHolder={"00/00/00"}
           inputId="Data de nascimento"
-          label="data nascimento"
+          label="Data nascimento"
           register={register("birthdate")}
           type="text"
         />
@@ -124,6 +125,8 @@ export const RegisterForm = () => {
           register={register("description")}
           type="text"
         />
+
+         
         <p className={styles.errorMessage}>{errors.description?.message}</p>
         <p className="body-2-500">Infomações de endereço</p>
         <InputOne
@@ -187,12 +190,12 @@ export const RegisterForm = () => {
           </p>
         <p className={`${styles.acountWarningTwo} body-2-500`}>Tipo de conta</p>
         <div className={styles.buttonsAreaTwo}>
-          <ButtonTwo buttonType={"button"} click={"Comprador"}>
+          <button type="button"onClick={() => {setUserType("Comprador")}} className={buttonStyle.registerButton}>
             Comprador
-          </ButtonTwo>
-          <ButtonTwo buttonType={"button"} click={"Anunciante"}>
+          </button>
+          <button type="button"onClick={() => {setUserType("Anunciante")}} className={buttonStyle.registerButton}>
             Anunciante
-          </ButtonTwo>
+          </button>
         </div>
         <p className={styles.errorMessage}>{errors.accountType?.message}</p>
         <InputOne
