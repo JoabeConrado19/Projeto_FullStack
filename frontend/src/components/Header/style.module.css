@@ -18,3 +18,29 @@
 .page_header .page_header_buttons > button {
     margin-right: 16px;
 }
+
+.page_header .page_header_buttons > button > a {
+    text-decoration: none;
+}
+
+.profileContainer {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+
+    padding-right: 16px;
+}
+
+.profileImageContainer {
+    width: 32px;
+    height: 32px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 50%;
+
+    background-color: var(--brand-1);
+    color: var(--whiteFixed)
+}

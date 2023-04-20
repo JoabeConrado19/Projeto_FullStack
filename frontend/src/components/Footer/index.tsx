@@ -4,9 +4,16 @@ import style from "./style.module.css"
 import { siteInfos } from "@/utils/siteInfos"
 import LogoComponent from "../Logo"
 
-export default function FooterComponent() {
+interface IFooterComponent {
+    styles?: any
+}
+ 
+export default function FooterComponent({styles}: IFooterComponent) {
     return (
-        <footer className={style.page_footer}>
+        <footer 
+            className={style.page_footer}
+            style={styles}
+        >
             <LogoComponent 
                 logoColor="var(--whiteFixed)" 
                 secondNameColor="var(--whiteFixed)"
@@ -14,6 +21,9 @@ export default function FooterComponent() {
             <span>{siteInfos.copyright}</span>
             <Button 
                 className={style.footer_button}
+                onClick={() => {
+                    document.body.scrollIntoView()
+                }}
             >
                 <span
                     style={{

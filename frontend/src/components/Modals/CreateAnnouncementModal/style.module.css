@@ -1,0 +1,26 @@
+.linkInputContainer {
+    display: flex;
+    align-items: center;
+
+    position: relative;
+
+    margin: 20px auto;
+}
+
+.linkInputContainer input {
+    padding-right: 32px;
+}
+
+.linkInputContainer div {
+    margin: unset;
+}
+
+.linkInputContainer button {
+    height: 16px;
+    width: 16px;
+    min-width: unset;
+
+    position: absolute;
+    right: 5%;
+    transform: translate(50%, 80%);
+}

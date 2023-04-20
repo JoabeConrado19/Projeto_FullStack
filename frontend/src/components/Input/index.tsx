@@ -1,7 +1,5 @@
 import styles from "./styled.module.css";
 
-
-
 interface IProps {
   placeHolder: string;
   inputId: string;

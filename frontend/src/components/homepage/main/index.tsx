@@ -264,12 +264,38 @@ export default function MainHome() {
           </div>
 
         </li>
+
+        <li>
+          <div className={style.cardImgContainer}>
+            <img src="car4.png" />
+          </div>
+          <div className={style.cardTextContainer}>
+            <h3>Porsche - 718</h3>
+            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem...</p>
+          </div>
+          <div className={style.cardUserContainer}>
+            <div className={style.circle}>JC</div>
+            <p>Joabe Conrado</p>
+          </div>
+          <div className={style.cardDataContainer}>
+            <div className={style.badge}>
+              <button>0 KM</button>
+              <button>2019</button>
+            </div>
+            <p>R$ 00.000,00</p>
+          </div>
+
+        </li>
+        
+        
+
+
       </ul>
 
     </div>
     <div className={style.nextPrev}>
       <span>1 de 2</span>
-      <a href="">Seguinte > </a>
+      <a href="">Seguinte</a>
     </div>
     </>
 

@@ -8,8 +8,10 @@ const LoginPage = () => {
       <HeaderComponent />
       <section className={styles.BackgroundOne}>
         <LoginForm />
+        <FooterComponent styles={{
+          width: "100%"
+        }}/>
       </section>
-      
     </>
   );
 };
