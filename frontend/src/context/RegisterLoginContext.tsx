@@ -3,6 +3,7 @@ import api from "../services/api";
 import { IRegisterSubmit } from "../schemas/RegisterSchema";
 import { ILoginSubmit } from "../schemas/LoginSchema";
 import { useRouter } from "next/router";
+import { setCookie, parseCookies} from 'nookies'
 export const UserContext = createContext({} as IRegisterProviderData);
 
 interface IProviderProps {
@@ -12,18 +13,33 @@ interface IProviderProps {
 interface IRegisterProviderData {
   registerUser: (data: IRegisterSubmit) => void;
   loginUser: (data: ILoginSubmit) => void;
+  userType: string | null;
+  setUserType: React.Dispatch<React.SetStateAction<string | null>>;
 }
 
 export const RegisterUserProvider = ({ children }: IProviderProps) => {
   const router = useRouter();
+  const [userType, setUserType] = useState<string | null>(null);
+
+  useEffect(() => {
+    const token = parseCookies().token;
+    if (token) {
+      api.defaults.headers.Authorization = `Bearer ${token}`;
+    } else {
+      router.push("/login");
+    }
+  }, []);
+
+  
   const registerUser = async (data: IRegisterSubmit) => {
+    console.log(data)
     const { passwordConfirmation, ...newBody } = data;
-    newBody.accountType = "Vendedor"
-    console.log(newBody)
+    newBody.accountType = userType;
+    newBody.profileImage = "pedddrof";
     await api
       .post("/users", newBody)
       .then((resp) => {
-        console.log(resp.data)
+        console.log(resp.data);
         router.push("/login");
       })
       .catch((err) => {
@@ -32,11 +48,12 @@ export const RegisterUserProvider = ({ children }: IProviderProps) => {
   };
 
   const loginUser = (data: ILoginSubmit) => {
+    console.log(data)
     api
       .post("/login", data)
       .then((resp) => {
-        localStorage.setItem("Token", resp.data.token);
-        const token = localStorage.getItem("Token");
+      setCookie(null, "token", resp.data.token, {maxAge: 60*30, path: "/"})
+        const token =  parseCookies().token
         api.defaults.headers.Authorization = `Bearer ${token}`;
         router.push("/");
       })
@@ -48,6 +65,8 @@ export const RegisterUserProvider = ({ children }: IProviderProps) => {
   return (
     <UserContext.Provider
       value={{
+        userType,
+        setUserType,
         loginUser,
         registerUser,
       }}

@@ -1,11 +1,14 @@
-import {LoginForm, RegisterForm} from "@/components/Form";
+import { LoginForm, RegisterForm } from "@/components/Form";
 import styles from "../components/Form/style.module.css";
-
+import HeaderComponent from "../components/Header/index";
 const LoginPage = () => {
   return (
-    <section className={styles.BackgroundOne}>
-      <LoginForm />
-    </section>
+    <>
+      <HeaderComponent />
+      <section className={styles.BackgroundOne}>
+        <LoginForm />
+      </section>
+    </>
   );
 };
 
