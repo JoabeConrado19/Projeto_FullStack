@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { RegisterUserProvider } from "../RegisterContext";
+import { RegisterUserProvider } from "../RegisterLoginContext";
 
 interface IProvidersPropps {
   children: ReactNode;
