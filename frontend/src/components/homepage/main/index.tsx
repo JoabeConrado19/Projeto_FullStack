@@ -269,7 +269,7 @@ export default function MainHome() {
     </div>
     <div className={style.nextPrev}>
       <span>1 de 2</span>
-      <a href="">Seguinte > </a>
+      <a href="">Seguinte</a>
     </div>
     </>
 
