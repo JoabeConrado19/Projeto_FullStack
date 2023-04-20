@@ -40,3 +40,13 @@ export const InputTwo = ({ placeHolder, inputId, label, register, type }: IProps
     </div>
   );
 };
+
+
+export const TextFieldOne = ({ placeHolder, inputId, label, register, type }: IProps) => {
+  return (
+    <div className={styles.inputDivOne}>
+      <label className={`${styles.labelOne} input-label`} htmlFor={inputId}>{label}</label>
+      <textarea className={styles.inputTwo} placeholder={placeHolder} {...register} id={inputId}/>
+    </div>
+  );
+}

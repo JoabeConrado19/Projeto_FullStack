@@ -4,7 +4,7 @@ import { IRegisterSubmit } from "../schemas/RegisterSchema";
 import { ILoginSubmit } from "../schemas/LoginSchema";
 import { useRouter } from "next/router";
 import { setCookie, parseCookies} from 'nookies'
-export const UserContext = createContext({} as IRegisterProviderData);
+
 
 interface IProviderProps {
   children: ReactNode;
@@ -30,11 +30,10 @@ export const RegisterUserProvider = ({ children }: IProviderProps) => {
     }
   }, []);
 
-  
-  const registerUser = async (data: IRegisterSubmit) => {
-    console.log(data)
+
+   const registerUser = async (data: IRegisterSubmit) => {
     const { passwordConfirmation, ...newBody } = data;
-    newBody.accountType = userType;
+    newBody.accountType = "Vendedor";
     newBody.profileImage = "pedddrof";
     await api
       .post("/users", newBody)
@@ -48,7 +47,6 @@ export const RegisterUserProvider = ({ children }: IProviderProps) => {
   };
 
   const loginUser = (data: ILoginSubmit) => {
-    console.log(data)
     api
       .post("/login", data)
       .then((resp) => {
@@ -75,3 +73,5 @@ export const RegisterUserProvider = ({ children }: IProviderProps) => {
     </UserContext.Provider>
   );
 };
+
+export const UserContext = createContext({} as IRegisterProviderData);

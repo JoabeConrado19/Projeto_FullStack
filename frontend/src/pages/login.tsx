@@ -8,7 +8,6 @@ const LoginPage = () => {
       <HeaderComponent />
       <section className={styles.BackgroundOne}>
         <LoginForm />
-        <FooterComponent className={styles.footerLoginRegister}/>
       </section>
       
     </>

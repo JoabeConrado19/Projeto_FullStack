@@ -47,7 +47,7 @@ export const formRegisterSchema = yup.object().shape({
     .string()
     .required("descrição obrigatória"),
     
-  accountType: yup.string().required("escolha o tipo de usuário"),
+  accountType: yup.string(),
   address: yup.object().shape({
     cep: yup
       .string()

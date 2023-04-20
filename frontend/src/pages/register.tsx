@@ -10,7 +10,6 @@ const RegisterPage = () => {
       <section className={styles.BackgroundOne}>
         <RegisterForm />
       </section>
-      <FooterComponent className={styles.footerLoginRegister}/>
     </>
   );
 };
