@@ -3,7 +3,7 @@
     top: 0;
 
     width: 100%;
-    height: 100vh;
+    min-height: 100vh;
 
     background-color: #00000047;
 }
@@ -15,7 +15,9 @@
     transform: translate(-50%, -50%);
 
     width: 90%;
-    max-width: 500px;
+    max-width: 550px;
+    max-height: 85vh;
+    overflow-y: auto;
 
     background-color: var(--whiteFixed);
     border-radius: 4px;
