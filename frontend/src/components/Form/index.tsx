@@ -74,7 +74,7 @@ export const RegisterForm = () => {
 
   return (
     <form className={styles.baseForm} onSubmit={handleSubmit(registerUser)}>
-      <h1 className={`headline-5-500 ${styles.title}`}>Registro</h1>
+      <h1 className={`headline-5-500 ${styles.title}`}>Cadastro</h1>
       <p className={`body-2-500 ${styles.subTitle}`}>Infomações pessoais</p>
       <div className={styles.inputsAreaOne}>
         <InputOne

@@ -18,6 +18,8 @@
 
 .title {
   margin-bottom: 15px;
+  font-family: 'Lexend';
+  font-style: normal;
 }
 
 .subTitle {
@@ -67,12 +69,12 @@
 .BackgroundOne {
   width: 100%;
   min-height: 100vh;
-  height: auto;
+  height: 100%;
   position: absolute;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   background-color: var(--gray-8);
 }
 
@@ -91,7 +93,12 @@
 }
 
 .acountWarningTwo {
-  color: var(--gray-2);
+  color: black;
   align-self: flex-start;
   
+}
+
+
+.footerLoginRegister {
+  width: 98%;
 }

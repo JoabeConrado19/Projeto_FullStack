@@ -1,7 +1,7 @@
 import { Button } from "@mui/material"
 import style from "./style.module.css"
 
-// import { siteInfos } from "@/utils/siteInfos"
+import { siteInfos } from "@/utils/siteInfos"
 import LogoComponent from "../Logo"
 
 export default function FooterComponent() {
@@ -11,7 +11,7 @@ export default function FooterComponent() {
                 logoColor="var(--whiteFixed)" 
                 secondNameColor="var(--whiteFixed)"
             />
-            {/* <span>{siteInfos.copyright}</span> */}
+            <span>{siteInfos.copyright}</span>
             <Button 
                 className={style.footer_button}
             >
