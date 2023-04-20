@@ -39,3 +39,33 @@
     font-weight: 400;
     font-size: 1rem;
 }
+
+
+
+.inputContainer {
+    display: flex;
+    flex-direction: column;
+
+    width: 95%;
+    margin: 20px auto;
+}
+
+.label {
+    margin-bottom: 4px;
+}
+
+.input {
+    width: 100%;
+    padding: 12px;
+
+    border: solid var(--gray-7) 1.5px;
+    border-radius: var(--radius-1);
+}
+
+.textArea {
+    resize: none;
+    padding: 12px 4px 12px 12px;
+    min-height: 96px;
+
+    font-family: "Inter", sans-serif;
+}
