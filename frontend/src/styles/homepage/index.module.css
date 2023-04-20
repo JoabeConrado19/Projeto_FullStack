@@ -170,14 +170,21 @@
     align-items: center;
 }
 
+.ulCard{
+    width: 100%;
+    height: 150px;
+    background-color: #E9ECEF;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .cardImgContainer>img {
     width: 100%;
 }
 
 .cardTextContainer {
     height: 90px;
-
-
 }
 
 .cardTextContainer>h3 {
