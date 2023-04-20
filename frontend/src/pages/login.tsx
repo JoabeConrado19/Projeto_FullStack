@@ -12,7 +12,6 @@ const LoginPage = () => {
           width: "100%"
         }}/>
       </section>
-      
     </>
   );
 };

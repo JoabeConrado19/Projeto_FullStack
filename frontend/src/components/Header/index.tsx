@@ -28,7 +28,7 @@ export default function HeaderComponent() {
                 // const userInfos: IUserData = await api.get("/user")
 
                 setUserData({
-                    name: "teste",
+                    name: "Samuel Leão",
                     accountType: "",
                     description: "",
                     email: "",

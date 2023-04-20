@@ -21,6 +21,9 @@ export default function FooterComponent({styles}: IFooterComponent) {
             <span>{siteInfos.copyright}</span>
             <Button 
                 className={style.footer_button}
+                onClick={() => {
+                    document.body.scrollIntoView()
+                }}
             >
                 <span
                     style={{

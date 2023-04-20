@@ -9,10 +9,10 @@ const RegisterPage = () => {
       <HeaderComponent />
       <section className={styles.BackgroundOne}>
         <RegisterForm />
-      </section>
         <FooterComponent styles={{
           width: "100%"
         }}/>
+      </section>
     </>
   );
 };
