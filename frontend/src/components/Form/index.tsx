@@ -118,7 +118,7 @@ export const RegisterForm = () => {
           type="text"
         />
         <p className={styles.errorMessage}>{errors.birthdate?.message}</p>
-        <InputOne
+        <TextFieldOne
           placeHolder={"Digitar descrição"}
           inputId="Descrição"
           label="Descrição"

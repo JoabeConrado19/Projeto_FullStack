@@ -1,5 +1,4 @@
 import styles from "./styled.module.css";
-
 interface IProps {
   placeHolder: string;
   inputId: string;
@@ -44,7 +43,7 @@ export const TextFieldOne = ({ placeHolder, inputId, label, register, type }: IP
   return (
     <div className={styles.inputDivOne}>
       <label className={`${styles.labelOne} input-label`} htmlFor={inputId}>{label}</label>
-      <textarea className={styles.inputTwo} placeholder={placeHolder} {...register} id={inputId}/>
+      <textarea className={styles.textArea} placeholder={placeHolder} {...register} id={inputId}/>
     </div>
   );
 }

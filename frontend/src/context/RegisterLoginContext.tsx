@@ -32,7 +32,6 @@ export const RegisterUserProvider = ({ children }: IProviderProps) => {
     await api
       .post("/users", newBody)
       .then((resp) => {
-        console.log(resp.data);
         router.push("/login");
       })
       .catch((err) => {
