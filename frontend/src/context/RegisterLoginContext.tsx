@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useEffect, useState } from "react";
+import { createContext, ReactNode, useEffect, useRef, useState } from "react";
 import api from "../services/api";
 import { IRegisterSubmit } from "../schemas/RegisterSchema";
 import { ILoginSubmit } from "../schemas/LoginSchema";
@@ -13,27 +13,21 @@ interface IProviderProps {
 interface IRegisterProviderData {
   registerUser: (data: IRegisterSubmit) => void;
   loginUser: (data: ILoginSubmit) => void;
-  userType: string | null;
-  setUserType: React.Dispatch<React.SetStateAction<string | null>>;
+  userType: string ;
+  setUserType: React.Dispatch<React.SetStateAction<string >>;
+
 }
 
 export const RegisterUserProvider = ({ children }: IProviderProps) => {
   const router = useRouter();
-  const [userType, setUserType] = useState<string | null>(null);
+  const [userType, setUserType] = useState<string>("Comprador");
+  
 
-  useEffect(() => {
-    const token = parseCookies().token;
-    if (token) {
-      api.defaults.headers.Authorization = `Bearer ${token}`;
-    } else {
-      router.push("/login");
-    }
-  }, []);
 
 
    const registerUser = async (data: IRegisterSubmit) => {
     const { passwordConfirmation, ...newBody } = data;
-    newBody.accountType = "Vendedor";
+    newBody.accountType = userType;
     newBody.profileImage = "pedddrof";
     await api
       .post("/users", newBody)
