@@ -30,13 +30,13 @@ model User {
 }
 
 model Address {
-  id         String @id @default(uuid())
+  id         String  @id @default(uuid())
   cep        String
   state      String
   city       String
   street     String
   number     Int
-  complement String
+  complement String?
 
   userId String @unique
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)

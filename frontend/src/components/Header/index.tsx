@@ -5,6 +5,7 @@ import style from "./style.module.css"
 import { useEffect, useState } from "react";
 import api from "@/services/api";
 import Link from "next/link";
+import { parseCookies } from "nookies";
 
 interface IUserData {
     id: string
@@ -20,7 +21,7 @@ export default function HeaderComponent() {
 
     useEffect(() => {
         const getUser = async () => {
-            const userToken = localStorage.getItem("kenzie-kars|token")
+            const userToken = parseCookies().token
 
             if (userToken) {
                 api.defaults.headers.common.Authorization = `Bearer ${userToken}`
@@ -28,7 +29,7 @@ export default function HeaderComponent() {
                 // const userInfos: IUserData = await api.get("/user")
 
                 setUserData({
-                    name: "teste",
+                    name: "Samuel Leão",
                     accountType: "",
                     description: "",
                     email: "",

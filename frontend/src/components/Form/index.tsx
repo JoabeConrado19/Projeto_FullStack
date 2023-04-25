@@ -1,5 +1,4 @@
 import styles from "./style.module.css";
-import { TextField } from "@mui/material";
 import { ButtonOne, ButtonTwo } from "../Buttons";
 import { InputOne } from "../Input/modalInputs";
 import {
@@ -10,7 +9,10 @@ import { ILoginSubmit, formLoginSchema } from "../../schemas/LoginSchema";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { useContext } from "react";
-import { UserContext } from "@/context/RegisterContext";
+import { UserContext } from "@/context/RegisterLoginContext";
+import Link from "next/link";
+import buttonStyle from "../Buttons/styles.module.css"
+
 
 export const LoginForm = () => {
   const {
@@ -21,34 +23,40 @@ export const LoginForm = () => {
     resolver: yupResolver(formLoginSchema),
   });
 
+  const { loginUser } = useContext(UserContext);
   return (
-    <form className={styles.baseForm}>
-      <h1 className="headline-5-500">Login</h1>
+    <form className={styles.baseForm} onSubmit={handleSubmit(loginUser)}>
+      <h1 className={`headline-5-500 ${styles.title}`}>Login</h1>
       <div className={styles.inputsAreaOne}>
         <InputOne
           inputId="usuario"
           label="Usuário"
           placeholder="Digitar usuário"
           register={register("email")}
-          errorMessage={errors.email && errors.email.message}
+          type="email"
         />
+        <p className={styles.errorMessage}>{errors.email?.message}</p>
         <InputOne
-          inputId="senha"
-          label="Senha"
           placeholder={"Digitar senha"}
+          inputId="senha"
+          label="senha"
           register={register("password")}
-          errorMessage={errors.password && errors.password.message}
+          type="password"
         />
+        <p className={styles.errorMessage}>{errors.password?.message}</p>
       </div>
       <div className={styles.buttonsAreaOne}>
         <p className={`${styles.passwordWarning} body-2-500`}>
           Esqueci minha senha
         </p>
-        <ButtonOne>Entrar</ButtonOne>
+        <ButtonOne buttonType={"submit"}>Entrar</ButtonOne>
         <p className={`${styles.acountWarningOne} body-2-400`}>
           Ainda não possui conta
         </p>
-        <ButtonTwo>Cadastrar</ButtonTwo>
+        <Link className={styles.link} href={"register"}>
+        <ButtonTwo buttonType={"button"}>Cadastrar</ButtonTwo>
+        </Link>
+        
       </div>
     </form>
   );
@@ -63,18 +71,19 @@ export const RegisterForm = () => {
     resolver: yupResolver(formRegisterSchema),
   });
 
-  const { registerUser } = useContext(UserContext);
+  const { registerUser, setUserType, userType } = useContext(UserContext);
 
   return (
     <form className={styles.baseForm} onSubmit={handleSubmit(registerUser)}>
-      <h1 className="headline-5-500">Registro</h1>
-      <p className="body-2-500">Infomações pessoais</p>
+      <h1 className={`headline-5-500 ${styles.title}`}>Cadastro</h1>
+      <p className={`body-2-500 ${styles.subTitle}`}>Infomações pessoais</p>
       <div className={styles.inputsAreaOne}>
         <InputOne
           inputId="nome"
           label="Nome"
           placeHolder="Ex: Samuel Leão"
           register={register("name")}
+          type="text"
         />
         <p className={styles.errorMessage}>{errors.name?.message}</p>
         <InputOne
@@ -82,13 +91,15 @@ export const RegisterForm = () => {
           inputId="email"
           label="Email"
           register={register("email")}
+          type="text"
         />
         <p className={styles.errorMessage}>{errors.email?.message}</p>
         <InputOne
-          placeHolder={"Ex: 02896500510"}
+          placeHolder={"Ex: 000.000.000-00"}
           inputId="cpf"
           label="CPF"
           register={register("cpf")}
+          type="text"
         />
         <p className={styles.errorMessage}>{errors.cpf?.message}</p>
         <InputOne
@@ -96,91 +107,122 @@ export const RegisterForm = () => {
           inputId="celular"
           label="Celular"
           register={register("phone")}
+          type="text"
         />
         <p className={styles.errorMessage}>{errors.phone?.message}</p>
         <InputOne
           placeHolder={"00/00/00"}
           inputId="Data de nascimento"
-          label="data nascimento"
-          register={register("date")}
+          label="Data nascimento"
+          register={register("birthdate")}
+          type="text"
         />
-        <p className={styles.errorMessage}>{errors.date?.message}</p>
+        <p className={styles.errorMessage}>{errors.birthdate?.message}</p>
         <InputOne
           placeHolder={"Digitar descrição"}
           inputId="Descrição"
           label="Descrição"
           register={register("description")}
+          type="text"
         />
+
+         
         <p className={styles.errorMessage}>{errors.description?.message}</p>
         <p className="body-2-500">Infomações de endereço</p>
         <InputOne
           placeHolder={"00000.000"}
           inputId="cep"
           label="CEP"
-          register={register("cep")}
+          register={register("address.cep")}
+          type="text"
         />
-        <p className={styles.errorMessage}>{errors.cep?.message}</p>
+        <p className={styles.errorMessage}>{errors.address?.cep?.message}</p>
         <div className={styles.inputsAreaTwo}>
           <InputTwo
             placeHolder={"Digitar Estado"}
             inputId="estado"
             label="Estado"
-            register={register("state")}
+            register={register("address.state")}
+            type="text"
           />
-          <p className={styles.errorMessage}>{errors.state?.message}</p>
+          
           <InputTwo
             placeHolder={"Digitar cidade"}
             inputId="cidade"
             label="Cidade"
-            register={register("city")}
+            register={register("address.city")}
+            type="text"
           />
-          <p className={styles.errorMessage}>{errors.city?.message}</p>
         </div>
+        <p className={styles.errorMessage}>
+            {errors.address?.state?.message}
+          </p>
+          <p className={styles.errorMessage}>{errors.address?.city?.message}</p>
         <InputOne
           placeHolder={"Digitar rua"}
           inputId="rua"
           label="Rua"
-          register={register("street")}
+          register={register("address.street")}
+          type="text"
         />
-        <p className={styles.errorMessage}>{errors.street?.message}</p>
+        <p className={styles.errorMessage}>{errors.address?.street?.message}</p>
         <div className={styles.inputsAreaTwo}>
           <InputTwo
             placeHolder={"Digitar número"}
             inputId="número"
             label="Número"
-            register={register("number")}
+            register={register("address.number")}
+            type="text"
           />
-          <p className={styles.errorMessage}>{errors.number?.message}</p>
           <InputTwo
             placeHolder={"Ex: apart 307"}
             inputId="complemento"
             label="Complemento"
-            register={register("complement")}
+            register={register("address.complement")}
+            type="text"
           />
-          <p className={styles.errorMessage}>{errors.complement?.message}</p>
+          <p className={styles.errorMessage}>
+            {errors.address?.complement?.message}
+          </p>
         </div>
+        <p className={styles.errorMessage}>
+            {errors.address?.number?.message}
+          </p>
         <p className={`${styles.acountWarningTwo} body-2-500`}>Tipo de conta</p>
         <div className={styles.buttonsAreaTwo}>
-          <ButtonOne>Comprador</ButtonOne>
-          <ButtonTwo>Anunciante</ButtonTwo>
+         
+          
+          <button type="button"onClick={() => {setUserType("Comprador")}} className={`${buttonStyle.registerButton} ${userType === "Comprador"? buttonStyle.registerButtonSelected: ""}`}>
+            Comprador
+          </button>
+          <button type="button"onClick={() => {setUserType("Anunciante")}} className={`${buttonStyle.registerButton} ${userType === "Anunciante"? buttonStyle.registerButtonSelected: ""}`}>
+            Anunciante
+          </button>
+        
+
+
+          
         </div>
+        <p className={styles.errorMessage}>{errors.accountType?.message}</p>
         <InputOne
-          placeholder={"Digitar senha"}
+          placeHolder={"Digitar senha"}
           inputId="senha"
           label="Senha"
           register={register("password")}
+          type="password"
         />
         <p className={styles.errorMessage}>{errors.password?.message}</p>
         <InputOne
-          placeholder={"Digitar senha"}
+          placeHolder={"Digitar senha"}
           inputId="confirmar"
           label="Confirmar Senha"
           register={register("passwordConfirmation")}
+          type="password"
         />
         <p className={styles.errorMessage}>
           {errors.passwordConfirmation?.message}
         </p>
-        <ButtonOne>Finalizar cadastro</ButtonOne>
+        <ButtonOne buttonType={"submit"}>Finalizar cadastro</ButtonOne>
       </div>
     </form>
   );

@@ -9,10 +9,10 @@ export default function ModalTest() {
     return (
         <div>
             <Button 
-            onClick={() => {
-                setShowModal((prevState) => !prevState)
-            }}
-            variant="contained"
+                onClick={() => {
+                    setShowModal((prevState) => !prevState)
+                }}
+                variant="contained"
             >Teste</Button>
             {
                 showModal ? 

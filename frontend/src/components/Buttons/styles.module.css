@@ -42,6 +42,7 @@
     border: solid var(--gray-4) 1.5px;
     width: 92%;
     height: 40px;
+    margin-top: 5px;
     border-radius: var(--radius-1);
 }
 
