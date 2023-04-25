@@ -25,7 +25,7 @@ export class Car {
   miles: string;
   color: string;
   description: string;
-  price: Decimal;
+  price: number;
   imagesUrl: string;
   isActive: boolean;
   createdAt: Date;
