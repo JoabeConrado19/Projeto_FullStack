@@ -190,12 +190,18 @@ export const RegisterForm = () => {
           </p>
         <p className={`${styles.acountWarningTwo} body-2-500`}>Tipo de conta</p>
         <div className={styles.buttonsAreaTwo}>
-          <button type="button"onClick={() => {setUserType("Comprador")}} className={buttonStyle.registerButton}>
+         
+          
+          <button type="button"onClick={() => {setUserType("Comprador")}} className={`${buttonStyle.registerButton} ${userType === "Comprador"? buttonStyle.registerButtonSelected: ""}`}>
             Comprador
           </button>
-          <button type="button"onClick={() => {setUserType("Anunciante")}} className={buttonStyle.registerButton}>
+          <button type="button"onClick={() => {setUserType("Anunciante")}} className={`${buttonStyle.registerButton} ${userType === "Anunciante"? buttonStyle.registerButtonSelected: ""}`}>
             Anunciante
           </button>
+        
+
+
+          
         </div>
         <p className={styles.errorMessage}>{errors.accountType?.message}</p>
         <InputOne

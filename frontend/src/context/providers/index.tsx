@@ -9,8 +9,9 @@ interface IProvidersPropps {
 const Providers = ({ children }: IProvidersPropps) => {
  return (
   <>
+   <HomePageProvider>
    <RegisterUserProvider>{children}</RegisterUserProvider>
-   <HomePageProvider>{children}</HomePageProvider>
+   </HomePageProvider>
   </>
  );
 };

@@ -1,18 +1,20 @@
+import { PageContext } from '@/context/HomePageContext';
 import style from '../../../styles/homepage/index.module.css'
 import Backdrop from '@mui/material/Backdrop';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import Slide from '@mui/material/Slide';
-
-import Fade from '@mui/material/Fade';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import { useState } from 'react';
+// import Fade from '@mui/material/Fade';
+// import Button from '@mui/material/Button';
+// import Typography from '@mui/material/Typography';
+import { useContext, useState } from 'react';
 
 export default function MainHome() {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
+  const { announcements } = useContext(PageContext);
 
   const styleModal = {
     position: 'absolute' as 'absolute',
@@ -26,6 +28,7 @@ export default function MainHome() {
     boxShadow: 24,
     p: 4,
   }
+
   return (
     <>
       <Modal
@@ -209,186 +212,35 @@ export default function MainHome() {
           </div>
         </div>
         <ul className={style.rightContainer}>
+          {
+            announcements.map((announcement) => {
+              return (
+                <li key={announcement.id}>
+                  <div className={style.cardImgContainer}>
+                    <img src={announcement.imagesUrl}/>
+                  </div>
+                  <div className={style.cardTextContainer}>
+                    <h3>{announcement.model}</h3>
+                    <p>{announcement.description}</p>
+                  </div>
+                  <div className={style.cardUserContainer}>
+                    <div className={style.circle}>
+                      JC
+                    </div>
+                    <p>{announcement.user.name}</p>
+                  </div>
+                  <div className={style.cardDataContainer}>
+                    <div className={style.badge}>
+                      <button>{announcement.miles}</button>
+                      <button>{announcement.year}</button>
+                    </div>
+                    <p>R$ {announcement.price}</p>
+                  </div>
 
-          <li>
-            <div className={style.cardImgContainer}>
-              <img src="car4.png" />
-            </div>
-            <div className={style.cardTextContainer}>
-              <h3>Porsche - 718</h3>
-              <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem...</p>
-            </div>
-            <div className={style.cardUserContainer}>
-              <div className={style.circle}>
-                JC
-              </div>
-              <p>Joabe Conrado</p>
-            </div>
-            <div className={style.cardDataContainer}>
-              <div className={style.badge}>
-                <button>0 KM</button>
-                <button>2019</button>
-              </div>
-              <p>R$ 00.000,00</p>
-            </div>
-
-          </li>
-
-          <li>
-            <div className={style.cardImgContainer}>
-              <img src="car4.png" />
-            </div>
-            <div className={style.cardTextContainer}>
-              <h3>Porsche - 718</h3>
-              <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem...</p>
-            </div>
-            <div className={style.cardUserContainer}>
-              <div className={style.circle}>
-                JC
-              </div>
-              <p>Joabe Conrado</p>
-            </div>
-            <div className={style.cardDataContainer}>
-              <div className={style.badge}>
-                <button>0 KM</button>
-                <button>2019</button>
-              </div>
-              <p>R$ 00.000,00</p>
-            </div>
-
-          </li>
-
-          <li>
-            <div className={style.cardImgContainer}>
-              <img src="car4.png" />
-            </div>
-            <div className={style.cardTextContainer}>
-              <h3>Porsche - 718</h3>
-              <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem...</p>
-            </div>
-            <div className={style.cardUserContainer}>
-              <div className={style.circle}>JC</div>
-              <p>Joabe Conrado</p>
-            </div>
-            <div className={style.cardDataContainer}>
-              <div className={style.badge}>
-                <button>0 KM</button>
-                <button>2019</button>
-              </div>
-              <p>R$ 00.000,00</p>
-            </div>
-
-          </li>
-
-          <li>
-            <div className={style.cardImgContainer}>
-              <img src="car4.png" />
-            </div>
-            <div className={style.cardTextContainer}>
-              <h3>Porsche - 718</h3>
-              <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem...</p>
-            </div>
-            <div className={style.cardUserContainer}>
-              <div className={style.circle}>JC</div>
-              <p>Joabe Conrado</p>
-            </div>
-            <div className={style.cardDataContainer}>
-              <div className={style.badge}>
-                <button>0 KM</button>
-                <button>2019</button>
-              </div>
-              <p>R$ 00.000,00</p>
-            </div>
-
-          </li>
-
-          <li>
-            <div className={style.cardImgContainer}>
-              <img src="car4.png" />
-            </div>
-            <div className={style.cardTextContainer}>
-              <h3>Porsche - 718</h3>
-              <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem...</p>
-            </div>
-            <div className={style.cardUserContainer}>
-              <div className={style.circle}>JC</div>
-              <p>Joabe Conrado</p>
-            </div>
-            <div className={style.cardDataContainer}>
-              <div className={style.badge}>
-                <button>0 KM</button>
-                <button>2019</button>
-              </div>
-              <p>R$ 00.000,00</p>
-            </div>
-
-          </li>
-
-          <li>
-            <div className={style.cardImgContainer}>
-              <img src="car4.png" />
-            </div>
-            <div className={style.cardTextContainer}>
-              <h3>Porsche - 718</h3>
-              <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem...</p>
-            </div>
-            <div className={style.cardUserContainer}>
-              <div className={style.circle}>JC</div>
-              <p>Joabe Conrado</p>
-            </div>
-            <div className={style.cardDataContainer}>
-              <div className={style.badge}>
-                <button>0 KM</button>
-                <button>2019</button>
-              </div>
-              <p>R$ 00.000,00</p>
-            </div>
-
-          </li>
-
-          <li>
-            <div className={style.cardImgContainer}>
-              <img src="car4.png" />
-            </div>
-            <div className={style.cardTextContainer}>
-              <h3>Porsche - 718</h3>
-              <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem...</p>
-            </div>
-            <div className={style.cardUserContainer}>
-              <div className={style.circle}>JC</div>
-              <p>Joabe Conrado</p>
-            </div>
-            <div className={style.cardDataContainer}>
-              <div className={style.badge}>
-                <button>0 KM</button>
-                <button>2019</button>
-              </div>
-              <p>R$ 00.000,00</p>
-            </div>
-
-          </li>
-
-          <li>
-            <div className={style.cardImgContainer}>
-              <img src="car4.png" />
-            </div>
-            <div className={style.cardTextContainer}>
-              <h3>Porsche - 718</h3>
-              <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem...</p>
-            </div>
-            <div className={style.cardUserContainer}>
-              <div className={style.circle}>JC</div>
-              <p>Joabe Conrado</p>
-            </div>
-            <div className={style.cardDataContainer}>
-              <div className={style.badge}>
-                <button>0 KM</button>
-                <button>2019</button>
-              </div>
-              <p>R$ 00.000,00</p>
-            </div>
-
-          </li>
+                </li>
+              )
+            })
+          } 
         </ul>
 
       </div>
@@ -399,7 +251,7 @@ export default function MainHome() {
 
       <div className={style.nextPrev}>
         <span>1 de 2</span>
-        <a href="">Seguinte > </a>
+        <a href="">Seguinte {'>'}</a>
       </div>
     </>
 

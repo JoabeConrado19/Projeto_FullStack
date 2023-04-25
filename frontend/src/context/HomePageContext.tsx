@@ -1,29 +1,39 @@
 import api from "@/services/api";
-import { IProviderProps } from "./RegisterContext";
-import { createContext } from "react";
+import { createContext, useEffect, useState } from "react";
+import { IProviderProps } from "./RegisterLoginContext";
+import { IAnnouncementsData } from "@/Types/announcement";
 
 export const PageContext = createContext({} as IHomePageProviderData);
 
 interface IHomePageProviderData {
- listAllAnnouncements: () => void;
+ announcements: [] | IAnnouncementsData[];
+//  loading: boolean;
 }
 
 export const HomePageProvider = ({ children }: IProviderProps) => {
- const listAllAnnouncements = async () => {
-  await api
-   .get("/cars")
-   .then((res) => {
-    console.log(res);
-   })
-   .catch((err) => {
-    console.error(err);
-   });
- };
+    const [announcements, setAnnouncements]
+ = useState([])
+    // const [loading, setLoading] = useState(true)
+
+    useEffect(() =>{
+        const listAllAnnouncements = async () => {
+            await api
+             .get("/cars")
+             .then((res) => {
+              setAnnouncements(res.data)
+             })
+             .catch((err) => {
+              console.error(err);
+             });
+        };
+        listAllAnnouncements()
+    },[])    
 
  return (
   <PageContext.Provider
    value={{
-    listAllAnnouncements,
+    announcements,
+    // loading
    }}
   >
    {children}

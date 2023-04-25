@@ -11,8 +11,7 @@ export const ButtonOne = ({ children, click, buttonType }: IProps) => {
   return (
     <button
       type={buttonType!}
-      className={styled.buttonConfirm}
-    >
+      className={styled.buttonConfirm}>
       {children}
     </button>
   );
