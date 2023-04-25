@@ -220,6 +220,7 @@ export default function MainHome() {
         <ul className={style.rightContainer}>
           {
             announcements.map((announcement) => {
+              const price = announcement.price.toLocaleString('pt-BR')
               return (
                 <li key={announcement.id}>
                   <div className={style.cardImgContainer}>
@@ -237,10 +238,10 @@ export default function MainHome() {
                   </div>
                   <div className={style.cardDataContainer}>
                     <div className={style.badge}>
-                      <button>{announcement.miles}</button>
+                      <button>{announcement.miles} KM</button>
                       <button>{announcement.year}</button>
                     </div>
-                    <p>R$ {announcement.price}</p>
+                    <p>R$ {price}</p>
                   </div>
 
                 </li>

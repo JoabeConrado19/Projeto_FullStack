@@ -145,7 +145,8 @@
 }
 
 .rightContainer {
-    max-width: 70%;
+    width: 75%;
+    gap: 1.5rem;
     margin-right: 30px;
     height: 200px;
     display: flex;
@@ -155,10 +156,9 @@
 
 .rightContainer>li {
     min-width: 300px;
-    max-width: 300px;
+    width: 300px;
     height: 345px;
     margin-bottom: 50px;
-    
 }
 
 .cardImgContainer {
@@ -204,9 +204,13 @@
 .cardTextContainer>p {
     font-family: 'Inter';
     font-style: normal;
+    word-wrap: inherit;
+    max-height: 60px;
     font-weight: 400;
     font-size: 14px;
-    line-height: 24px;
+    line-height: 26px;
+    overflow: hidden;
+    text-overflow: ellipsis;
     /* or 171% */
 
 
@@ -283,7 +287,6 @@
 }
 
 .badge>button {
-    width: 50px;
     height: 32px;
 
     /* Brand/brand4 */
@@ -497,8 +500,9 @@ color: #FFFFFF;
 
     .rightContainer > li {
         min-width: 300px;
-        max-width: 300px;
+        width: 300px;
         margin-right: 30px;
+        border-radius: 10px;
     }
 
     .leftContainer{
