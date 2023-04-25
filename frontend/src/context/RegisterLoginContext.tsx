@@ -6,7 +6,7 @@ import { useRouter } from "next/router";
 import { setCookie, parseCookies} from 'nookies'
 
 
-interface IProviderProps {
+export interface IProviderProps {
   children: ReactNode;
 }
 
@@ -23,6 +23,14 @@ export const RegisterUserProvider = ({ children }: IProviderProps) => {
   const [userType, setUserType] = useState<string>("Comprador");
   
 
+  // useEffect(() => {
+  //   const token = parseCookies().token;
+  //   if (token) {
+  //     api.defaults.headers.Authorization = `Bearer ${token}`;
+  //   } else {
+  //     router.push("/login");
+  //   }
+  // }, []);
 
 
    const registerUser = async (data: IRegisterSubmit) => {
