@@ -220,7 +220,7 @@ export default function MainHome() {
         <ul className={style.rightContainer}>
           {
             announcements.map((announcement) => {
-              const price = announcement.price.toLocaleString('pt-BR')
+              const price = announcement.price.toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2})
               return (
                 <li key={announcement.id}>
                   <div className={style.cardImgContainer}>
