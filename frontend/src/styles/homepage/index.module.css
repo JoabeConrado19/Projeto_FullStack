@@ -529,8 +529,120 @@ color: #FFFFFF;
     .modalFilter{
         overflow-y: scroll;
         max-height: 100%;
+        padding: 0 ;
+        margin-bottom: 10px;
+        
+       
     }
 
+    .modalClose{
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+        
+    }
+
+    .modalClose > p{
+        font-family: 'Lexend';
+        font-style: normal;
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 20px;
+        color: #212529;
+    }
+
+    .modalClose > span{
+        color: #ADB5BD;
+        cursor: pointer;
+        font-size: 18px;
+    }
+
+    .modalSection{
+        margin-top: 20px;
+        
+    }
+
+    .modalSection > h2{
+        font-family: 'Lexend';
+        font-style: normal;
+        font-weight: 600;
+        font-size: 26px;
+        line-height: 35px;
+        color: #000000;
+    }
+
+    .modalSection > ul > li > a{
+        font-family: 'Lexend';
+        font-style: normal;
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 25px;
+        color: #868E96;
+
+    }
+
+    .modalBtns{
+        margin-top: 20px;
+    }
+
+    .modalBtns > h2{
+        font-family: 'Lexend';
+        font-style: normal;
+        font-weight: 600;
+        font-size: 28px;
+        line-height: 35px;
+        color: #000000;
+    }
+
+    .modalBtns > div > button{
+        width: 40%;
+        height: 37px;
+        background: #CED4DA;
+        font-family: 'Lexend';
+        font-style: normal;
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 20px;
+        display: flex;
+        align-items: center;
+        text-align: center;
+        color: #868E96;
+        cursor: pointer;
+        margin: 20px 30px 0 0;
+        border: none;
+
+    }
+
+    .modalBtns > div{
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+        
+    }
+
+    .modalBottom{
+        margin-top: 50px;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        text-align: center;
+        
+    }   
+
+    .modalBottom > button{
+        width: 80%;
+        height: 48px;
+        background: #5126EA;
+        border: 1.5px solid #5126EA;
+        border-radius: 4px;
+        font-family: 'Inter';
+        font-style: normal;
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 0px;
+        color: #FFFFFF;
+
+    }
 
     
 }
