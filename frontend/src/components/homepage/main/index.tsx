@@ -19,8 +19,8 @@ export default function MainHome() {
     top: '0%',
     left: '0%',
     transform: 'translate(-50%, -50%)',
-    width: '80%',
-    height: '90%',
+    width: '100%',
+    height: '100%',
     bgcolor: 'background.paper',
     border: '2px solid #000',
     boxShadow: 24,
@@ -44,8 +44,12 @@ export default function MainHome() {
         <Slide direction="up" in={open} mountOnEnter unmountOnExit>
           <Box sx={styleModal}>
             <div className={style.modalFilter}>
-                <h1>Filtros</h1>
-              <div >
+                <div className={style.modalClose}>
+                  <p>Filtro</p>
+                  <span onClick={handleClose}>X</span>
+                </div>
+               
+              <div className={style.modalSection}>
                 <h2>Marca</h2>
                 <ul>
                   <li><a href="">General Motors</a></li>
@@ -57,7 +61,7 @@ export default function MainHome() {
                 </ul>
               </div>
 
-              <div>
+              <div className={style.modalSection}>
                 <h2>Modelo</h2>
                 <ul>
                   <li><a href="">Civic</a></li>
@@ -71,7 +75,7 @@ export default function MainHome() {
                 </ul>
               </div>
 
-              <div >
+              <div className={style.modalSection}>
                 <h2>Cor</h2>
                 <ul>
                   <li><a href="">Azul</a></li>
@@ -84,7 +88,7 @@ export default function MainHome() {
                 </ul>
               </div>
 
-              <div >
+              <div className={style.modalSection}>
                 <h2>Ano</h2>
                 <ul>
                   <li><a href="">2022</a></li>
@@ -97,7 +101,7 @@ export default function MainHome() {
                 </ul>
               </div>
 
-              <div>
+              <div className={style.modalSection}>
                 <h2>Combustível</h2>
                 <ul>
                   <li><a href="">Diesel</a></li>
@@ -107,7 +111,7 @@ export default function MainHome() {
                 </ul>
               </div>
 
-              <div >
+              <div className={style.modalBtns}>
                 <h2>Km</h2>
                 <div>
                   <button>Mínima</button>
@@ -115,13 +119,15 @@ export default function MainHome() {
                 </div>
               </div>
 
-              <div >
+              <div className={style.modalBtns}>
                 <h2>Preço</h2>
                 <div>
                   <button>Mínima</button>
                   <button>Máxima</button>
                 </div>
               </div>
+              <div className={style.modalBottom}>
+                <button>Ver anúncios</button></div>
             </div>
           </Box>
         </Slide>
