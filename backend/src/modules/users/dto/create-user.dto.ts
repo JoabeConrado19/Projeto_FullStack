@@ -39,10 +39,6 @@ export class CreateUserDto {
   @IsNotEmpty()
   accountType: string;
 
-  @IsString()
-  @IsNotEmpty()
-  profileImage: string;
-
   @IsObject()
   @IsNotEmpty()
   address: Address;

@@ -221,6 +221,12 @@ export default function MainHome() {
           {
             announcements.map((announcement) => {
               const price = announcement.price.toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2})
+              const nome = announcement.user.name
+              const nomeSplit = nome.split(" ")
+              let novoNome = ""
+              for (let i = 0; i < 2; i++){
+                novoNome += nomeSplit[i] = nomeSplit[i][0].toUpperCase()
+              }
               return (
                 <li key={announcement.id}>
                   <div className={style.cardImgContainer}>
@@ -231,8 +237,8 @@ export default function MainHome() {
                     <p>{announcement.description}</p>
                   </div>
                   <div className={style.cardUserContainer}>
-                    <div className={style.circle}>
-                      JC
+                    <div className={style.circle} style={{backgroundColor : announcement.user.color}}>
+                      {novoNome}
                     </div>
                     <p>{announcement.user.name}</p>
                   </div>

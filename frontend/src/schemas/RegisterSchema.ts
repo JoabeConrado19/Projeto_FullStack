@@ -21,7 +21,10 @@ export interface IRegisterSubmit {
   profileImage: string;
 }
 export const formRegisterSchema = yup.object().shape({
-  name: yup.string().required("nome obrigatório"),
+  name: yup
+  .string().
+  required("nome obrigatório")
+  .matches(/\b[A-Za-zÀ-ú][A-Za-zÀ-ú]+,?\s[A-Za-zÀ-ú][A-Za-zÀ-ú]{2,19}\b/gi, "Insira Nome e Sobrenome"),
   email: yup
     .string()
     .required("email obrigatório")

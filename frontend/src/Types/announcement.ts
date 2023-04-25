@@ -15,7 +15,7 @@ export interface IAnnouncementsData{
     user: {
         id: string;
         name: string;
-        profileImage: string;
+        color: string;
         description: string;
     };
     userId: string;
