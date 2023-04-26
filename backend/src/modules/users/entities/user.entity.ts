@@ -5,7 +5,7 @@ export class User {
   readonly id: string;
   name: string;
   email: string;
-  phone: string;
+  phone?: string;
   cpf: string;
   birthdate: string;
   description: string;
