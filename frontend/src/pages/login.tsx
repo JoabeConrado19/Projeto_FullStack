@@ -1,5 +1,5 @@
-import { LoginForm, RegisterForm } from "@/components/Form";
-import styles from "../components/Form/style.module.css";
+import { LoginForm } from "@/components/Form/login-register";
+import styles from "../components/Form/login-register/style.module.css";
 import HeaderComponent from "../components/Header/index";
 import FooterComponent from "@/components/Footer";
 const LoginPage = () => {
@@ -8,9 +8,11 @@ const LoginPage = () => {
       <HeaderComponent />
       <section className={styles.BackgroundOne}>
         <LoginForm />
-        <FooterComponent styles={{
-          width: "100%"
-        }}/>
+        <FooterComponent
+          styles={{
+            width: "100%",
+          }}
+        />
       </section>
     </>
   );

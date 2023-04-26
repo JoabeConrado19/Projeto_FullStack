@@ -3,7 +3,7 @@ interface IProps {
   placeHolder: string;
   inputId: string;
   label: string;
-  register:{name:string};
+  register?:{name:string};
   type: string
 }
 
@@ -25,7 +25,7 @@ export const InputOne = ({ placeHolder, inputId, label, register, type }: IProps
 
 export const InputTwo = ({ placeHolder, inputId, label, register, type }: IProps) => {
   return (
-    <div className={styles.inputDivOne}>
+    <div className={styles.inputDivTwo}>
       <label className={`${styles.labelOne} input-label`} htmlFor={inputId}>{label}</label>
       <input
         id={inputId}

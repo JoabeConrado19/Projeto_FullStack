@@ -2,7 +2,7 @@
   margin-top: 40px;
   margin-bottom: 40px;
   padding-top: 30px;
-  background-color:var(--gray-10); 
+  background-color: var(--gray-10);
   width: 22%;
   min-width: 250px;
   max-width: 400px;
@@ -10,15 +10,14 @@
   height: max-content;
   padding-bottom: 35px;
   padding-left: 20px;
+  padding-right: 20px;
   display: flex;
   flex-direction: column;
-
- 
 }
 
 .title {
   margin-bottom: 15px;
-  font-family: 'Lexend';
+  font-family: "Lexend";
   font-style: normal;
 }
 
@@ -26,14 +25,12 @@
   margin-bottom: 15px;
 }
 
-
 .link {
-  width: 100%;    
+  width: 100%;
   display: flex;
   justify-content: flex-start;
   align-items: center;
 }
-
 
 .inputsAreaOne {
   width: 100%;
@@ -43,28 +40,25 @@
   gap: 15px;
 }
 
-.inputsAreaTwo{
-  width: 91%;
+.inputsAreaTwo {
+  width: 100%;
   display: flex;
-  justify-content: center;
-  gap: 30px;
+  justify-content: space-between;
 }
- 
-.buttonsAreaOne {
-   width: 100%;
-   display: flex;
-   flex-direction: column;
-   align-items: flex-start;
-   gap: 5px;
-}
-.buttonsAreaTwo{
-  width: 91%;
-  display: flex;
-  justify-content: center;
-  gap: 30px;
-}
- 
 
+.buttonsAreaOne {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 5px;
+}
+.buttonsAreaTwo {
+  width: 99%;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
 
 .BackgroundOne {
   width: 100%;
@@ -78,9 +72,8 @@
 }
 
 .passwordWarning {
-   align-self: flex-end;
-   margin-right: 30px;
-   color: var(--gray-2);
+  align-self: flex-end;
+  color: var(--gray-2);
 }
 .errorMessage {
   color: var(--alert-1);
@@ -94,10 +87,9 @@
 .acountWarningTwo {
   color: black;
   align-self: flex-start;
-  
 }
-
 
 .footerLoginRegister {
   width: 98%;
 }
+
