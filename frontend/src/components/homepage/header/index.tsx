@@ -1,5 +1,4 @@
 import style from '../../../styles/homepage/index.module.css'
-import Img from '../../../assets/MotorsShop.png'
 export default function Header() {
   return (
     <header className={`${style.header}`}>

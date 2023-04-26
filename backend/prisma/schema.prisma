@@ -11,21 +11,20 @@ datasource db {
 }
 
 model User {
-  id           String     @id @default(uuid())
-  name         String
-  email        String     @unique
-  cpf          String     @unique
-  birthdate    String
-  description  String
-  password     String
-  phone        String     @unique
-  accountType  String
-  color        String
-  createdAt    DateTime   @default(now())
-  address      Address?
-  cars         Cars[]
-  comments     Comments[]
-  
+  id          String     @id @default(uuid())
+  name        String
+  email       String     @unique
+  cpf         String     @unique
+  birthdate   String
+  description String
+  password    String
+  phone       String     @unique
+  accountType String
+  color       String
+  createdAt   DateTime   @default(now())
+  address     Address?
+  cars        Cars[]
+  comments    Comments[]
 
   @@map("users")
 }
@@ -46,17 +45,18 @@ model Address {
 }
 
 model Cars {
-  id          String   @id @default(uuid())
-  model       String
-  year        String
-  fuelType    String
-  miles       String
-  color       String
-  description String
-  price       Float
-  imagesUrl   String
-  isActive    Boolean
-  createdAt   DateTime @default(now())
+  id            String   @id @default(uuid())
+  model         String
+  year          String
+  fuelType      String
+  miles         String
+  color         String
+  description   String
+  price         Float
+  imagesUrl     String
+  isActive      Boolean
+  isPromotional Boolean  @default(false)
+  createdAt     DateTime @default(now())
 
   userId String?
   user   User?   @relation(fields: [userId], references: [id], onDelete: Cascade)

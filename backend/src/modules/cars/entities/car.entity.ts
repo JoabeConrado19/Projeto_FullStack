@@ -1,4 +1,3 @@
-import { Decimal } from '@prisma/client/runtime';
 import { Exclude } from 'class-transformer';
 import { randomUUID } from 'crypto';
 
@@ -26,6 +25,7 @@ export class Car {
   color: string;
   description: string;
   price: number;
+  isPromotional: boolean;
   imagesUrl: string;
   isActive: boolean;
   createdAt: Date;

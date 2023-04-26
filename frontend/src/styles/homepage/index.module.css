@@ -164,15 +164,27 @@
 .cardImgContainer {
     width: 100%;
     height: 50%;
-    background-color: #E9ECEF;
+    background-color: var(--gray-7);
     display: flex;
-    justify-content: center;
+    justify-content: start;
     align-items: center;
+    flex-direction: row-reverse;
 }
 
 .cardImgContainer>img{
     width: 100%;
     height: 100%;
+    z-index: 0;
+}
+
+.cardImgContainer>span{
+    z-index: 2;
+    position: relative;
+    right: 1.18rem;
+    color: var(--gray-10);
+    padding: 5px;
+    background-color: var(--sucess-1);
+    margin-top: -9.1rem;
 }
 
 .ulCard{

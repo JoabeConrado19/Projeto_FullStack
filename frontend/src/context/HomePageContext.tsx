@@ -7,13 +7,11 @@ export const PageContext = createContext({} as IHomePageProviderData);
 
 interface IHomePageProviderData {
  announcements: [] | IAnnouncementsData[];
-//  loading: boolean;
 }
 
 export const HomePageProvider = ({ children }: IProviderProps) => {
     const [announcements, setAnnouncements]
  = useState([])
-    // const [loading, setLoading] = useState(true)
 
     useEffect(() =>{
         const listAllAnnouncements = async () => {
@@ -33,7 +31,6 @@ export const HomePageProvider = ({ children }: IProviderProps) => {
   <PageContext.Provider
    value={{
     announcements,
-    // loading
    }}
   >
    {children}

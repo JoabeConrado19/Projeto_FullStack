@@ -36,6 +36,10 @@ export class CreateCarsDto {
   @IsNotEmpty()
   price: number;
 
+  @IsBoolean()
+  @IsNotEmpty()
+  isPromotional: boolean;
+
   @IsString()
   @IsNotEmpty()
   imagesUrl: string;
