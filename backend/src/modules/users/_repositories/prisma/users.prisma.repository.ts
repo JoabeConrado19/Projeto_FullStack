@@ -5,9 +5,10 @@ import { UpdateUserDto } from 'src/modules/users/dto/update-user.dto';
 import { Address, User } from 'src/modules/users/entities/user.entity';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { UsersRepository } from '../users.repository';
+
 @Injectable()
 export class UsersPrismaRepository implements UsersRepository {
-  constructor(private prisma: PrismaService) {}
+  constructor(private prisma: PrismaService) { }
 
   async create(data: CreateUserDto): Promise<User> {
     const user = new User();
@@ -33,6 +34,8 @@ export class UsersPrismaRepository implements UsersRepository {
     const newUser = await this.prisma.user.create({
       data: { ...user, address: {}, color: color },
     });
+
+
     const address = new Address();
     Object.assign(address, {
       ...data.address,
@@ -105,4 +108,5 @@ export class UsersPrismaRepository implements UsersRepository {
 
     return user;
   }
+
 }
