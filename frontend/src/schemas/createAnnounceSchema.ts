@@ -1,21 +1,6 @@
+import { IImageUrl } from "@/interfaces/announcement";
 import * as yup from "yup";
 import {Schema} from "yup"
-
-interface ICreateAnnounceSchema {
-    brand: string
-    model: string
-    year: string
-    fuelType: string
-    miles: string
-    color: string
-    price: string
-    description: string
-    images_url: IImageUrl[]
-}
-
-interface IImageUrl {
-    url: string
-}
 
 const imagesUrlSchema: Schema<IImageUrl> = yup.object().shape({
     url: yup.string().required("Insira um link")

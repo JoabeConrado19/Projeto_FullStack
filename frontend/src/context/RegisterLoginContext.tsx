@@ -6,7 +6,7 @@ import { useRouter } from "next/router";
 import { setCookie, parseCookies} from 'nookies'
 
 
-interface IProviderProps {
+export interface IProviderProps {
   children: ReactNode;
 }
 
