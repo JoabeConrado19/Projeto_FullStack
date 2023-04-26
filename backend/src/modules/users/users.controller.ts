@@ -15,7 +15,7 @@ import { UsersService } from './users.service';
 
 @Controller('users')
 export class UsersController {
-  constructor(private readonly usersService: UsersService) {}
+  constructor(private readonly usersService: UsersService) { }
 
   @Post()
   create(@Body() createUserDto: CreateUserDto) {
@@ -43,5 +43,16 @@ export class UsersController {
   @Delete(':id')
   delete(@Param('id') id: string) {
     return this.usersService.delete(id);
+  }
+
+
+  @Post("/resetPassword")
+  async sendEmailReset(@Body("email") email: string) {
+    return this.usersService.sendEmailPassword(email)
+  }
+
+  @Patch("/resetPassword/:token")
+  async resetPassword(@Param("token") token: string, @Body("password") password: string) {
+    return this.usersService.resetPassword(password, token)
   }
 }
