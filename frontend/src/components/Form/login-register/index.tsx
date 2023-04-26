@@ -1,17 +1,17 @@
 import styles from "./style.module.css";
 import { ButtonOne, ButtonTwo } from "../../Buttons/index";
 import { InputOne, InputTwo, TextFieldOne } from "../../Input";
-import {
-  IRegisterSubmit,
-  formRegisterSchema,
-} from "../../../schemas/registerSchema";
-import { ILoginSubmit, formLoginSchema } from "../../../schemas/loginSchema";
+import Link from "next/link";
+import buttonStyle from "../../Buttons/styles.module.css";
+
+import { IRegisterSubmit, formRegisterSchema } from "@/schemas/RegisterSchema";
+import { formLoginSchema } from "@/schemas/LoginSchema";
+import { ILoginSubmit } from "@/interfaces/user";
+
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { useContext } from "react";
 import { UserContext } from "@/context/RegisterLoginContext";
-import Link from "next/link";
-import buttonStyle from "../../Buttons/styles.module.css";
 
 export const LoginForm = () => {
   const {
@@ -28,17 +28,17 @@ export const LoginForm = () => {
       <h2 className={`headline-5-500 ${styles.title}`}>Login</h2>
       <div className={styles.inputsAreaOne}>
         <InputOne
-          inputId="usuario"
-          label="usuario"
-          placeHolder="Digitar usuário"
+          inputId="user_email"
+          label="Email"
+          placeHolder="Digitar email"
           register={register("email")}
           type="email"
         />
         <p className={styles.errorMessage}>{errors.email?.message}</p>
         <InputOne
           placeHolder={"Digitar senha"}
-          inputId="senha"
-          label="senha"
+          inputId="user_password"
+          label="Senha"
           register={register("password")}
           type="password"
         />

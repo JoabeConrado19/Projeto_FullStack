@@ -74,7 +74,7 @@ export default function HeaderComponent() {
                   Editar endereço
                 </ButtonComponent>
               </li>
-              {userData.accountType === "Vendedor" ? (
+              {userData.accountType === "Anunciante" ? (
                 <li>
                   <a href="/announcement">
                     <ButtonComponent className={buttonStyle.hidden_menu_buttons}>Meus anúncios</ButtonComponent>

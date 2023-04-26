@@ -24,7 +24,6 @@ const RegisterPage = () => {
       {sucessModal?(<section className={modalStyles.backGroundDark}>
       <RegisterSucessModal/>
       </section>): null}
-      
     </>
   );
 };

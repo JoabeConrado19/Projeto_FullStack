@@ -8,8 +8,8 @@ const TestePage = () => {
     return (
       <>
         <section className={styles.BackgroundOne}>
-        <EditAdressForm/>
-        {/* <EditUserForm/> */}
+        {/* <EditAdressForm/> */}
+        <EditUserForm/>
         </section>
       </>
     );
