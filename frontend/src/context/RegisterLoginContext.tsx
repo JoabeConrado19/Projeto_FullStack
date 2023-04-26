@@ -1,6 +1,6 @@
 import { createContext, ReactNode, useEffect, useRef, useState } from "react";
 import api from "../services/api";
-import { IRegisterSubmit } from "../schemas/registerSchema";
+import { IRegisterSubmit } from "../schemas/RegisterSchema";
 import { ILoginSubmit } from "../schemas/loginSchema";
 import { useRouter } from "next/router";
 import { setCookie, parseCookies } from "nookies";
