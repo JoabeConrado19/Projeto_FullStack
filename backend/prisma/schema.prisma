@@ -18,14 +18,15 @@ model User {
   birthdate    String
   description  String
   password     String
-  phone        String
+  phone        String     @unique
   accountType  String
-  profileImage String
+  color        String
   createdAt    DateTime   @default(now())
   reset        String?
   address      Address?
   cars         Cars[]
   comments     Comments[]
+  
 
   @@map("users")
 }

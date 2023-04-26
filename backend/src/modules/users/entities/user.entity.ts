@@ -10,7 +10,7 @@ export class User {
   birthdate: string;
   description: string;
   accountType: string;
-  profileImage: string;
+  color: string;
   readonly createdAt: Date;
 
   @Exclude()
