@@ -5,7 +5,8 @@ import {
   IRegisterSubmit,
   formRegisterSchema,
 } from "../../schemas/RegisterSchema";
-import { ILoginSubmit, formLoginSchema } from "../../schemas/LoginSchema";
+import { formLoginSchema } from "../../schemas/LoginSchema";
+import { ILoginSubmit } from "@/interfaces/user";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { useContext } from "react";
@@ -39,7 +40,7 @@ export const LoginForm = () => {
         <InputOne
           placeHolder={"Digitar senha"}
           inputId="senha"
-          label="senha"
+          label="Senha"
           register={register("password")}
           type="password"
         />
