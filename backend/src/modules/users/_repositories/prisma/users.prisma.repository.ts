@@ -32,7 +32,7 @@ export class UsersPrismaRepository implements UsersRepository {
     const color = arrayColors[Math.floor(Math.random() * arrayColors.length)];
 
     const newUser = await this.prisma.user.create({
-      data: { ...user, address: {}, color: color },
+      data: { ...data, address: {}, color: color },
     });
 
 
