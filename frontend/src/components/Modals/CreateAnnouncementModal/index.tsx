@@ -10,7 +10,9 @@ import {
   SelectInput,
   TextAreaInput,
 } from "@/components/Input/modalInputs";
-import { ICar, fuelType } from "@/utils/carData";
+import { fuelType } from "@/utils/carData";
+import { ICar } from "@/interfaces/car";
+
 import { formCreateAnnounceSchema } from "@/schemas/createAnnounceSchema";
 
 import style from "./style.module.css";
