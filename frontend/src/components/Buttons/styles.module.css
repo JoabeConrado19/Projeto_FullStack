@@ -111,3 +111,12 @@
 
     color: var(--gray-0);
 }
+
+/* Menu buttons */
+.hidden_menu_buttons {
+    border: none;
+    background-color: unset;
+
+    font-size: 0.9rem;
+    padding: 6px 0px;
+}
