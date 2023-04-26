@@ -1,26 +1,80 @@
 .buttonConfirm {
-background-color: var(--brand-1);
-color: var(--whiteFixed);
-border: none;
-width: 92%;
-height: 40px;
-border-radius: var(--radius-1);
-margin-top: 5px;
-cursor: pointer;
+  background-color: var(--brand-1);
+  color: var(--whiteFixed);
+  border: none;
+  width: 100%;
+  height: 40px;
+  border-radius: var(--radius-1);
+  margin-top: 5px;
+  cursor: pointer;
+}
+
+.buttonConfirmTwo {
+  background-color: var(--brand-1);
+  color: var(--whiteFixed);
+  border: none;
+  width: 41%;
+  height: 35px;
+  border-radius: var(--radius-1);
+  cursor: pointer;
+}
+
+.buttonConfirmThree {
+  background-color: var(--brand-1);
+  color: var(--whiteFixed);
+  border: none;
+  width: 60%;
+  height: 35px;
+  border-radius: var(--radius-1);
+  cursor: pointer;
+}
+
+.buttonConfirmFour {
+  background-color: var(--brand-1);
+  color: var(--whiteFixed);
+  border: none;
+  width: 35%;
+  height: 28px;
+  border-radius: var(--radius-1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  cursor: pointer;
 }
 
 .registerButton {
-    color: var(--gray-0);
-    background-color: transparent;
-    border: solid var(--gray-4) 1.5px;
-    width: 92%;
-    height: 40px;
-    margin-top: 5px;
-    border-radius: var(--radius-1);
-    cursor: pointer;
+  color: var(--gray-0);
+  background-color: transparent;
+  border: solid var(--gray-4) 1.5px;
+  width: 100%;
+  height: 40px;
+  margin-top: 5px;
+  border-radius: var(--radius-1);
+  cursor: pointer;
 }
 
 .registerButtonSelected {
-    background-color: var(--brand-1);
-    color: var(--whiteFixed);
+  background-color: var(--brand-1);
+  color: var(--whiteFixed);
+}
+
+.buttonDelete {
+  background-color: var(--alert-2);
+  border-radius: var(--radius-1);
+  border: none;
+  width: 41%;
+  height: 35px;
+  color: var(--alert-1);
+  cursor: pointer;
+}
+
+.buttonGray {
+  background-color: var(--gray-6);
+  border-radius: var(--radius-1);
+  border: none;
+  width: 41%;
+  height: 35px;
+  color: var(--gray-2);
+  cursor: pointer;
 }
