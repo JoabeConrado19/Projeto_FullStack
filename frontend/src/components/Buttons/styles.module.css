@@ -1,13 +1,4 @@
-.buttonConfirm {
-  background-color: var(--brand-1);
-  color: var(--whiteFixed);
-  border: none;
-  width: 100%;
-  height: 40px;
-  border-radius: var(--radius-1);
-  margin-top: 5px;
-  cursor: pointer;
-}
+
 
 .buttonConfirmTwo {
   background-color: var(--brand-1);
@@ -77,4 +68,129 @@
   height: 35px;
   color: var(--gray-2);
   cursor: pointer;
+}
+
+/*  */
+
+.button_base {
+    padding: 8px 16px;
+    opacity: 0.8;
+    transition: 0.2s ease-in-out;
+
+    border: unset;
+    border-radius: 4px;
+
+    font-size: 1rem;
+    font-family: "Inter", sans-serif;
+    font-weight: 500;
+
+    line-height: 1.5;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+}
+
+.button_base:hover {
+    opacity: 1;
+}
+
+.button_base:disabled {
+    opacity: 0.5;
+}
+
+.buttonConfirm {
+    background-color: var(--brand-1);
+    color: var(--whiteFixed);
+    border: none;
+    width: 92%;
+    height: 40px;
+    border-radius: var(--radius-1);
+}
+
+.registerButton {
+    color: var(--gray-0);
+    background-color: transparent;
+    border: solid var(--gray-4) 1.5px;
+    width: 92%;
+    height: 40px;
+    margin-top: 5px;
+    border-radius: var(--radius-1);
+}
+
+.fit_content_button {
+    width: fit-content;
+    padding: 8px 16px;
+}
+
+/* Buttons nomeclature order */
+/* First name is the background and second the text color */
+/* .black_white_button = Black background with White text */
+
+/* black_white_button */
+
+.black_white_button {
+    background-color: var(--gray-0);
+    color: var(--whiteFixed);
+}
+
+.black_white_button:hover {
+    background-color: var(--gray-2);
+}
+
+/* gray_black_button */
+
+.gray_black_button {
+    background-color: var(--gray-7);
+    color: var(--gray-0);
+}
+
+.gray_black_button:hover {
+    background-color: var(--gray-6);
+}
+
+/* brand1_white_button */
+
+.brand1_white_button {
+    background-color: var(--brand-1);
+    color: var(--whiteFixed);
+}
+
+.brand1_white_button:hover {
+    background-color: var(--brand-2);
+    color: var(--whiteFixed);
+}
+
+/* brand3_bran1_button */
+
+.brand3_bran1_button {
+    background-color: var(--brand-4);
+    color: var(--brand-1);
+}
+
+/* Modal header button */
+.modal_header_button {
+    font-size: 24px;
+    
+    min-width: unset;
+
+    background-color: unset;
+    color: var(--gray-3);
+}
+
+.modal_header_button:hover {
+    background-color: unset;
+
+    color: var(--gray-0);
+}
+
+/* Menu buttons */
+.hidden_menu_buttons {
+    border: none;
+    background-color: unset;
+
+    font-size: 0.9rem;
+    padding: 6px 0px;
 }

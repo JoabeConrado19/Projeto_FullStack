@@ -1,7 +1,7 @@
 import { createContext, ReactNode, useEffect, useRef, useState } from "react";
 import api from "../services/api";
 import { IRegisterSubmit } from "../schemas/RegisterSchema";
-import { ILoginSubmit } from "../schemas/loginSchema";
+import { ILoginSubmit } from "@/interfaces/user";
 import { useRouter } from "next/router";
 import { setCookie, parseCookies } from "nookies";
 
@@ -30,6 +30,7 @@ export const RegisterUserProvider = ({ children }: IProviderProps) => {
     await api
       .post("/users", newBody)
       .then((resp) => {
+        router.push("/login");
         setSucessModal(true)
       })
       .catch((err) => {
@@ -41,11 +42,8 @@ export const RegisterUserProvider = ({ children }: IProviderProps) => {
     api
       .post("/login", data)
       .then((resp) => {
-        setCookie(null, "token", resp.data.token, {
-          maxAge: 60 * 30,
-          path: "/",
-        });
-        const token = parseCookies().token;
+      setCookie(null, "tokenMotorsShop", resp.data.token, {maxAge: 60*30, path: "/"})
+        const token =  parseCookies().tokenMotorsShop
         api.defaults.headers.Authorization = `Bearer ${token}`;
         router.push("/");
       })

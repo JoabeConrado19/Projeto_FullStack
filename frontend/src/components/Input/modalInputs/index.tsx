@@ -4,54 +4,38 @@ import {
   TextareaHTMLAttributes,
 } from "react";
 import styles from "./styled.module.css";
-import { UseFormRegister } from "react-hook-form";
+import { FieldError, FieldErrorsImpl, Merge } from "react-hook-form";
 
 interface IInputElement extends InputHTMLAttributes<HTMLInputElement> {
   inputId: string;
   label: string;
-  register: UseFormRegister<any>;
-  registerkey: string;
+  register: any;
+  errorMessage?: string | FieldError | Merge<FieldError, FieldErrorsImpl<any>>;
 }
 
 export const InputOne = ({
   inputId,
   label,
   register,
-  registerkey,
+  errorMessage,
   ...rest
 }: IInputElement) => {
   return (
-    <div className={styles.inputContainer}>
+    <div className={styles.input_container}>
       <label className={`${styles.label} input-label`} htmlFor={inputId}>
         {label}
       </label>
       <input
         id={inputId}
         className={`${styles.input}  input-placeholder`}
-        {...register(registerkey)}
+        {...register}
         {...rest}
       />
-    </div>
-  );
-};
-
-export const InputTwo = ({
-  inputId,
-  label,
-  register,
-  registerkey,
-  ...rest
-}: IInputElement) => {
-  return (
-    <div className={styles.inputContainer}>
-      <label className={`${styles.label} input-label`} htmlFor={inputId}>
-        {label}
-      </label>
-      <input
-        id={inputId}
-        className={`${styles.input} input-placeholder`}
-        {...register}
-      />
+      {errorMessage && (
+        <span className={`${styles.error_message} body-2-500`}>
+          {errorMessage as React.ReactNode}
+        </span>
+      )}
     </div>
   );
 };
@@ -59,9 +43,9 @@ export const InputTwo = ({
 interface ISelectInput extends SelectHTMLAttributes<HTMLSelectElement> {
   inputId: string;
   label: string;
-  register: UseFormRegister<any>;
-  registerkey: string;
+  register: any;
   options: any;
+  errorMessage?: string | FieldError | Merge<FieldError, FieldErrorsImpl<any>>;
 }
 
 export const SelectInput = ({
@@ -69,19 +53,19 @@ export const SelectInput = ({
   label,
   options,
   register,
-  registerkey,
+  errorMessage,
   ...rest
 }: ISelectInput) => {
   return (
-    <div className={styles.inputContainer}>
+    <div className={styles.input_container}>
       <label className={`${styles.label} input-label`} htmlFor={inputId}>
         {label}
       </label>
       <select
         id={inputId}
-        {...register(registerkey)}
+        {...register}
         {...rest}
-        className={`${styles.inputOne} ${styles.selectInput} input-placeholder`}
+        className={`${styles.input} ${styles.selectInput} input-placeholder`}
       >
         {
           <>
@@ -100,6 +84,11 @@ export const SelectInput = ({
           </>
         }
       </select>
+      {errorMessage && (
+        <span className={`${styles.error_message} body-2-500`}>
+          {errorMessage as React.ReactNode}
+        </span>
+      )}
     </div>
   );
 };
@@ -107,28 +96,33 @@ export const SelectInput = ({
 interface ITextAreaInput extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   inputId: string;
   label: string;
-  register: UseFormRegister<any>;
-  registerkey: string;
+  register: any;
+  errorMessage?: string | FieldError | Merge<FieldError, FieldErrorsImpl<any>>;
 }
 
 export const TextAreaInput = ({
   inputId,
   label,
   register,
-  registerkey,
+  errorMessage,
   ...rest
 }: ITextAreaInput) => {
   return (
-    <div className={styles.inputContainer}>
+    <div className={styles.input_container}>
       <label className={`${styles.label} input-label`} htmlFor={inputId}>
         {label}
       </label>
       <textarea
         id={inputId}
-        {...register(registerkey)}
+        {...register}
         {...rest}
-        className={`${styles.inputOne} ${styles.textArea} input-placeholder`}
+        className={`${styles.input} ${styles.textArea} input-placeholder`}
       ></textarea>
+      {errorMessage && (
+        <span className={`${styles.error_message} body-2-500`}>
+          {errorMessage as React.ReactNode}
+        </span>
+      )}
     </div>
   );
 };

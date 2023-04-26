@@ -1,12 +1,16 @@
+
+import styled from "./styles.module.css"
 import { useContext } from "react";
-import styled from "./styles.module.css";
+
 import { UserContext } from "@/context/RegisterLoginContext";
+import { IButton } from "@/interfaces/components/button";
 interface IProps {
   children: string;
   click?: string;
   buttonType?: any;
   classStyle?: string
 }
+
 export const ButtonOne = ({ children, click, buttonType }: IProps) => {
   const { setUserType, userType,  } = useContext(UserContext);
   return (
@@ -42,3 +46,10 @@ export const ButtonThree = ({ children, click, buttonType,  }: IProps) => {
     </button>
   );
 };
+
+
+export const ButtonComponent = ({children, ...rest}: IButton) => {
+  return (
+      <button {...rest} className={` ${styled.button_base} ${rest.className ? rest.className : ""}`}>{children}</button>
+  )
+}
