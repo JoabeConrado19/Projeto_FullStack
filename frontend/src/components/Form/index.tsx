@@ -1,6 +1,6 @@
 import styles from "./style.module.css";
 import { ButtonOne, ButtonTwo } from "../Buttons";
-import { InputOne } from "../Input/modalInputs";
+import { InputOne, InputTwo } from "../Input";
 import {
   IRegisterSubmit,
   formRegisterSchema,
@@ -31,13 +31,13 @@ export const LoginForm = () => {
         <InputOne
           inputId="usuario"
           label="Usuário"
-          placeholder="Digitar usuário"
+          placeHolder="Digitar usuário"
           register={register("email")}
           type="email"
         />
         <p className={styles.errorMessage}>{errors.email?.message}</p>
         <InputOne
-          placeholder={"Digitar senha"}
+          placeHolder={"Digitar senha"}
           inputId="senha"
           label="senha"
           register={register("password")}
