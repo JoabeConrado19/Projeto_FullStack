@@ -21,9 +21,6 @@ interface IRegisterProviderData {
 export const RegisterUserProvider = ({ children }: IProviderProps) => {
   const router = useRouter();
   const [userType, setUserType] = useState<string>("Comprador");
-  
-
-
 
    const registerUser = async (data: IRegisterSubmit) => {
     const { passwordConfirmation, ...newBody } = data;
@@ -32,7 +29,6 @@ export const RegisterUserProvider = ({ children }: IProviderProps) => {
     await api
       .post("/users", newBody)
       .then((resp) => {
-        console.log(resp.data);
         router.push("/login");
       })
       .catch((err) => {
@@ -44,8 +40,8 @@ export const RegisterUserProvider = ({ children }: IProviderProps) => {
     api
       .post("/login", data)
       .then((resp) => {
-      setCookie(null, "token", resp.data.token, {maxAge: 60*30, path: "/"})
-        const token =  parseCookies().token
+      setCookie(null, "tokenMotorsShop", resp.data.token, {maxAge: 60*30, path: "/"})
+        const token =  parseCookies().tokenMotorsShop
         api.defaults.headers.Authorization = `Bearer ${token}`;
         router.push("/");
       })
