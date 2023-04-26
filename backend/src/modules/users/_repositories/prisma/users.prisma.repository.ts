@@ -35,6 +35,7 @@ export class UsersPrismaRepository implements UsersRepository {
       data: { ...user, address: {}, color: color },
     });
 
+
     const address = new Address();
     Object.assign(address, {
       ...data.address,
