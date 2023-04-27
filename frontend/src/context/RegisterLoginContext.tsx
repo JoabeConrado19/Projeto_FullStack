@@ -1,10 +1,9 @@
 import { createContext, ReactNode, useEffect, useRef, useState } from "react";
 import api from "../services/api";
 import { IRegisterSubmit } from "../schemas/RegisterSchema";
-import { ILoginSubmit } from "../schemas/LoginSchema";
+import { ILoginSubmit } from "@/interfaces/user";
 import { useRouter } from "next/router";
-import { setCookie, parseCookies} from 'nookies'
-
+import { setCookie, parseCookies } from "nookies";
 
 export interface IProviderProps {
   children: ReactNode;
@@ -13,35 +12,26 @@ export interface IProviderProps {
 interface IRegisterProviderData {
   registerUser: (data: IRegisterSubmit) => void;
   loginUser: (data: ILoginSubmit) => void;
-  userType: string ;
-  setUserType: React.Dispatch<React.SetStateAction<string >>;
-
+  userType: string;
+  setUserType: React.Dispatch<React.SetStateAction<string>>;
+  sucessModal:boolean;
+  setSucessModal:React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const RegisterUserProvider = ({ children }: IProviderProps) => {
   const router = useRouter();
   const [userType, setUserType] = useState<string>("Comprador");
-  
+  const [sucessModal, setSucessModal] = useState<boolean>(false)
 
-  // useEffect(() => {
-  //   const token = parseCookies().token;
-  //   if (token) {
-  //     api.defaults.headers.Authorization = `Bearer ${token}`;
-  //   } else {
-  //     router.push("/login");
-  //   }
-  // }, []);
-
-
-   const registerUser = async (data: IRegisterSubmit) => {
+  const registerUser = async (data: IRegisterSubmit) => {
     const { passwordConfirmation, ...newBody } = data;
     newBody.accountType = userType;
     newBody.profileImage = "pedddrof";
     await api
       .post("/users", newBody)
       .then((resp) => {
-        console.log(resp.data);
         router.push("/login");
+        setSucessModal(true)
       })
       .catch((err) => {
         console.log(err);
@@ -52,8 +42,8 @@ export const RegisterUserProvider = ({ children }: IProviderProps) => {
     api
       .post("/login", data)
       .then((resp) => {
-      setCookie(null, "token", resp.data.token, {maxAge: 60*30, path: "/"})
-        const token =  parseCookies().token
+      setCookie(null, "tokenMotorsShop", resp.data.token, {maxAge: 60*30, path: "/"})
+        const token =  parseCookies().tokenMotorsShop
         api.defaults.headers.Authorization = `Bearer ${token}`;
         router.push("/");
       })
@@ -69,6 +59,8 @@ export const RegisterUserProvider = ({ children }: IProviderProps) => {
         setUserType,
         loginUser,
         registerUser,
+        sucessModal,
+        setSucessModal
       }}
     >
       {children}

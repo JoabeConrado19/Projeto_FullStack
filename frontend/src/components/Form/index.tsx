@@ -1,11 +1,12 @@
 import styles from "./style.module.css";
 import { ButtonOne, ButtonTwo } from "../Buttons";
-import { InputOne, InputTwo, TextFieldOne } from "../Input";
+import { InputOne, InputTwo } from "../Input";
 import {
   IRegisterSubmit,
   formRegisterSchema,
 } from "../../schemas/RegisterSchema";
-import { ILoginSubmit, formLoginSchema } from "../../schemas/LoginSchema";
+import { formLoginSchema } from "../../schemas/LoginSchema";
+import { ILoginSubmit } from "@/interfaces/user";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { useContext } from "react";
@@ -30,7 +31,7 @@ export const LoginForm = () => {
       <div className={styles.inputsAreaOne}>
         <InputOne
           inputId="usuario"
-          label="usuario"
+          label="Usuário"
           placeHolder="Digitar usuário"
           register={register("email")}
           type="email"
@@ -39,7 +40,7 @@ export const LoginForm = () => {
         <InputOne
           placeHolder={"Digitar senha"}
           inputId="senha"
-          label="senha"
+          label="Senha"
           register={register("password")}
           type="password"
         />

@@ -1,6 +1,12 @@
+.form_container {
+    width: 95%;
+    margin: 0 auto;
+}
+
 .linkInputContainer {
     display: flex;
     align-items: center;
+    justify-content: center;
 
     position: relative;
 
@@ -23,4 +29,22 @@
     position: absolute;
     right: 5%;
     transform: translate(50%, 80%);
+}
+
+.buttonAddContainer {
+    width: 95%;
+    margin: 0 auto;
+}
+
+.buttonAddContainer > button {
+    width: 100%;
+}
+
+.buttonConfirmCancelContainer {
+    width: fit-content;
+    margin-left: auto;
+    margin-top: 32px;
+
+    display: flex;
+    gap: 16px;
 }

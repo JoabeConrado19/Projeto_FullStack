@@ -1,7 +1,7 @@
 import api from "@/services/api";
 import { createContext, useEffect, useState } from "react";
 import { IProviderProps } from "./RegisterLoginContext";
-import { IAnnouncementsData } from "@/Types/announcement";
+import { IAnnouncementsData } from "@/interfaces/announcement";
 
 export const PageContext = createContext({} as IHomePageProviderData);
 
