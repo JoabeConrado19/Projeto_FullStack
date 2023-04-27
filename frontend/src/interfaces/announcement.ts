@@ -37,4 +37,21 @@ export interface ICarsData{
     isPromotional: boolean;
     userId: string;
     year: string;
+
+}
+
+export interface ICreateAnnounceSchema {
+    brand: string
+    model: string
+    year: string
+    fuelType: string
+    miles: string
+    color: string
+    price: string
+    description: string
+    images_url: IImageUrl[]
+}
+
+export interface IImageUrl {
+    url: string
 }

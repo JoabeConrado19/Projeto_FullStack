@@ -1,15 +1,23 @@
 import {
-  Injectable,
   ConflictException,
+  Injectable,
   NotFoundException,
 } from '@nestjs/common';
+import { hashSync } from 'bcryptjs';
+import { randomUUID } from "node:crypto";
+import { PrismaService } from 'src/prisma/prisma.service';
+import { MailService } from 'src/utils/mail.service';
+import { UsersRepository } from './_repositories/users.repository';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { UsersRepository } from './_repositories/users.repository';
 
 @Injectable()
 export class UsersService {
-  constructor(private usersRepository: UsersRepository) {}
+  constructor(
+    private usersRepository: UsersRepository,
+    private prisma: PrismaService,
+    private mailService: MailService
+  ) { }
 
   async create(createUserDto: CreateUserDto) {
     const findEmail = await this.usersRepository.findByEmail(
@@ -78,4 +86,45 @@ export class UsersService {
 
     return this.usersRepository.delete(id);
   }
+
+  async sendEmailPassword(email: string) {
+    const user = await this.prisma.user.findFirst({
+      where: { email }
+    })
+
+    if (!user) {
+      throw new NotFoundException("Usuário não encontrado")
+    }
+
+    const resetToken = randomUUID()
+
+    await this.prisma.user.update({
+      where: { email },
+      data: { reset: resetToken }
+    })
+
+    const resetPasswordTemplate = this.mailService.resetPassword(email, user.name, resetToken)
+    await this.mailService.sendEmail(resetPasswordTemplate)
+  }
+
+  async resetPassword(password: string, resetToken: string) {
+    const user = await this.prisma.user.findFirst({
+      where: { reset: resetToken }
+    })
+
+    if (!user) {
+      throw new NotFoundException("Usuário não encontrado")
+    }
+
+    await this.prisma.user.update({
+      where: {
+        id: user.id
+      },
+      data: {
+        password: hashSync(password, 10),
+        reset: null
+      }
+    })
+  }
+
 }

@@ -1,6 +1,8 @@
 .modal_background {
     position: fixed;
+    z-index: 1;
     top: 0;
+    left: 0;
 
     width: 100%;
     min-height: 100vh;
@@ -18,7 +20,7 @@
 
     width: 90%;
     max-width: 550px;
-    max-height: 85vh;
+    max-height: 90vh;
     overflow-y: auto;
 
     background-color: var(--whiteFixed);
