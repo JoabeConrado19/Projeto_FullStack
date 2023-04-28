@@ -12,6 +12,9 @@ import EditUserInfosModal from "../Modals/EditUserInfosModal";
 import { IUserData } from "@/interfaces/user";
 import { ButtonComponent } from "../Buttons";
 import { useRouter } from "next/router";
+import EditUserAddressModal from "../Modals/EditUserAddressModal";
+
+import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
 
 export default function HeaderComponent() {
   const [userData, setUserData] = useState<null | IUserData>(null);
@@ -19,6 +22,7 @@ export default function HeaderComponent() {
   const [showMobileMenu, setShowMobileMenu] = useState<boolean>(false);
   const [showMenu, setShowMenu] = useState<boolean>(false);
   const [showEditModal, setShowEditModal] = useState<boolean>(false);
+  const [showAddressModal, setShowAddressModal] = useState<boolean>(false);
 
   const router = useRouter();
 
@@ -61,13 +65,13 @@ export default function HeaderComponent() {
           }}
           className={`${buttonStyle.no_style_button}`}
         >
-          X
+          {showMobileMenu ? <AiOutlineClose /> : <AiOutlineMenu />}
         </ButtonComponent>
       </div>
       <div
         className={style.page_header_menu}
         style={{
-          display: `${showMobileMenu ? "none" : "flex"}`,
+          display: `${showMobileMenu ? "flex" : "none"}`,
         }}
       >
         <ul className={style.mobile_menu}>
@@ -135,7 +139,12 @@ export default function HeaderComponent() {
                   </ButtonComponent>
                 </li>
                 <li>
-                  <ButtonComponent className={buttonStyle.hidden_menu_buttons}>
+                  <ButtonComponent
+                    className={buttonStyle.hidden_menu_buttons}
+                    onClick={() => {
+                      setShowAddressModal((prevState) => !prevState);
+                    }}
+                  >
                     Editar endereço
                   </ButtonComponent>
                 </li>
@@ -186,6 +195,12 @@ export default function HeaderComponent() {
       {showEditModal ? (
         <EditUserInfosModal
           closeModalFunc={setShowEditModal}
+          userData={userData!}
+        />
+      ) : null}
+      {showAddressModal ? (
+        <EditUserAddressModal
+          closeModalFunc={setShowAddressModal}
           userData={userData!}
         />
       ) : null}

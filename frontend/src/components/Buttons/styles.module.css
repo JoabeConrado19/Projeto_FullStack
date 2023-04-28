@@ -1,12 +1,12 @@
 /*  */
 
 .no_style_button {
-    background-color: unset;
-    width: fit-content;
-    padding: 0;
-    border: none;
+  background-color: unset;
+  width: fit-content;
+  padding: 0;
+  border: none;
 
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .button_base {
@@ -21,7 +21,9 @@
   font-family: "Inter", sans-serif;
   font-weight: 500;
 
-    line-height: 1.5;
+  line-height: 1.5;
+  width: 100%;
+  height: 100%;
 
   display: inline-flex;
   align-items: center;
@@ -49,10 +51,10 @@
 
 /* none_black_button */
 .none_black_button {
-    background-color: none;
-    color: var(--gray-0);
+  background-color: none;
+  color: var(--gray-0);
 
-    border: solid 1px var(--gray-0);
+  border: solid 1px var(--gray-0);
 }
 
 /* black_white_button */
@@ -99,14 +101,14 @@
 /* alert1_white_button */
 
 .alert1_white_button {
-    background-color: var(--alert-1);
-    color: var(--whiteFixed);
+  background-color: var(--alert-1);
+  color: var(--whiteFixed);
 }
 
 /* alert3_alert1_button */
 .alert1_alert3_button {
-    background-color: var(--alert-3);
-    color: var(--alert-1);
+  background-color: var(--alert-3);
+  color: var(--alert-1);
 }
 
 /* Modal header button */
