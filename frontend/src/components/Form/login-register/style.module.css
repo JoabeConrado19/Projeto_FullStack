@@ -1,16 +1,12 @@
-.baseForm {
-  margin-top: 40px;
-  margin-bottom: 40px;
-  padding-top: 30px;
-  background-color: var(--gray-10);
-  width: 22%;
-  min-width: 250px;
-  max-width: 400px;
+.base_form {
+  background-color: var(--whiteFixed);
+  
+  width: min(450px, 90%);
+  padding: 44px clamp(28px, 5%, 48px);
+
   border-radius: var(--radius-1);
+
   height: max-content;
-  padding-bottom: 35px;
-  padding-left: 20px;
-  padding-right: 20px;
   display: flex;
   flex-direction: column;
 }
@@ -21,46 +17,42 @@
   font-style: normal;
 }
 
-.subTitle {
+.sub_title {
   margin-bottom: 15px;
 }
 
 .link {
   width: 100%;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
 }
 
-.inputsAreaOne {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 15px;
-}
-
-.inputsAreaTwo {
-  width: 100%;
+.inputs_area_two {
   display: flex;
   justify-content: space-between;
 }
 
-.buttonsAreaOne {
+.inputs_area_two div {
+  width: 48%;
+  margin: 20px 0px;
+}
+
+.buttons_area_one {
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: 5px;
 }
-.buttonsAreaTwo {
-  width: 99%;
+
+.buttons_area_two {
   display: flex;
-  justify-content: center;
-  gap: 20px;
+  justify-content: space-between;
 }
 
-.BackgroundOne {
+.buttons_area_two > button {
+  width: 48%;
+}
+
+.background_one {
   width: 100%;
   min-height: 100vh;
   position: absolute;
@@ -71,25 +63,14 @@
   background-color: var(--gray-8);
 }
 
-.passwordWarning {
-  align-self: flex-end;
-  color: var(--gray-2);
-}
-.errorMessage {
-  color: var(--alert-1);
-}
-
-.acountWarningOne {
-  align-self: center;
-  color: var(--gray-2);
+.forgot_password {
+  display: block;
+  
+  margin-left: auto;
+  margin-bottom: 16px;
 }
 
-.acountWarningTwo {
-  color: black;
-  align-self: flex-start;
+.centered_text {
+  margin: 16px 0px;
+  text-align: center;
 }
-
-.footerLoginRegister {
-  width: 98%;
-}
-

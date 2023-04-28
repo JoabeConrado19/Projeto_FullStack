@@ -17,7 +17,7 @@ export class UsersService {
     private usersRepository: UsersRepository,
     private prisma: PrismaService,
     private mailService: MailService
-  ) { }
+  ) {}
 
   async create(createUserDto: CreateUserDto) {
     const findEmail = await this.usersRepository.findByEmail(
@@ -58,17 +58,19 @@ export class UsersService {
   async update(id: string, updateUserDto: UpdateUserDto) {
     const findUser = await this.usersRepository.findOne(id);
 
-    const findEmail = await this.usersRepository.findByEmail(
-      updateUserDto.email,
-    );
-    const findCpf = await this.usersRepository.findByCpf(updateUserDto.cpf);
+    if (!updateUserDto.address) {
+      const findEmail = await this.usersRepository.findByEmail(
+        updateUserDto.email,
+      );
+      const findCpf = await this.usersRepository.findByCpf(updateUserDto.cpf);
 
-    if (findEmail && findEmail.id != id) {
-      throw new ConflictException('Email já cadastrado');
-    }
+      if (findEmail && findEmail.id != id) {
+        throw new ConflictException('Email já cadastrado');
+      }
 
-    if (findCpf && findCpf.id != id) {
-      throw new ConflictException('Cpf já cadastrado');
+      if (findCpf && findCpf.id != id) {
+        throw new ConflictException('Cpf já cadastrado');
+      }
     }
 
     if (!findUser) {
