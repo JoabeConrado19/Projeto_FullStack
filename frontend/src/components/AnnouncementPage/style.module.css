@@ -44,6 +44,10 @@
 .imgPerfil{
     width: 100px;
     height: 100px;
+    display: flex;
+    justify-content: center;
+    font-size: 2.3rem;
+    align-items: center;
     border-radius: 50%;
 }
 
@@ -179,6 +183,7 @@
     color: var(--brand-1);
     background-color: var(--brand-4);
     padding: 5px;
+    height: 25px;
     border-radius: 2px;
     font-size: 14px;
     font-weight: 500;

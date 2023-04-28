@@ -1,8 +1,4 @@
-import Image from "next/image";
 import style from "./style.module.css";
-import cars from "../../assets/carImages/EXTERIOR-frontSidePilotNear-1653845164710-removebg-preview 1.png";
-import perfil from "../../assets/carImages/download.jpeg";
-
 import { useContext, useState } from "react";
 import CreateAnnouncementModal from "../Modals/CreateAnnouncementModal";
 import { Button } from "@mui/material";
@@ -10,21 +6,25 @@ import { announcementPage } from "@/context/AnnouncementPageContext";
 
 export default function AnnouncementPage() {
  const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
- const { userAnnouncements } = useContext(announcementPage);
+ const { userAnnouncements, user } = useContext(announcementPage);
+
+ if(user){
+   const nome = user.name
+   const nomeSplit = nome.split(" ")
+   var novoNome = nomeSplit[0][0] + nomeSplit[1][0]
+
  return (
   <>
    <div className={style.containerGeral}>
     <div className={style.backgroundBlue}></div>
     <div className={style.perfilUser}>
-     <Image className={style.imgPerfil} src={perfil} alt="img user" />
+     <div className={style.imgPerfil} style={{backgroundColor : user?.color}}>{novoNome}</div>
      <div className={style.userData}>
-      <h2>Nome</h2>
-      <span>Anunciante</span>
+      <h2>{user?.name}</h2>
+      <span>{user?.accountType}</span>
      </div>
      <p>
-      Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-      Lorem Ipsum has been the industrys standard dummy text ever since the
-      1500s
+      {user?.description}
      </p>
      <Button
       onClick={() => {
@@ -76,4 +76,5 @@ export default function AnnouncementPage() {
    ) : null}
   </>
  );
+   }
 }

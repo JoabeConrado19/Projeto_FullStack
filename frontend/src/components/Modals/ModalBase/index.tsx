@@ -1,7 +1,7 @@
 import { Button } from "@mui/material";
 
 import style from "./style.module.css";
-import buttonStyle from "@/styles/buttons.module.css";
+import buttonStyle from "../../Buttons/styles.module.css";
 
 import { Dispatch, ReactNode, SetStateAction } from "react";
 

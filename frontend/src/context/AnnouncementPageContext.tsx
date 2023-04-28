@@ -2,16 +2,19 @@ import { createContext, useEffect, useState } from "react";
 import { IProviderProps } from "./RegisterLoginContext";
 import { parseCookies } from "nookies";
 import api from "@/services/api";
-import { ICarsData } from "@/Types/announcement";
+import { ICarsData } from "@/interfaces/announcement";
+import { IUserData } from "@/interfaces/user";
 export const announcementPage = createContext({} as IAnnouncementProviderData)
 
 interface IAnnouncementProviderData{
     userAnnouncements: [] | ICarsData[]
+    user: IUserData | null
 }
 
 
 export const AnnouncementPageProvider = ({children}: IProviderProps) =>{
     const [userAnnouncements, setUserAnnouncements] = useState([])
+    const [user, setUser] = useState<IUserData | null>(null)
     
 
     const parseJwt = (token: string) =>{
@@ -24,30 +27,29 @@ export const AnnouncementPageProvider = ({children}: IProviderProps) =>{
 
     useEffect(() =>{
         const getUser = async () =>{
-            const userToken = parseCookies().token
-  
+            const userToken = parseCookies().tokenMotorsShop
             if(userToken){
 
                 api.defaults.headers.common.Authorization = `Bearer ${userToken}`
 
                 const tokenUserData = parseJwt(userToken)
 
-                const { data }: { data:any } = await api.get(
+                const { data }: { data: any } = await api.get(
                     `/users/${tokenUserData.sub}`
                 );
 
                 setUserAnnouncements(data.cars)
+                setUser(data)
             }
         }
         getUser()
     },[])
-                
-    console.log(userAnnouncements)
     
     return(
         <announcementPage.Provider
         value={{
-            userAnnouncements
+            userAnnouncements,
+            user
         }}
         >
             {children}

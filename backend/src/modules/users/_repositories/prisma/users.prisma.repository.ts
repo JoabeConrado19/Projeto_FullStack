@@ -8,7 +8,7 @@ import { UsersRepository } from '../users.repository';
 
 @Injectable()
 export class UsersPrismaRepository implements UsersRepository {
-  constructor(private prisma: PrismaService) { }
+  constructor(private prisma: PrismaService) {}
 
   async create(data: CreateUserDto): Promise<User> {
     const user = new User();
@@ -34,7 +34,6 @@ export class UsersPrismaRepository implements UsersRepository {
     const newUser = await this.prisma.user.create({
       data: { ...data, address: {}, color: color },
     });
-
 
     const address = new Address();
     Object.assign(address, {
@@ -108,5 +107,4 @@ export class UsersPrismaRepository implements UsersRepository {
 
     return user;
   }
-
 }

@@ -12,15 +12,9 @@ const Providers = ({ children }: IProvidersPropps) => {
  return (
   <>
    <HomePageProvider>
-<<<<<<< HEAD
     <AnnouncementPageProvider>
     <RegisterUserProvider>{children}</RegisterUserProvider>
     </AnnouncementPageProvider>
-=======
-   <RegisterUserProvider>
-   <EditDeleteUserProvider>{children}</EditDeleteUserProvider>
-    </RegisterUserProvider>
->>>>>>> d7a9463c0316e31bfd24f79b576c5dcc4be4477d
    </HomePageProvider>
   </>
  );

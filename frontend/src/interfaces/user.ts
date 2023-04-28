@@ -1,4 +1,4 @@
-import { ICar } from "./car";
+import { ICarsData } from "./announcement";
 
 export interface IUserData {
   id: string;
@@ -9,10 +9,10 @@ export interface IUserData {
   birthdate: string;
   cpf: string;
   createdAt: string;
-  profileImage: string;
+  color: string;
   accountType: string;
   // address:
-  cars: ICar[];
+  cars: ICarsData[];
   // comments:
 }
 
