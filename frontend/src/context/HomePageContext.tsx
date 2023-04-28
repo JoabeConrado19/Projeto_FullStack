@@ -33,7 +33,7 @@ export const HomePageProvider = ({ children }: IProviderProps) => {
  return (
   <PageContext.Provider
    value={{
-    announcements,
+    announcements
     // loading
    }}
   >
