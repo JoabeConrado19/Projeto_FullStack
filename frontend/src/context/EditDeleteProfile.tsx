@@ -24,7 +24,7 @@ export const EditDeleteUserProvider = ({ children }: IProviderProps) => {
         console.log(resp.data);
       })
       .catch((err) => {
-        console.log(err);
+        console.error(err);
       });
   };
 
