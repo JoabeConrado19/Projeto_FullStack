@@ -6,9 +6,9 @@ import kenzieKars from "@/services/kenzieKars";
 import ModalBase from "../ModalBase";
 
 import {
-  InputOne,
-  SelectInput,
-  TextAreaInput,
+  InputComponent,
+  SelectInputComponent,
+  TextAreaInputComponent,
 } from "@/components/Input/modalInputs";
 import { fuelType } from "@/utils/carData";
 import { ICar } from "@/interfaces/car";
@@ -34,7 +34,7 @@ export default function CreateAnnouncementModal({
     fuel: 1,
   });
 
-  const [inputList, setInputList] = useState<[] | typeof InputOne[]>([]);
+  const [inputList, setInputList] = useState<[] | (typeof InputOne)[]>([]);
 
   useEffect(() => {
     async function getKenzieKars() {
@@ -54,7 +54,7 @@ export default function CreateAnnouncementModal({
     setValue,
     formState: { errors },
   } = useForm({
-    resolver: yupResolver(formCreateAnnounceSchema)
+    resolver: yupResolver(formCreateAnnounceSchema),
   });
 
   const createCarFunc = (data: any) => {
@@ -69,7 +69,7 @@ export default function CreateAnnouncementModal({
         onSubmit={handleSubmit(createCarFunc)}
         className={style.form_container}
       >
-        <SelectInput
+        <SelectInputComponent
           inputId="car-brand"
           label="Marca"
           register={register("brand")}
@@ -89,7 +89,7 @@ export default function CreateAnnouncementModal({
           }}
           errorMessage={errors.brand && errors.brand.message}
         />
-        <SelectInput
+        <SelectInputComponent
           disabled={modelOptions ? false : true}
           inputId="car-model"
           label="Modelo"
@@ -118,7 +118,7 @@ export default function CreateAnnouncementModal({
           errorMessage={errors.model && errors.model.message}
         />
         <div>
-          <InputOne
+          <InputComponent
             inputId="car-year"
             label="Ano"
             value={carData?.year}
@@ -127,7 +127,7 @@ export default function CreateAnnouncementModal({
             placeholder="2017"
             errorMessage={errors.model && errors.model.message}
           />
-          <InputOne
+          <InputComponent
             inputId="car-fuel"
             label="Combustivel"
             value={fuelType[carData?.fuel]}
@@ -136,7 +136,7 @@ export default function CreateAnnouncementModal({
             placeholder="Híbrido"
             errorMessage={errors.model && errors.model.message}
           />
-          <InputOne
+          <InputComponent
             inputId="car-miles"
             label="Quilometragem"
             register={register("miles")}
@@ -144,7 +144,7 @@ export default function CreateAnnouncementModal({
             placeholder="30.000"
             errorMessage={errors.miles && errors.miles.message}
           />
-          <InputOne
+          <InputComponent
             inputId="car-color"
             label="Cor"
             register={register("color")}
@@ -153,7 +153,7 @@ export default function CreateAnnouncementModal({
             errorMessage={errors.color && errors.color.message}
           />
         </div>
-        <InputOne
+        <InputComponent
           inputId="car-FIPE"
           label="Preço tabela FIPE"
           register={register("carPriceChart")}
@@ -165,7 +165,7 @@ export default function CreateAnnouncementModal({
           readOnly
           errorMessage={errors.model && errors.model.message}
         />
-        <InputOne
+        <InputComponent
           inputId="price"
           label="Preço"
           register={register("price")}
@@ -175,7 +175,7 @@ export default function CreateAnnouncementModal({
           placeholder="R$ 57.000,00"
           errorMessage={errors.price && errors.price.message}
         />
-        <TextAreaInput
+        <TextAreaInputComponent
           inputId="description"
           label="Descrição"
           register={register("description")}
@@ -183,25 +183,27 @@ export default function CreateAnnouncementModal({
           errorMessage={errors.description && errors.description.message}
         />
         <div>
-          <InputOne
+          <InputComponent
             inputId="main-image"
             label="Imagem da capa"
-            register={register("images_url.0.url")}
-            type="text" 
+            register={register("images.0.url")}
+            type="text"
             placeholder="Insira link da imagem aqui"
-            errorMessage={errors.images_url && "Insira todos os links das imagens"}
+            errorMessage={
+              errors.images && "Insira todos os links das imagens"
+            }
           />
-          <InputOne
+          <InputComponent
             inputId="1-car-image"
             label="1° imagem da galeria"
-            register={register("images_url.1.url")}
+            register={register("images.1.url")}
             type="text"
             placeholder="Insira link da imagem aqui"
           />
-          <InputOne
+          <InputComponent
             inputId="2-car-image"
             label="2° Imagem da galeria"
-            register={register("images_url.2.url")}
+            register={register("images.2.url")}
             type="text"
             placeholder="Insira link da imagem aqui"
           />
@@ -209,46 +211,35 @@ export default function CreateAnnouncementModal({
             return (
               <div
                 key={`${index + 3}-car-image`}
-                className={style.linkInputContainer}
+                className={style.link_input_container}
               >
-                <InputOne
+                <InputComponent
                   inputId={`${index + 3}-car-image`}
                   label={`${index + 3}° Imagem da galeria`}
-                  register={register(`images_url.${index + 3}.url`)}
+                  register={register(`images.${index + 3}.url`)}
                   type="text"
                   placeholder="Insira link da imagem aqui"
                 />
-                {/* <Button
-                  onClick={() => {
-                    setInputList((prevState) => {
-                      const newList = [...prevState];
-
-                      newList.pop();
-
-                      return newList;
-                    });
-                  }}
-                >
-                  X
-                </Button> */}
               </div>
             );
           })}
-          <ButtonComponent
-            type="button"
-            onClick={() => {
-              if (inputList.length < 4) {
-                return setInputList([...inputList, InputOne]);
-              }
+          <div className={style.add_input_container}>
+            <ButtonComponent
+              type="button"
+              onClick={() => {
+                if (inputList.length < 4) {
+                  return setInputList([...inputList, InputComponent]);
+                }
 
-              return "";
-            }}
-            className={`${buttonStyle.brand3_bran1_button}`}
-          >
-            Adicionar campo para imagem da galeria
-          </ButtonComponent>
+                return "";
+              }}
+              className={`${buttonStyle.brand3_bran1_button}`}
+            >
+              Adicionar campo para imagem da galeria
+            </ButtonComponent>
+          </div>
         </div>
-        <div className={style.buttonConfirmCancelContainer}>
+        <div className={style.button_confirm_cancel_container}>
           <ButtonComponent
             type="button"
             onClick={() => {
