@@ -19,6 +19,7 @@ export const HomePageProvider = ({ children }: IProviderProps) => {
              .get("/cars")
              .then((res) => {
               setAnnouncements(res.data)
+              console.log(res.data)
              })
              .catch((err) => {
               console.error(err);
