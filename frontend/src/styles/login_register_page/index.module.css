@@ -1,0 +1,10 @@
+.page_body {
+    background-color: var(--gray-8);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: min(50px,10%) 0px;
+    min-height: 85vh;
+}
