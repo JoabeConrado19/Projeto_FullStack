@@ -1,5 +1,3 @@
-import { InputTwo, TextFieldOne, InputOne } from "@/components/Input";
-import styles from "../login-register/style.module.css";
 import formStyles from "./style.module.css";
 import buttonStyle from "../../Buttons/styles.module.css";
 import { ButtonOne, ButtonThree } from "@/components/Buttons";

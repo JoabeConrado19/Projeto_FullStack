@@ -65,13 +65,13 @@ export default function HeaderComponent() {
           }}
           className={`${buttonStyle.no_style_button}`}
         >
-          {showMobileMenu ? <AiOutlineClose /> : <AiOutlineMenu />}
+          {showMobileMenu ? <AiOutlineMenu /> : <AiOutlineClose />}
         </ButtonComponent>
       </div>
       <div
         className={style.page_header_menu}
         style={{
-          display: `${showMobileMenu ? "flex" : "none"}`,
+          display: `${showMobileMenu ? "none" : "flex"}`,
         }}
       >
         <ul className={style.mobile_menu}>
