@@ -1,21 +1,20 @@
 import { ReactNode } from "react";
 import { RegisterUserProvider } from "../RegisterLoginContext";
-import { EditDeleteUserProvider } from "../EditDeleteProfile";
 import { HomePageProvider } from "../HomePageContext";
+import { EditAdressProvider } from "../EditAddress";
 
 interface IProvidersPropps {
- children: ReactNode;
+  children: ReactNode;
 }
 
 const Providers = ({ children }: IProvidersPropps) => {
- return (
-  <>
-   <HomePageProvider>
-   <RegisterUserProvider>
-   <EditDeleteUserProvider>{children}</EditDeleteUserProvider>
+  return (
+    <RegisterUserProvider>
+  
+        <EditAdressProvider>
+          <HomePageProvider>{children}</HomePageProvider>
+        </EditAdressProvider>
     </RegisterUserProvider>
-   </HomePageProvider>
-  </>
- );
+  );
 };
 export default Providers;

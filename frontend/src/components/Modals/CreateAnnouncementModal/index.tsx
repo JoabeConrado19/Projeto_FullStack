@@ -218,7 +218,7 @@ export default function CreateAnnouncementModal({
                   type="text"
                   placeholder="Insira link da imagem aqui"
                 />
-                {/* <Button
+                <Button
                   onClick={() => {
                     setInputList((prevState) => {
                       const newList = [...prevState];
@@ -230,7 +230,7 @@ export default function CreateAnnouncementModal({
                   }}
                 >
                   X
-                </Button> */}
+                </Button>
               </div>
             );
           })}

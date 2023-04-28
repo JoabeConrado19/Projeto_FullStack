@@ -21,9 +21,14 @@ export const EditAdressForm = () => {
   });
   const { editAdress } = useContext(EditAdressContext);
 
+
   return (
     <form className={formStyles.baseForm} onSubmit={handleSubmit(editAdress)}>
-      <button className={formStyles.exitButton}>X</button>
+      <div className={formStyles.formAdressTitleDiv}>
+      <h2 className={`headline-7-500 ${formStyles.titlesFont}`}>Editar endereço</h2>
+      <button className={formStyles.exitButton} type="button">X</button>
+      </div>
+      <h3 className={`body-2-500 ${formStyles.AdressSubTitle}`}>Infomações de endereço</h3>
       <InputOne
         placeHolder={"00000.000"}
         inputId="cep"
@@ -31,7 +36,7 @@ export const EditAdressForm = () => {
         type="text"
         register={register("cep")}
       />
-      <p className={styles.errorMessage}>{errors.cep?.message}</p>
+      <p className={formStyles.errorMessage}>{errors.cep?.message}</p>
       <div className={styles.inputsAreaTwo}>
         <InputTwo
           placeHolder={"Digitar Estado"}
@@ -49,8 +54,11 @@ export const EditAdressForm = () => {
           register={register("city")}
         />
       </div>
-      <p className={styles.errorMessage}>{errors.state?.message}</p>
-      <p className={styles.errorMessage}>{errors.city?.message}</p>
+      <div className={formStyles.errorMessageDiv}>
+      <p className={formStyles.errorMessage}>{errors.state?.message}</p>
+      <p className={formStyles.errorMessage}>{errors.city?.message}</p>
+      </div>
+     
       <InputOne
         placeHolder={"Digitar rua"}
         inputId="rua"
@@ -58,7 +66,7 @@ export const EditAdressForm = () => {
         type="text"
         register={register("street")}
       />
-      <p className={styles.errorMessage}>{errors.street?.message}</p>
+      <p className={formStyles.errorMessage}>{errors.street?.message}</p>
       <div className={styles.inputsAreaTwo}>
         <InputTwo
           placeHolder={"Digitar número"}
@@ -75,8 +83,8 @@ export const EditAdressForm = () => {
           register={register("complement")}
         />
       </div>
-      <p className={styles.errorMessage}>{errors.complement?.message}</p>
-      <p className={styles.errorMessage}>{errors.number?.message}</p>
+      <p className={formStyles.errorMessage}>{errors.complement?.message}</p>
+      <p className={formStyles.errorMessage}>{errors.number?.message}</p>
       <div className={formStyles.buttonsAreaTwo}>
         <ButtonThree buttonType="button">Cancelar</ButtonThree>
 

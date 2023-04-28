@@ -30,7 +30,6 @@ export const RegisterUserProvider = ({ children }: IProviderProps) => {
     await api
       .post("/users", newBody)
       .then((resp) => {
-        router.push("/login");
         setSucessModal(true)
       })
       .catch((err) => {

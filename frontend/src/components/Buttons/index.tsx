@@ -40,7 +40,7 @@ export const ButtonThree = ({ children, click, buttonType,  }: IProps) => {
   return (
     <button
       type={buttonType!}
-      className={styled.buttonGray}
+      className={`button-medium-text ${styled.buttonGray}`}
     >
       {children}
     </button>

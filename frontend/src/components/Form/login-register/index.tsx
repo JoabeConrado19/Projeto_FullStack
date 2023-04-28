@@ -4,15 +4,15 @@ import { InputOne, InputTwo, TextFieldOne } from "../../Input";
 import {
   IRegisterSubmit,
   formRegisterSchema,
-} from "../../../schemas/registerSchema";
-import { ILoginSubmit, formLoginSchema } from "../../../schemas/loginSchema";
+} from "../../../schemas/RegisterSchema";
+import {formLoginSchema } from "../../../schemas/LoginSchema";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { useContext } from "react";
 import { UserContext } from "@/context/RegisterLoginContext";
 import Link from "next/link";
 import buttonStyle from "../../Buttons/styles.module.css";
-
+import {ILoginSubmit} from "../../../interfaces/user"
 export const LoginForm = () => {
   const {
     register,
