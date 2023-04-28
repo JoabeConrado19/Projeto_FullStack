@@ -70,37 +70,6 @@
   cursor: pointer;
 }
 
-/*  */
-
-.button_base {
-    padding: 8px 16px;
-    opacity: 0.8;
-    transition: 0.2s ease-in-out;
-
-    border: unset;
-    border-radius: 4px;
-
-    font-size: 1rem;
-    font-family: "Inter", sans-serif;
-    font-weight: 500;
-
-    line-height: 1.5;
-
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-
-    cursor: pointer;
-}
-
-.button_base:hover {
-    opacity: 1;
-}
-
-.button_base:disabled {
-    opacity: 0.5;
-}
-
 .buttonConfirm {
     background-color: var(--brand-1);
     color: var(--whiteFixed);
@@ -120,6 +89,47 @@
     border-radius: var(--radius-1);
 }
 
+/*  */
+
+.no_style_button {
+    background-color: unset;
+    width: fit-content;
+    padding: 0;
+    border: none;
+
+    cursor: pointer;
+}
+
+.button_base {
+    padding: 8px 16px;
+    opacity: 0.8;
+    transition: 0.2s ease-in-out;
+
+    border: unset;
+    border-radius: 4px;
+
+    font-size: 1rem;
+    font-family: "Inter", sans-serif;
+    font-weight: 500;
+
+    line-height: 1.5;
+    width: 100%;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+}
+
+.button_base:hover {
+    opacity: 1;
+}
+
+.button_base:disabled {
+    opacity: 0.5;
+}
+
 .fit_content_button {
     width: fit-content;
     padding: 8px 16px;
@@ -128,6 +138,14 @@
 /* Buttons nomeclature order */
 /* First name is the background and second the text color */
 /* .black_white_button = Black background with White text */
+
+/* none_black_button */
+.none_black_button {
+    background-color: none;
+    color: var(--gray-0);
+
+    border: solid 1px var(--gray-0);
+}
 
 /* black_white_button */
 
@@ -168,6 +186,19 @@
 .brand3_bran1_button {
     background-color: var(--brand-4);
     color: var(--brand-1);
+}
+
+/* alert1_white_button */
+
+.alert1_white_button {
+    background-color: var(--alert-1);
+    color: var(--whiteFixed);
+}
+
+/* alert3_alert1_button */
+.alert1_alert3_button {
+    background-color: var(--alert-3);
+    color: var(--alert-1);
 }
 
 /* Modal header button */
