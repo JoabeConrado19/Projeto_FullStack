@@ -65,13 +65,13 @@ export default function HeaderComponent() {
           }}
           className={`${buttonStyle.no_style_button}`}
         >
-          {showMobileMenu ? <AiOutlineClose /> : <AiOutlineMenu />}
+          {showMobileMenu ? <AiOutlineMenu /> : <AiOutlineClose />}
         </ButtonComponent>
       </div>
       <div
         className={style.page_header_menu}
         style={{
-          display: `${showMobileMenu ? "flex" : "none"}`,
+          display: `${showMobileMenu ? "none" : "flex"}`,
         }}
       >
         <ul className={style.mobile_menu}>
@@ -112,10 +112,12 @@ export default function HeaderComponent() {
                     style={{ backgroundColor: `${userData.color}` }}
                   >
                     <p>
-                      {userData.name.split(" ").reduce((acc, act) => {
-                        acc += act[0].toLocaleUpperCase();
+                      {userData.name.split(" ").reduce((acc, act) => {                        
+                        if (acc.length >= 2) {
+                          return acc
+                        }
 
-                        return acc;
+                        return acc += act[0].toLocaleUpperCase();
                       }, "")}
                     </p>
                   </div>

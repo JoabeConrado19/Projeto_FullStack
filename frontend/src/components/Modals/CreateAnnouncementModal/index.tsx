@@ -261,9 +261,6 @@ export default function CreateAnnouncementModal({
           <ButtonComponent
             type="submit"
             className={`${buttonStyle.brand1_white_button}`}
-            onClick={() => {
-              console.log(errors);
-            }}
           >
             Criar anuncio
           </ButtonComponent>

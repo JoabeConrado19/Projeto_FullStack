@@ -4,9 +4,6 @@ import Backdrop from '@mui/material/Backdrop';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import Slide from '@mui/material/Slide';
-// import Fade from '@mui/material/Fade';
-// import Button from '@mui/material/Button';
-// import Typography from '@mui/material/Typography';
 import { useContext, useState } from 'react';
 
 export default function MainHome() {
@@ -222,14 +219,20 @@ export default function MainHome() {
             announcements.map((announcement) => {
               const price = announcement.price.toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2})
               const nome = announcement.user.name
-              const nomeSplit = nome.split(" ")
-              let novoNome = ""
-              for (let i = 0; i < 2; i++){
-                novoNome += nomeSplit[i] = nomeSplit[i][0].toUpperCase()
-              }
+              let novoNome = nome.split(" ").reduce((acc, act) => {
+                const newLetter = act[0]
+
+                if (acc.length > 2) {
+                  return acc
+                }
+
+                return acc += newLetter
+              }, "")
+
               return (
                 <li key={announcement.id}>
                   <div className={style.cardImgContainer}>
+                    <span style={{display: announcement.isPromotional ? 'flex' : 'none'}}>$</span>
                     <img src={announcement.imagesUrl}/>
                   </div>
                   <div className={style.cardTextContainer}>

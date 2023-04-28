@@ -4,7 +4,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { hashSync } from 'bcryptjs';
-import { randomUUID } from "node:crypto";
+import { randomUUID } from 'node:crypto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { MailService } from 'src/utils/mail.service';
 import { UsersRepository } from './_repositories/users.repository';
@@ -16,7 +16,7 @@ export class UsersService {
   constructor(
     private usersRepository: UsersRepository,
     private prisma: PrismaService,
-    private mailService: MailService
+    private mailService: MailService,
   ) {}
 
   async create(createUserDto: CreateUserDto) {
@@ -91,42 +91,45 @@ export class UsersService {
 
   async sendEmailPassword(email: string) {
     const user = await this.prisma.user.findFirst({
-      where: { email }
-    })
+      where: { email },
+    });
 
     if (!user) {
-      throw new NotFoundException("Usuário não encontrado")
+      throw new NotFoundException('Usuário não encontrado');
     }
 
-    const resetToken = randomUUID()
+    const resetToken = randomUUID();
 
     await this.prisma.user.update({
       where: { email },
-      data: { reset: resetToken }
-    })
+      data: { reset: resetToken },
+    });
 
-    const resetPasswordTemplate = this.mailService.resetPassword(email, user.name, resetToken)
-    await this.mailService.sendEmail(resetPasswordTemplate)
+    const resetPasswordTemplate = this.mailService.resetPassword(
+      email,
+      user.name,
+      resetToken,
+    );
+    await this.mailService.sendEmail(resetPasswordTemplate);
   }
 
   async resetPassword(password: string, resetToken: string) {
     const user = await this.prisma.user.findFirst({
-      where: { reset: resetToken }
-    })
+      where: { reset: resetToken },
+    });
 
     if (!user) {
-      throw new NotFoundException("Usuário não encontrado")
+      throw new NotFoundException('Usuário não encontrado');
     }
 
     await this.prisma.user.update({
       where: {
-        id: user.id
+        id: user.id,
       },
       data: {
         password: hashSync(password, 10),
-        reset: null
-      }
-    })
+        reset: null,
+      },
+    });
   }
-
 }

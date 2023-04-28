@@ -1,74 +1,80 @@
-import Image from "next/image";
 import style from "./style.module.css";
-import cars from "../../assets/carImages/EXTERIOR-frontSidePilotNear-1653845164710-removebg-preview 1.png";
-import perfil from "../../assets/carImages/download.jpeg";
-
-import { useState } from "react";
+import { useContext, useState } from "react";
 import CreateAnnouncementModal from "../Modals/CreateAnnouncementModal";
 import { Button } from "@mui/material";
+import { announcementPage } from "@/context/AnnouncementPageContext";
 
 export default function AnnouncementPage() {
-  const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
+ const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
+ const { userAnnouncements, user } = useContext(announcementPage);
 
-  return (
-    <>
-      <div className={style.containerGeral}>
-        <div className={style.backgroundBlue}></div>
-        <div className={style.perfilUser}>
-          <Image className={style.imgPerfil} src={perfil} alt="img user" />
-          <div className={style.userData}>
-            <h2>Nome</h2>
-            <span>Anunciante</span>
-          </div>
+ if(user){
+   const nome = user.name
+   const nomeSplit = nome.split(" ")
+   var novoNome = nomeSplit[0][0] + nomeSplit[1][0]
+
+ return (
+  <>
+   <div className={style.containerGeral}>
+    <div className={style.backgroundBlue}></div>
+    <div className={style.perfilUser}>
+     <div className={style.imgPerfil} style={{backgroundColor : user?.color}}>{novoNome}</div>
+     <div className={style.userData}>
+      <h2>{user?.name}</h2>
+      <span>{user?.accountType}</span>
+     </div>
+     <p>
+      {user?.description}
+     </p>
+     <Button
+      onClick={() => {
+       setModalIsOpen((prevState) => !prevState);
+      }}
+     >
+      Criar Anuncio
+     </Button>
+    </div>
+
+    <div className={style.containerCards}>
+     <ul className={style.ulContainer}>
+      {userAnnouncements.map((car) => {
+        const price = car.price.toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2})
+       return (
+        <li key={car.id} className={style.liCard}>
+         <div>
+          <img className={style.imgCard} src={car.imagesUrl} alt="Carro" />
+         </div>
+         <div className={style.cardTextContainer}>
+          <h3>{car.model}</h3>
           <p>
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the industrys standard dummy text
-            ever since the 1500s
+          {car.description}
           </p>
-          <Button
-            onClick={() => {
-              setModalIsOpen((prevState) => !prevState);
-            }}
-          >
-            Criar Anuncio
-          </Button>
-        </div>
-
-        <div className={style.containerCards}>
-          <ul className={style.ulContainer}>
-            <li className={style.liCard}>
-              <div>
-                <Image className={style.imgCard} src={cars} alt="Carro" />
-              </div>
-              <div className={style.cardTextContainer}>
-                <h3>Porsche - 718</h3>
-                <p>
-                  Lorem Ipsum is simply dummy text of the printing and
-                  typesetting industry. Lorem...
-                </p>
-              </div>
-              <div className={style.cardDataContainer}>
-                <div className={style.badge}>
-                  <button>0 KM</button>
-                  <button>2019</button>
-                </div>
-                <p>R$ 00.000,00</p>
-              </div>
-              <div className={style.divButtons}>
-                <button>Editar</button>
-                <button>Ver Detalhes</button>
-              </div>
-            </li>
-          </ul>
-        </div>
-        <div className={style.nextPrev}>
-          <span>1 de 2</span>
-          <a href="">Seguinte</a>
-        </div>
-      </div>
-      {modalIsOpen ? (
-        <CreateAnnouncementModal closeModalFunc={setModalIsOpen} />
-      ) : null}
-    </>
-  );
+         </div>
+         <div className={style.cardDataContainer}>
+          <div className={style.badge}>
+           <button>{car.miles} KM</button>
+           <button>{car.year}</button>
+          </div>
+          <p>{price}</p>
+         </div>
+         <div className={style.divButtons}>
+          <button>Editar</button>
+          <button>Ver Detalhes</button>
+         </div>
+        </li>
+       );
+      })}
+     </ul>
+    </div>
+    <div className={style.nextPrev}>
+     <span>1 de 2</span>
+     <a href="">Seguinte</a>
+    </div>
+   </div>
+   {modalIsOpen ? (
+    <CreateAnnouncementModal closeModalFunc={setModalIsOpen} />
+   ) : null}
+  </>
+ );
+   }
 }
