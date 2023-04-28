@@ -1,0 +1,5 @@
+.button_container {
+    margin: 24px 0px 0px auto;
+
+    width: min(100%, 350px);
+}

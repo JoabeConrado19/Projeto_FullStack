@@ -8,8 +8,9 @@ import Slide from '@mui/material/Slide';
 // import Button from '@mui/material/Button';
 // import Typography from '@mui/material/Typography';
 import { useContext, useState, useEffect } from 'react';
+import {AnnouncementsList} from '../../../interfaces/announcement'
+import {IAnnouncementsData} from '../../../interfaces/announcement'
 
-import Announcement from '../../../components/homepage/car'
 
 
 
@@ -17,16 +18,9 @@ export default function MainHome() {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const [brand, setBrand] = useState(undefined);
-  const [model, setModel] = useState(undefined);
-  const [color, setColor] = useState(undefined);
-  const [year, setYear] = useState(undefined);
-  const [fuel, setFuel] = useState(undefined);
-  const [km, setKm] = useState(undefined);
-  const [price, setPrice] = useState(undefined);
-  const [filtered, setFiltered] = useState([])
+  const [filtered, setFiltered] = useState<any>(undefined)
 
-  const { announcements } = useContext(PageContext);
+  const { announcements }:AnnouncementsList = useContext(PageContext);
 
   const styleModal = {
     position: 'absolute' as 'absolute',
@@ -41,72 +35,10 @@ export default function MainHome() {
     p: 4,
   }
 
-  const handlefilter = (filter: string, value: any) => {
-    
-    if (filter == "brand") {
-      setBrand(value)
-    }
-    if (filter == "model") {
-      setModel(value)
-    }
-    if (filter == "color") {
-      setColor(value)
-    }
-
-    if (filter == "year") {
-      setYear(value)
-    }
-
-    if (filter == "fuel") {
-      setFuel(value)
-    }
-
-    if (filter == "km") {
-      setKm(value)
-    }
-
-    if (filter == "price") {
-      setPrice(value)
-    }
-
-  };
-
-  useEffect(() => {
-    if (color) {
-      const filter: any = announcements.filter(item => item.color === color);
-      setFiltered(filter);
-    }
-
-    else if (brand) {
-      const filter: any = announcements.filter(item => item.brand.brandName === brand);
-      setFiltered(filter);
-    }
-
-    else if (model) {
-      const filter: any = announcements.filter(item => item.model === model);
-      setFiltered(filter);
-    }
-
-    else if (year) {
-      const filter: any = announcements.filter(item => item.year === year);
-      setFiltered(filter);
-    }
-
-    else if (fuel) {
-      const filter: any = announcements.filter(item => item.fuelType === fuel);
-      setFiltered(filter);
-    }
-
-    
-
-    
-    else {
-      setFiltered(undefined);
-    }
-  }, [color, brand, model, year, fuel]);
 
   
-  function Announcement({ announcement }: any) {
+  
+  function Announcement({ announcement }: {announcement:IAnnouncementsData}) {
     const price = announcement.price.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
     const nome = announcement.user.name
     const nomeSplit = nome.split(" ")
@@ -195,10 +127,7 @@ export default function MainHome() {
               <div className={style.modalSection}>
                 <h2>Cor</h2>
                 <ul>
-                  <li><a href="#" onClick={(e)=>{
-                    e.preventDefault()
-                    handlefilter("color", "blue")}
-                    }>Azul</a></li>
+                  <li><a href="#">Azul</a></li>
                   <li ><a href="">Branca</a></li>
                   <li><a href="">Cinza</a></li>
                   <li><a href="">Fit</a></li>
@@ -261,58 +190,34 @@ export default function MainHome() {
             <ul>
               <li><a href="" onClick={(e)=>{
                     e.preventDefault()
-                    if(brand?.length > 0){
-                      setBrand(undefined)
-                    }
-                    else{
-                      handlefilter("brand", "General Motors")}
-                    }
-                    }>General Motors</a></li>
+                    const filter: any = announcements.filter((item :any) => item.brand.brandName === "General Motors");
+                    setFiltered(filter);
+                    }}>General Motors</a></li>
               <li><a href="" onClick={(e)=>{
                     e.preventDefault()
-                    if(brand?.length > 0){
-                      setBrand(undefined)
-                    }
-                    else{
-                      handlefilter("brand", "Fiat")}
-                    }
-                    }>Fiat</a></li>
+                    const filter: any = announcements.filter((item :any) => item.brand.brandName === "Fiat");
+                    setFiltered(filter);
+                    }}>Fiat</a></li>
               <li><a href="" onClick={(e)=>{
                     e.preventDefault()
-                    if(brand?.length > 0){
-                      setBrand(undefined)
-                    }
-                    else{
-                      handlefilter("brand", "Ford")}
-                    }
-                    }>Ford</a></li>
+                    const filter: any = announcements.filter((item :any) => item.brand.brandName === "Ford");
+                    setFiltered(filter);
+                    }}>Ford</a></li>
               <li><a href="" onClick={(e)=>{
                     e.preventDefault()
-                    if(brand?.length > 0){
-                      setBrand(undefined)
-                    }
-                    else{
-                      handlefilter("brand", "Honda")}
-                    }
-                    }>Honda</a></li>
+                    const filter: any = announcements.filter((item :any) => item.brand.brandName === "Honda");
+                    setFiltered(filter);
+                    }}>Honda</a></li>
               <li><a href="" onClick={(e)=>{
                     e.preventDefault()
-                    if(brand?.length > 0){
-                      setBrand(undefined)
-                    }
-                    else{
-                      handlefilter("brand", "Porsche")}
-                    }
-                    }>Porsche</a></li>
+                    const filter: any = announcements.filter((item :any) => item.brand.brandName === "Porsche");
+                    setFiltered(filter);
+                    }}>Porsche</a></li>
               <li><a href="" onClick={(e)=>{
                     e.preventDefault()
-                    if(brand?.length > 0){
-                      setBrand(undefined)
-                    }
-                    else{
-                      handlefilter("brand", "Volswagen")}
-                    }
-                    }>volswagen</a></li>
+                    const filter: any = announcements.filter((item :any) => item.brand.brandName === "Volswagen");
+                    setFiltered(filter);
+                    }}>volswagen</a></li>
             </ul>
           </div>
 
@@ -321,76 +226,44 @@ export default function MainHome() {
             <ul>
               <li><a href="" onClick={(e)=>{
                     e.preventDefault()
-                    if(model?.length > 0){
-                      setModel(undefined)
-                    }
-                    else{
-                      handlefilter("model", "Civic")}
-                    }
-                    }>Civic</a></li>
+                    const filter: any = announcements.filter(item => item.model === "Civic");
+                    setFiltered(filter);
+                    }}>Civic</a></li>
               <li><a href="" onClick={(e)=>{
                     e.preventDefault()
-                    if(model?.length > 0){
-                      setModel(undefined)
-                    }
-                    else{
-                      handlefilter("model", "Corolla")}
-                    }
-                    }>Corolla</a></li>
+                    const filter: any = announcements.filter(item => item.model === "Corolla");
+                    setFiltered(filter);
+                    }}>Corolla</a></li>
               <li><a href="" onClick={(e)=>{
                     e.preventDefault()
-                    if(model?.length > 0){
-                      setModel(undefined)
-                    }
-                    else{
-                      handlefilter("model", "Cruze")}
-                    }
-                    }>Cruze</a></li>
+                    const filter: any = announcements.filter(item => item.model === "Cruze");
+                    setFiltered(filter);
+                    }}>Cruze</a></li>
               <li><a href="" onClick={(e)=>{
                     e.preventDefault()
-                    if(model?.length > 0){
-                      setModel(undefined)
-                    }
-                    else{
-                      handlefilter("model", "Fit")}
-                    }
-                    }>Fit</a></li>
+                    const filter: any = announcements.filter(item => item.model === "Fit");
+                    setFiltered(filter);
+                    }}>Fit</a></li>
               <li><a href="" onClick={(e)=>{
                     e.preventDefault()
-                    if(model?.length > 0){
-                      setModel(undefined)
-                    }
-                    else{
-                      handlefilter("model", "Gol")}
-                    }
-                    }>Gol</a></li>
+                    const filter: any = announcements.filter(item => item.model === "Gol");
+                    setFiltered(filter);
+                    }}>Gol</a></li>
               <li><a href="" onClick={(e)=>{
                     e.preventDefault()
-                    if(model?.length > 0){
-                      setModel(undefined)
-                    }
-                    else{
-                      handlefilter("model", "Ka")}
-                    }
-                    }>Ka</a></li>
+                    const filter: any = announcements.filter(item => item.model === "Ka");
+                    setFiltered(filter);
+                    }}>Ka</a></li>
               <li><a href="" onClick={(e)=>{
                     e.preventDefault()
-                    if(model?.length > 0){
-                      setModel(undefined)
-                    }
-                    else{
-                      handlefilter("model", "Onix")}
-                    }
-                    }>Onix</a></li>
+                    const filter: any = announcements.filter(item => item.model === "Onix");
+                    setFiltered(filter);
+                    }}>Onix</a></li>
               <li><a href="" onClick={(e)=>{
                     e.preventDefault()
-                    if(model?.length > 0){
-                      setModel(undefined)
-                    }
-                    else{
-                      handlefilter("model", "Porsche 718")}
-                    }
-                    }>Porsche 718</a></li>
+                    const filter: any = announcements.filter(item => item.model === "Porsche");
+                    setFiltered(filter);
+                    }}>Porsche 718</a></li>
             </ul>
           </div>
 
@@ -399,58 +272,29 @@ export default function MainHome() {
             <ul>
               <li><a href="" onClick={(e)=>{
                     e.preventDefault()
-                    if(color?.length > 0){
-                      setColor(undefined)
-                    }
-                    else{
-                      handlefilter("color", "azul")}
-                    }
-                    }>Azul</a></li>
+                    const filter: any = announcements.filter(item => item.color === "cinza");
+                    setFiltered(filter);
+                    }}>Cinza</a></li>
               <li><a href="" onClick={(e)=>{
                     e.preventDefault()
-                    if(color?.length > 0){
-                      setColor(undefined)
-                    }
-                    else{
-                      handlefilter("color", "cinza")}
-                    }
-                    }>Cinza</a></li>
+                    const filter: any = announcements.filter(item => item.color === "fit");
+                    setFiltered(filter);
+                    }}>Fit</a></li>
               <li><a href="" onClick={(e)=>{
                     e.preventDefault()
-                    if(color?.length > 0){
-                      setColor(undefined)
-                    }
-                    else{
-                      handlefilter("color", "fit")}
-                    }
-                    }>Fit</a></li>
+                    const filter: any = announcements.filter(item => item.color === "prata");
+                    setFiltered(filter);
+                    }}>Prata</a></li>
               <li><a href="" onClick={(e)=>{
                     e.preventDefault()
-                    if(color?.length > 0){
-                      setColor(undefined)
-                    }
-                    else{
-                      handlefilter("color", "prata")}
-                    }
-                    }>Prata</a></li>
+                    const filter: any = announcements.filter(item => item.color === "preto");
+                    setFiltered(filter);
+                    }}>Preta</a></li>
               <li><a href="" onClick={(e)=>{
                     e.preventDefault()
-                    if(color?.length > 0){
-                      setColor(undefined)
-                    }
-                    else{
-                      handlefilter("color", "preto")}
-                    }
-                    }>Preta</a></li>
-              <li><a href="" onClick={(e)=>{
-                    e.preventDefault()
-                    if(color?.length > 0){
-                      setColor(undefined)
-                    }
-                    else{
-                      handlefilter("color", "verde")}
-                    }
-                    }>Verde</a></li>
+                    const filter: any = announcements.filter(item => item.color === 'verde');
+                    setFiltered(filter);
+                    }}>Verde</a></li>
             </ul>
           </div>
 
@@ -459,67 +303,39 @@ export default function MainHome() {
             <ul>
               <li><a href="" onClick={(e)=>{
                     e.preventDefault()
-                    if(year?.length > 0){
-                      setYear(undefined)
-                    }
-                    else{
-                      handlefilter("year", "2022")}
-                    }
-                    }>2022</a></li>
+                    const filter: any = announcements.filter(item => item.year === "2022");
+                    setFiltered(filter);
+                    }}>2022</a></li>
               <li><a href="" onClick={(e)=>{
                     e.preventDefault()
-                    if(year?.length > 0){
-                      setYear(undefined)
-                    }
-                    else{
-                      handlefilter("year", "2021")}
-                    }
-                    }>2021</a></li>
+                    const filter: any = announcements.filter(item => item.year === "2021");
+                    setFiltered(filter);
+                    }}>2021</a></li>
               <li><a href="" onClick={(e)=>{
                     e.preventDefault()
-                    if(year?.length > 0){
-                      setYear(undefined)
-                    }
-                    else{
-                      handlefilter("year", "2018")}
-                    }
-                    }>2018</a></li>
+                    const filter: any = announcements.filter(item => item.year === "2018");
+                    setFiltered(filter);
+                    }}>2018</a></li>
               <li><a href="" onClick={(e)=>{
                     e.preventDefault()
-                    if(year?.length > 0){
-                      setYear(undefined)
-                    }
-                    else{
-                      handlefilter("year", "2015")}
-                    }
-                    }>2015</a></li>
+                    const filter: any = announcements.filter(item => item.year === "2015");
+                    setFiltered(filter);
+                    }}>2015</a></li>
               <li><a href="" onClick={(e)=>{
                     e.preventDefault()
-                    if(year?.length > 0){
-                      setYear(undefined)
-                    }
-                    else{
-                      handlefilter("year", "2013")}
-                    }
-                    }>2013</a></li>
+                    const filter: any = announcements.filter(item => item.year === "2013");
+                    setFiltered(filter);
+                    }}>2013</a></li>
               <li><a href="" onClick={(e)=>{
                     e.preventDefault()
-                    if(year?.length > 0){
-                      setYear(undefined)
-                    }
-                    else{
-                      handlefilter("year", "2012")}
-                    }
-                    }>2012</a></li>
+                    const filter: any = announcements.filter(item => item.year === "2012");
+                    setFiltered(filter);
+                    }}>2012</a></li>
               <li><a href="" onClick={(e)=>{
                     e.preventDefault()
-                    if(year?.length > 0){
-                      setYear(undefined)
-                    }
-                    else{
-                      handlefilter("year", "2010")}
-                    }
-                    }>2010</a></li>
+                    const filter: any = announcements.filter(item => item.year === "2010");
+                    setFiltered(filter);
+                    }}>2010</a></li>
             </ul>
           </div>
 
@@ -528,48 +344,40 @@ export default function MainHome() {
             <ul>
               <li><a href="" onClick={(e)=>{
                     e.preventDefault()
-                    if(fuel?.length > 0){
-                      setFuel(undefined)
-                    }
-                    else{
-                      handlefilter("fuel", "Diesel")}
-                    }
-                    }>Diesel</a></li>
+                    const filter: any = announcements.filter(item => item.fuelType === "Diesel");
+                    setFiltered(filter);
+                    }}>Diesel</a></li>
               <li><a href="" onClick={(e)=>{
                     e.preventDefault()
-                    if(fuel?.length > 0){
-                      setFuel(undefined)
-                    }
-                    else{
-                      handlefilter("fuel", "Etanol")}
-                    }
-                    }>Etanol</a></li>
+                    const filter: any = announcements.filter(item => item.fuelType === "Etanol");
+                    setFiltered(filter);
+                    }}>Etanol</a></li>
               <li><a href="" onClick={(e)=>{
                     e.preventDefault()
-                    if(fuel?.length > 0){
-                      setFuel(undefined)
-                    }
-                    else{
-                      handlefilter("fuel", "Gasolina")}
-                    }
-                    }>Gasolina</a></li>
+                    const filter: any = announcements.filter(item => item.fuelType === "Gasolina");
+                    setFiltered(filter);
+                    }}>Gasolina</a></li>
               <li><a href="" onClick={(e)=>{
                     e.preventDefault()
-                    if(fuel?.length > 0){
-                      setFuel(undefined)
-                    }
-                    else{
-                      handlefilter("fuel", "Flex")}
-                    }
-                    }>Flex</a></li>
+                    const filter: any = announcements.filter(item => item.fuelType === "Flex");
+                    setFiltered(filter);
+                    }}>Flex</a></li>
             </ul>
           </div>
 
           <div className={style.asideButtons}>
             <h2>Km</h2>
             <div>
-              <button >Mínima</button>
-              <button>Máxima</button>
+              <button onClick={(e)=>{
+                    e.preventDefault()
+                    const filter: any = announcements.filter(item => item.miles === "Poucas");
+                    setFiltered(filter);
+                    }}>Mínima</button>
+              <button onClick={(e)=>{
+                    e.preventDefault()
+                    const filter: any = announcements.filter(item => item.miles === "Muitas");
+                    setFiltered(filter);
+                    }}>Máxima</button>
             </div>
           </div>
 
@@ -577,39 +385,17 @@ export default function MainHome() {
             <h2>Preço</h2>
             <div>
               <button onClick={(e)=>{
-                e.preventDefault()
-                if(filtered != undefined){
-                  setFiltered(() => {
-                    const newFiltered = announcements.sort((a, b) => b.price - a.price);
-                    return newFiltered;
-                  })
-                }
-                else if(filtered == undefined){
-                  setFiltered(() => {
-                    const newFiltered = announcements.sort((a, b) => b.price - a.price);
-                    return newFiltered;
-                  })
+                    e.preventDefault()
+                    const filter: any = announcements.slice().sort((a, b) => a.price - b.price)
+                    setFiltered(filter)
 
-                }
-                
-              }}>Mínima</button>
+                    }}>Mínima</button>
               <button onClick={(e)=>{
-                e.preventDefault()
-                if(filtered != undefined){
-                  setFiltered(() => {
-                    const newFiltered = announcements.sort((a, b) => b.price - a.price);
-                    return newFiltered;
-                  })
-                }
-                else if(filtered == undefined){
-                  setFiltered(() => {
-                    const newFiltered = announcements.sort((a, b) => b.price - a.price);
-                    return newFiltered;
-                  })
+                    e.preventDefault()
+                    const filter: any = announcements.slice().sort((a, b) => b.price - a.price)
+                    setFiltered(filter)
 
-                }
-                
-              }}>Máxima</button>
+                    }}>Máxima</button>
             </div>
           </div>
         </div>

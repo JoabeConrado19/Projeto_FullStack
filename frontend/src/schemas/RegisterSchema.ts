@@ -1,25 +1,5 @@
 import * as yup from "yup";
-export interface IRegisterSubmit {
-  id?: string;
-  name: string;
-  email: string;
-  cpf: number;
-  phone: number;
-  birthdate: string;
-  description: string;
-  accountType: string | null;
-  address: {
-    cep: number;
-    state: string;
-    city: string;
-    street: string;
-    number: number;
-    complement: string;
-  };
-  password: string;
-  passwordConfirmation: string;
-  profileImage: string;
-}
+
 export const formRegisterSchema = yup.object().shape({
   name: yup
   .string().

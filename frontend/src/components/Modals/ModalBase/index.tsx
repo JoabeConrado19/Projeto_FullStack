@@ -1,20 +1,15 @@
 import { Button } from "@mui/material";
 
 import style from "./style.module.css";
-import buttonStyle from "./style.module.css";
+import buttonStyle from "@/components/Buttons/styles.module.css";
 
-import { Dispatch, ReactNode, SetStateAction } from "react";
-
-interface IModalBase {
-  children: ReactNode;
-  modalTitle: string;
-  closeModal: Dispatch<SetStateAction<boolean>>;
-}
+import { IModalBase } from "@/interfaces/components/modal";
 
 export default function ModalBase({
   children,
   modalTitle,
   closeModal,
+  ...rest
 }: IModalBase) {
   return (
     <div
@@ -22,6 +17,7 @@ export default function ModalBase({
       onClick={() => {
         closeModal((prevState) => !prevState);
       }}
+      {...rest}
     >
       <div
         className={style.modal_container}

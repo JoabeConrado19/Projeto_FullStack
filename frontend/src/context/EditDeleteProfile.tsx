@@ -1,9 +1,7 @@
-import { createContext, ReactNode, useEffect, useRef, useState } from "react";
+import { createContext, ReactNode } from "react";
 import api from "../services/api";
 import { IEditUserSubmit } from "../schemas/editProfileSchema";
-import { ILoginSubmit } from "../schemas/loginSchema";
 import { useRouter } from "next/router";
-import { setCookie, parseCookies } from "nookies";
 
 interface IProviderProps {
   children: ReactNode;
@@ -24,7 +22,7 @@ export const EditDeleteUserProvider = ({ children }: IProviderProps) => {
         console.log(resp.data);
       })
       .catch((err) => {
-        console.log(err);
+        console.error(err);
       });
   };
 

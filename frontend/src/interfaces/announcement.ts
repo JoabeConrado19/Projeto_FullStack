@@ -37,3 +37,7 @@ export interface ICreateAnnounceSchema {
 export interface IImageUrl {
     url: string
 }
+
+export interface AnnouncementsList {
+    announcements?: IAnnouncementsData[];
+  }

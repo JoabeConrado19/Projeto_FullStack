@@ -3,7 +3,7 @@
     margin: 0 auto;
 }
 
-.linkInputContainer {
+.link_input_container {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -13,15 +13,15 @@
     margin: 20px auto;
 }
 
-.linkInputContainer input {
+.link_input_container input {
     padding-right: 32px;
 }
 
-.linkInputContainer div {
+.link_input_container div {
     margin: unset;
 }
 
-.linkInputContainer button {
+.link_input_container button {
     height: 16px;
     width: 16px;
     min-width: unset;
@@ -31,17 +31,12 @@
     transform: translate(50%, 80%);
 }
 
-.buttonAddContainer {
-    width: 95%;
-    margin: 0 auto;
+.add_input_container {
+    width: min(90%, 350px);
 }
 
-.buttonAddContainer > button {
-    width: 100%;
-}
-
-.buttonConfirmCancelContainer {
-    width: fit-content;
+.button_confirm_cancel_container {
+    width: min(100%, 300px);
     margin-left: auto;
     margin-top: 32px;
 

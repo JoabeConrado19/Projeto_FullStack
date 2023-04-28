@@ -8,7 +8,7 @@ import { UsersRepository } from '../users.repository';
 
 @Injectable()
 export class UsersPrismaRepository implements UsersRepository {
-  constructor(private prisma: PrismaService) { }
+  constructor(private prisma: PrismaService) {}
 
   async create(data: CreateUserDto): Promise<User> {
     const user = new User();
@@ -34,7 +34,6 @@ export class UsersPrismaRepository implements UsersRepository {
     const newUser = await this.prisma.user.create({
       data: { ...data, address: {}, color: color },
     });
-
 
     const address = new Address();
     Object.assign(address, {
@@ -69,15 +68,17 @@ export class UsersPrismaRepository implements UsersRepository {
   }
 
   async update(id: string, data: UpdateUserDto): Promise<User> {
-    await this.prisma.user.update({
-      where: { id },
-      data: { ...data, address: {} },
-    });
-
-    await this.prisma.address.update({
-      where: { userId: id },
-      data: { ...data.address, userId: id },
-    });
+    if (data.address) {
+      await this.prisma.address.update({
+        where: { userId: id },
+        data: { ...data.address, userId: id },
+      });
+    } else {
+      await this.prisma.user.update({
+        where: { id },
+        data: { ...data, address: {} },
+      });
+    }
 
     const findUser = await this.prisma.user.findFirst({
       where: { id },
@@ -108,5 +109,4 @@ export class UsersPrismaRepository implements UsersRepository {
 
     return user;
   }
-
 }

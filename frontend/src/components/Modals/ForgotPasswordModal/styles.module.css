@@ -1,0 +1,10 @@
+.modal_body {
+    width: 90%;
+
+    margin: 0 auto;
+}
+
+.button_container {
+    width: min(100%, 300px);
+    margin-left: auto;
+}
