@@ -210,7 +210,7 @@ export const RegisterForm = () => {
               }}
               className={`${
                 userType === "Comprador"
-                  ? buttonStyle.registerButtonSelected
+                  ? buttonStyle.brand1_white_button
                   : ""
               }`}
             >
@@ -223,7 +223,7 @@ export const RegisterForm = () => {
               }}
               className={`${
                 userType === "Anunciante"
-                  ? buttonStyle.registerButtonSelected
+                  ? buttonStyle.brand1_white_button
                   : ""
               }`}
             >

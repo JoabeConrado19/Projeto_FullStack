@@ -1,6 +1,5 @@
-import { Dispatch, SetStateAction, useState, useEffect, useRef } from "react";
+import { Dispatch, SetStateAction, useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { Button } from "@mui/material";
 
 import kenzieKars from "@/services/kenzieKars";
 import ModalBase from "../ModalBase";
@@ -11,7 +10,7 @@ import {
   TextAreaInputComponent,
 } from "@/components/Input";
 import { fuelType } from "@/utils/carData";
-import { ICar } from "@/interfaces/car";
+import { ICar, ICarRequest, IKenzieKar } from "@/interfaces/car";
 
 import { formCreateAnnounceSchema } from "@/schemas/createAnnounceSchema";
 
@@ -31,10 +30,12 @@ export default function CreateAnnouncementModal({
   const [modelOptions, setModelOptions] = useState<any>(null);
 
   const [carData, setCarData] = useState<Partial<ICar> | ICar>({
-    fuel: 1,
+    fuelType: 1,
   });
 
-  const [inputList, setInputList] = useState<[] | (typeof InputComponent)[]>([]);
+  const [inputList, setInputList] = useState<[] | (typeof InputComponent)[]>(
+    []
+  );
 
   useEffect(() => {
     async function getKenzieKars() {
@@ -58,9 +59,14 @@ export default function CreateAnnouncementModal({
   });
 
   const createCarFunc = (data: any) => {
-    data.price = Number(data.price);
+    let { carPriceChart, ...filteredData } = data as ICarRequest;
 
-    console.log(data);
+    filteredData.price = Number(data.price);
+    filteredData.isActive = true;
+
+    const dataFIPEPrice = Object;
+
+    console.log(filteredData);
   };
 
   return (
@@ -72,7 +78,7 @@ export default function CreateAnnouncementModal({
         <SelectInputComponent
           inputId="car-brand"
           label="Marca"
-          register={register("brand")}
+          register={register("brand.brandName")}
           placeholder="Teste"
           options={brandsArr.map((value) => {
             return {
@@ -87,7 +93,7 @@ export default function CreateAnnouncementModal({
 
             setModelOptions(filterModels.data);
           }}
-          errorMessage={errors.brand && errors.brand.message}
+          errorMessage={errors.brand && errors.brand.brandName.message}
         />
         <SelectInputComponent
           disabled={modelOptions ? false : true}
@@ -106,13 +112,13 @@ export default function CreateAnnouncementModal({
             const carName = event.target.value;
 
             const carData = modelOptions?.find(
-              (car: ICar) => car.name === carName
+              (car: IKenzieKar) => car.name === carName
             );
 
             setCarData(carData);
 
             setValue("year", carData.year);
-            setValue("fuelType", carData.fuel);
+            setValue("fuelType", fuelType[carData?.fuel]);
             setValue("carPriceChart", carData.value);
           }}
           errorMessage={errors.model && errors.model.message}
@@ -158,7 +164,7 @@ export default function CreateAnnouncementModal({
           label="Preço tabela FIPE"
           register={register("carPriceChart")}
           placeholder="R$ 70.000,00"
-          value={carData.value?.toLocaleString("pt-BR", {
+          value={carData.price?.toLocaleString("pt-BR", {
             style: "currency",
             currency: "BRL",
           })}
@@ -186,24 +192,27 @@ export default function CreateAnnouncementModal({
           <InputComponent
             inputId="main-image"
             label="Imagem da capa"
-            register={register("images.0.url")}
+            register={register("imagesUrl")}
             type="text"
             placeholder="Insira link da imagem aqui"
             errorMessage={
-              errors.images && "Insira todos os links das imagens"
+              errors.imagesUrl && "Insira o link da imagem principal"
             }
           />
           <InputComponent
             inputId="1-car-image"
             label="1° imagem da galeria"
-            register={register("images.1.url")}
+            register={register("images_url.0.url")}
             type="text"
             placeholder="Insira link da imagem aqui"
+            errorMessage={
+              errors.images_url && "Insira todos os links das imagens"
+            }
           />
           <InputComponent
             inputId="2-car-image"
             label="2° Imagem da galeria"
-            register={register("images.2.url")}
+            register={register("images_url.1.url")}
             type="text"
             placeholder="Insira link da imagem aqui"
           />
@@ -216,7 +225,7 @@ export default function CreateAnnouncementModal({
                 <InputComponent
                   inputId={`${index + 3}-car-image`}
                   label={`${index + 3}° Imagem da galeria`}
-                  register={register(`images.${index + 3}.url`)}
+                  register={register(`images_url.${index + 2}.url`)}
                   type="text"
                   placeholder="Insira link da imagem aqui"
                 />
@@ -252,6 +261,9 @@ export default function CreateAnnouncementModal({
           <ButtonComponent
             type="submit"
             className={`${buttonStyle.brand1_white_button}`}
+            onClick={() => {
+              console.log(errors);
+            }}
           >
             Criar anuncio
           </ButtonComponent>

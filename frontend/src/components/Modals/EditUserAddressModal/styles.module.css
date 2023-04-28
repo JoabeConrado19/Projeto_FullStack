@@ -1,0 +1,19 @@
+.side_to_side_container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.side_to_side_container > div {
+    width: 48%;
+
+    margin: 0;
+}
+
+.buttons_container {
+    display: flex;
+    justify-content: flex-end;
+
+    margin-top: 48px;
+
+    gap: 16px;
+}

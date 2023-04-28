@@ -1,45 +1,45 @@
 .form_container {
-    width: 95%;
-    margin: 0 auto;
+  width: 95%;
+  margin: 0 auto;
 }
 
 .link_input_container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-    position: relative;
+  position: relative;
 
-    margin: 20px auto;
+  margin: 20px auto;
 }
 
 .link_input_container input {
-    padding-right: 32px;
+  padding-right: 32px;
 }
 
 .link_input_container div {
-    margin: unset;
+  margin: unset;
 }
 
 .link_input_container button {
-    height: 16px;
-    width: 16px;
-    min-width: unset;
+  height: 16px;
+  width: 16px;
+  min-width: unset;
 
-    position: absolute;
-    right: 5%;
-    transform: translate(50%, 80%);
+  position: absolute;
+  right: 5%;
+  transform: translate(50%, 80%);
 }
 
 .add_input_container {
-    width: min(90%, 350px);
+  width: min(90%, 350px);
 }
 
 .button_confirm_cancel_container {
-    width: min(100%, 300px);
-    margin-left: auto;
-    margin-top: 32px;
+  width: min(100%, 300px);
+  margin-left: auto;
+  margin-top: 32px;
 
-    display: flex;
-    gap: 16px;
+  display: flex;
+  gap: 16px;
 }

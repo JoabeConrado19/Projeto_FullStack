@@ -3,7 +3,7 @@ import ModalBase from "../ModalBase";
 import {
   InputComponent,
   TextAreaInputComponent,
-} from "../../Input/index";
+} from "@/components/Input";
 import buttonStyle from "@/components/Buttons/styles.module.css";
 import style from "./style.module.css";
 import { useForm } from "react-hook-form";

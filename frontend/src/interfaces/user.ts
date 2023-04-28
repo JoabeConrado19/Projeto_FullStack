@@ -12,10 +12,19 @@ export interface IUserData {
   profileImage: string;
   accountType: string;
   color: string;
-  // address:
+  address: IAddressData;
   cars: ICar[];
   // comments:
 }
+
+export interface IAddressData {
+  cep: number;
+  state: string;
+  city: string;
+  street: string;
+  number: number;
+  complement: string;
+};
 
 export interface ILoginSubmit {
   email: string;
@@ -29,14 +38,7 @@ export interface IRegisterSubmit {
   birthdate: string;
   description: string;
   accountType: string | null;
-  address: {
-    cep: number;
-    state: string;
-    city: string;
-    street: string;
-    number: number;
-    complement: string;
-  };
+  address: IAddressData;
   password: string;
   passwordConfirmation: string;
   profileImage: string;

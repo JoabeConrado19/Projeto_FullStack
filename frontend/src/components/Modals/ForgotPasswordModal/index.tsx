@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction } from "react";
 import ModalBase from "../ModalBase";
 import { useForm } from "react-hook-form";
-import { InputComponent } from "@/components/Input/modalInputs";
+import { InputComponent } from "@/components/Input";
 import { ButtonComponent } from "@/components/Buttons";
 import buttonStyle from "@/components/Buttons/styles.module.css";
 import styles from "./styles.module.css";

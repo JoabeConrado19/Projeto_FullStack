@@ -1,4 +1,5 @@
-import { Controller, Post, UseGuards, Body } from '@nestjs/common';
+import { Body, Controller, Post, UseGuards } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { AuthService } from './auth.service';
 import { LocalAuthGuard } from './local-auth.guard';
 
@@ -8,8 +9,9 @@ interface IUserLogin {
 }
 
 @Controller('login')
+@ApiTags("login")
 export class AuthController {
-  constructor(private readonly authService: AuthService) {}
+  constructor(private readonly authService: AuthService) { }
 
   @Post()
   @UseGuards(LocalAuthGuard)

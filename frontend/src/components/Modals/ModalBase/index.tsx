@@ -4,6 +4,7 @@ import style from "./style.module.css";
 import buttonStyle from "@/components/Buttons/styles.module.css";
 
 import { IModalBase } from "@/interfaces/components/modal";
+import { useEffect } from "react";
 
 export default function ModalBase({
   children,
@@ -11,6 +12,15 @@ export default function ModalBase({
   closeModal,
   ...rest
 }: IModalBase) {
+
+  useEffect(() => {
+    document.body.style.overflow = "hidden"
+
+    return () => {
+      document.body.style.overflow = "unset"
+    }
+  }, [])
+
   return (
     <div
       className={style.modal_background}

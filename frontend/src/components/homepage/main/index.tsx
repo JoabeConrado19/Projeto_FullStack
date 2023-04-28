@@ -8,8 +8,8 @@ import Slide from '@mui/material/Slide';
 // import Button from '@mui/material/Button';
 // import Typography from '@mui/material/Typography';
 import { useContext, useState, useEffect } from 'react';
-import {AnnouncementsList} from '../../../interfaces/announcement'
-import {IAnnouncementsData} from '../../../interfaces/announcement'
+import { AnnouncementsList } from '../../../interfaces/announcement'
+import { IAnnouncementsData } from '../../../interfaces/announcement'
 
 
 
@@ -20,7 +20,7 @@ export default function MainHome() {
   const handleClose = () => setOpen(false);
   const [filtered, setFiltered] = useState<any>(undefined)
 
-  const { announcements }:AnnouncementsList = useContext(PageContext);
+  const { announcements }: AnnouncementsList = useContext(PageContext);
 
   const styleModal = {
     position: 'absolute' as 'absolute',
@@ -36,9 +36,9 @@ export default function MainHome() {
   }
 
 
-  
-  
-  function Announcement({ announcement }: {announcement:IAnnouncementsData}) {
+
+
+  function Announcement({ announcement }: { announcement: IAnnouncementsData }) {
     const price = announcement.price.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
     const nome = announcement.user.name
     const nomeSplit = nome.split(" ")
@@ -101,78 +101,214 @@ export default function MainHome() {
               <div className={style.modalSection}>
                 <h2>Marca</h2>
                 <ul>
-                  <li><a href="">General Motors</a></li>
-                  <li><a href="">Fiat</a></li>
-                  <li><a href="">Ford</a></li>
-                  <li><a href="">Honda</a></li>
-                  <li><a href="">Porsche</a></li>
-                  <li><a href="">volswagen</a></li>
+                  <li><a href="" onClick={(e) => {
+                    e.preventDefault()
+                    const filter: any = announcements.filter((item: any) => item.brand.brandName === "General Motors");
+                    setFiltered(filter);
+                  }}>General Motors</a></li>
+                  <li><a href="" onClick={(e) => {
+                    e.preventDefault()
+                    const filter: any = announcements.filter((item: any) => item.brand.brandName === "Fiat");
+                    setFiltered(filter);
+                  }}>Fiat</a></li>
+                  <li><a href="" onClick={(e) => {
+                    e.preventDefault()
+                    const filter: any = announcements.filter((item: any) => item.brand.brandName === "Ford");
+                    setFiltered(filter);
+                  }}>Ford</a></li>
+                  <li><a href="" onClick={(e) => {
+                    e.preventDefault()
+                    const filter: any = announcements.filter((item: any) => item.brand.brandName === "Honda");
+                    setFiltered(filter);
+                  }}>Honda</a></li>
+                  <li><a href="" onClick={(e) => {
+                    e.preventDefault()
+                    const filter: any = announcements.filter((item: any) => item.brand.brandName === "Porsche");
+                    setFiltered(filter);
+                  }}>Porsche</a></li>
+                  <li><a href="" onClick={(e) => {
+                    e.preventDefault()
+                    const filter: any = announcements.filter((item: any) => item.brand.brandName === "Volswagen");
+                    setFiltered(filter);
+                  }}>volswagen</a></li>
                 </ul>
               </div>
 
               <div className={style.modalSection}>
                 <h2>Modelo</h2>
                 <ul>
-                  <li><a href="">Civic</a></li>
-                  <li><a href="">Corolla</a></li>
-                  <li><a href="">Cruze</a></li>
-                  <li><a href="">Fit</a></li>
-                  <li><a href="">Gol</a></li>
-                  <li><a href="">Ka</a></li>
-                  <li><a href="">Onix</a></li>
-                  <li><a href="">Porsche 718</a></li>
+                  <li><a href="" onClick={(e) => {
+                    e.preventDefault()
+                    const filter: any = announcements.filter(item => item.model === "Civic");
+                    setFiltered(filter);
+                  }}>Civic</a></li>
+                  <li><a href="" onClick={(e) => {
+                    e.preventDefault()
+                    const filter: any = announcements.filter(item => item.model === "Corolla");
+                    setFiltered(filter);
+                  }}>Corolla</a></li>
+                  <li><a href="" onClick={(e) => {
+                    e.preventDefault()
+                    const filter: any = announcements.filter(item => item.model === "Cruze");
+                    setFiltered(filter);
+                  }}>Cruze</a></li>
+                  <li><a href="" onClick={(e) => {
+                    e.preventDefault()
+                    const filter: any = announcements.filter(item => item.model === "Fit");
+                    setFiltered(filter);
+                  }}>Fit</a></li>
+                  <li><a href="" onClick={(e) => {
+                    e.preventDefault()
+                    const filter: any = announcements.filter(item => item.model === "Gol");
+                    setFiltered(filter);
+                  }}>Gol</a></li>
+                  <li><a href="" onClick={(e) => {
+                    e.preventDefault()
+                    const filter: any = announcements.filter(item => item.model === "Ka");
+                    setFiltered(filter);
+                  }}>Ka</a></li>
+                  <li><a href="" onClick={(e) => {
+                    e.preventDefault()
+                    const filter: any = announcements.filter(item => item.model === "Onix");
+                    setFiltered(filter);
+                  }}>Onix</a></li>
+                  <li><a href="" onClick={(e) => {
+                    e.preventDefault()
+                    const filter: any = announcements.filter(item => item.model === "Porsche");
+                    setFiltered(filter);
+                  }}>Porsche 718</a></li>
                 </ul>
               </div>
 
               <div className={style.modalSection}>
                 <h2>Cor</h2>
                 <ul>
-                  <li><a href="#">Azul</a></li>
-                  <li ><a href="">Branca</a></li>
-                  <li><a href="">Cinza</a></li>
-                  <li><a href="">Fit</a></li>
-                  <li><a href="">Prata</a></li>
-                  <li><a href="">Preta</a></li>
-                  <li><a href="">Verde</a></li>
+                  <li><a href="" onClick={(e) => {
+                    e.preventDefault()
+                    const filter: any = announcements.filter(item => item.color === "cinza");
+                    setFiltered(filter);
+                  }}>Cinza</a></li>
+                  <li><a href="" onClick={(e) => {
+                    e.preventDefault()
+                    const filter: any = announcements.filter(item => item.color === "fit");
+                    setFiltered(filter);
+                  }}>Fit</a></li>
+                  <li><a href="" onClick={(e) => {
+                    e.preventDefault()
+                    const filter: any = announcements.filter(item => item.color === "prata");
+                    setFiltered(filter);
+                  }}>Prata</a></li>
+                  <li><a href="" onClick={(e) => {
+                    e.preventDefault()
+                    const filter: any = announcements.filter(item => item.color === "preto");
+                    setFiltered(filter);
+                  }}>Preta</a></li>
+                  <li><a href="" onClick={(e) => {
+                    e.preventDefault()
+                    const filter: any = announcements.filter(item => item.color === 'verde');
+                    setFiltered(filter);
+                  }}>Verde</a></li>
                 </ul>
               </div>
 
               <div className={style.modalSection}>
                 <h2>Ano</h2>
                 <ul>
-                  <li><a href="">2022</a></li>
-                  <li><a href="">2021</a></li>
-                  <li><a href="">2018</a></li>
-                  <li><a href="">2015</a></li>
-                  <li><a href="">2013</a></li>
-                  <li><a href="">2012</a></li>
-                  <li><a href="">2010</a></li>
+                  <li><a href="" onClick={(e) => {
+                    e.preventDefault()
+                    const filter: any = announcements.filter(item => item.year === "2022");
+                    setFiltered(filter);
+                  }}>2022</a></li>
+                  <li><a href="" onClick={(e) => {
+                    e.preventDefault()
+                    const filter: any = announcements.filter(item => item.year === "2021");
+                    setFiltered(filter);
+                  }}>2021</a></li>
+                  <li><a href="" onClick={(e) => {
+                    e.preventDefault()
+                    const filter: any = announcements.filter(item => item.year === "2018");
+                    setFiltered(filter);
+                  }}>2018</a></li>
+                  <li><a href="" onClick={(e) => {
+                    e.preventDefault()
+                    const filter: any = announcements.filter(item => item.year === "2015");
+                    setFiltered(filter);
+                  }}>2015</a></li>
+                  <li><a href="" onClick={(e) => {
+                    e.preventDefault()
+                    const filter: any = announcements.filter(item => item.year === "2013");
+                    setFiltered(filter);
+                  }}>2013</a></li>
+                  <li><a href="" onClick={(e) => {
+                    e.preventDefault()
+                    const filter: any = announcements.filter(item => item.year === "2012");
+                    setFiltered(filter);
+                  }}>2012</a></li>
+                  <li><a href="" onClick={(e) => {
+                    e.preventDefault()
+                    const filter: any = announcements.filter(item => item.year === "2010");
+                    setFiltered(filter);
+                  }}>2010</a></li>
                 </ul>
               </div>
 
               <div className={style.modalSection}>
                 <h2>Combustível</h2>
                 <ul>
-                  <li><a href="">Diesel</a></li>
-                  <li><a href="">Etanol</a></li>
-                  <li><a href="">Gasolina</a></li>
-                  <li><a href="">Flex</a></li>
+                  <li><a href="" onClick={(e) => {
+                    e.preventDefault()
+                    const filter: any = announcements.filter(item => item.fuelType === "Diesel");
+                    setFiltered(filter);
+                  }}>Diesel</a></li>
+                  <li><a href="" onClick={(e) => {
+                    e.preventDefault()
+                    const filter: any = announcements.filter(item => item.fuelType === "Etanol");
+                    setFiltered(filter);
+                  }}>Etanol</a></li>
+                  <li><a href="" onClick={(e) => {
+                    e.preventDefault()
+                    const filter: any = announcements.filter(item => item.fuelType === "Gasolina");
+                    setFiltered(filter);
+                  }}>Gasolina</a></li>
+                  <li><a href="" onClick={(e) => {
+                    e.preventDefault()
+                    const filter: any = announcements.filter(item => item.fuelType === "Flex");
+                    setFiltered(filter);
+                  }}>Flex</a></li>
                 </ul>
               </div>
 
               <div className={style.modalBtns}>
                 <h2>Km</h2>
                 <div>
-                  <button>Mínima</button>
-                  <button>Máxima</button>
+                  <button onClick={(e) => {
+                    e.preventDefault()
+                    const filter: any = announcements.filter(item => item.miles === "Poucas");
+                    setFiltered(filter);
+                  }}>Mínima</button>
+                  <button onClick={(e) => {
+                    e.preventDefault()
+                    const filter: any = announcements.filter(item => item.miles === "Muitas");
+                    setFiltered(filter);
+                  }}>Máxima</button>
                 </div>
               </div>
 
               <div className={style.modalBtns}>
                 <h2>Preço</h2>
                 <div>
-                  <button>Mínima</button>
-                  <button>Máxima</button>
+                  <button onClick={(e) => {
+                    e.preventDefault()
+                    const filter: any = announcements.slice().sort((a, b) => a.price - b.price)
+                    setFiltered(filter)
+
+                  }}>Mínima</button>
+                  <button onClick={(e) => {
+                    e.preventDefault()
+                    const filter: any = announcements.slice().sort((a, b) => b.price - a.price)
+                    setFiltered(filter)
+
+                  }}>Máxima</button>
                 </div>
               </div>
               <div className={style.modalBottom}>
@@ -188,214 +324,214 @@ export default function MainHome() {
           <div className={style.list}>
             <h2>Marca</h2>
             <ul>
-              <li><a href="" onClick={(e)=>{
-                    e.preventDefault()
-                    const filter: any = announcements.filter((item :any) => item.brand.brandName === "General Motors");
-                    setFiltered(filter);
-                    }}>General Motors</a></li>
-              <li><a href="" onClick={(e)=>{
-                    e.preventDefault()
-                    const filter: any = announcements.filter((item :any) => item.brand.brandName === "Fiat");
-                    setFiltered(filter);
-                    }}>Fiat</a></li>
-              <li><a href="" onClick={(e)=>{
-                    e.preventDefault()
-                    const filter: any = announcements.filter((item :any) => item.brand.brandName === "Ford");
-                    setFiltered(filter);
-                    }}>Ford</a></li>
-              <li><a href="" onClick={(e)=>{
-                    e.preventDefault()
-                    const filter: any = announcements.filter((item :any) => item.brand.brandName === "Honda");
-                    setFiltered(filter);
-                    }}>Honda</a></li>
-              <li><a href="" onClick={(e)=>{
-                    e.preventDefault()
-                    const filter: any = announcements.filter((item :any) => item.brand.brandName === "Porsche");
-                    setFiltered(filter);
-                    }}>Porsche</a></li>
-              <li><a href="" onClick={(e)=>{
-                    e.preventDefault()
-                    const filter: any = announcements.filter((item :any) => item.brand.brandName === "Volswagen");
-                    setFiltered(filter);
-                    }}>volswagen</a></li>
+              <li><a href="" onClick={(e) => {
+                e.preventDefault()
+                const filter: any = announcements.filter((item: any) => item.brand.brandName === "General Motors");
+                setFiltered(filter);
+              }}>General Motors</a></li>
+              <li><a href="" onClick={(e) => {
+                e.preventDefault()
+                const filter: any = announcements.filter((item: any) => item.brand.brandName === "Fiat");
+                setFiltered(filter);
+              }}>Fiat</a></li>
+              <li><a href="" onClick={(e) => {
+                e.preventDefault()
+                const filter: any = announcements.filter((item: any) => item.brand.brandName === "Ford");
+                setFiltered(filter);
+              }}>Ford</a></li>
+              <li><a href="" onClick={(e) => {
+                e.preventDefault()
+                const filter: any = announcements.filter((item: any) => item.brand.brandName === "Honda");
+                setFiltered(filter);
+              }}>Honda</a></li>
+              <li><a href="" onClick={(e) => {
+                e.preventDefault()
+                const filter: any = announcements.filter((item: any) => item.brand.brandName === "Porsche");
+                setFiltered(filter);
+              }}>Porsche</a></li>
+              <li><a href="" onClick={(e) => {
+                e.preventDefault()
+                const filter: any = announcements.filter((item: any) => item.brand.brandName === "Volswagen");
+                setFiltered(filter);
+              }}>volswagen</a></li>
             </ul>
           </div>
 
           <div className={style.list}>
             <h2>Modelo</h2>
             <ul>
-              <li><a href="" onClick={(e)=>{
-                    e.preventDefault()
-                    const filter: any = announcements.filter(item => item.model === "Civic");
-                    setFiltered(filter);
-                    }}>Civic</a></li>
-              <li><a href="" onClick={(e)=>{
-                    e.preventDefault()
-                    const filter: any = announcements.filter(item => item.model === "Corolla");
-                    setFiltered(filter);
-                    }}>Corolla</a></li>
-              <li><a href="" onClick={(e)=>{
-                    e.preventDefault()
-                    const filter: any = announcements.filter(item => item.model === "Cruze");
-                    setFiltered(filter);
-                    }}>Cruze</a></li>
-              <li><a href="" onClick={(e)=>{
-                    e.preventDefault()
-                    const filter: any = announcements.filter(item => item.model === "Fit");
-                    setFiltered(filter);
-                    }}>Fit</a></li>
-              <li><a href="" onClick={(e)=>{
-                    e.preventDefault()
-                    const filter: any = announcements.filter(item => item.model === "Gol");
-                    setFiltered(filter);
-                    }}>Gol</a></li>
-              <li><a href="" onClick={(e)=>{
-                    e.preventDefault()
-                    const filter: any = announcements.filter(item => item.model === "Ka");
-                    setFiltered(filter);
-                    }}>Ka</a></li>
-              <li><a href="" onClick={(e)=>{
-                    e.preventDefault()
-                    const filter: any = announcements.filter(item => item.model === "Onix");
-                    setFiltered(filter);
-                    }}>Onix</a></li>
-              <li><a href="" onClick={(e)=>{
-                    e.preventDefault()
-                    const filter: any = announcements.filter(item => item.model === "Porsche");
-                    setFiltered(filter);
-                    }}>Porsche 718</a></li>
+              <li><a href="" onClick={(e) => {
+                e.preventDefault()
+                const filter: any = announcements.filter(item => item.model === "Civic");
+                setFiltered(filter);
+              }}>Civic</a></li>
+              <li><a href="" onClick={(e) => {
+                e.preventDefault()
+                const filter: any = announcements.filter(item => item.model === "Corolla");
+                setFiltered(filter);
+              }}>Corolla</a></li>
+              <li><a href="" onClick={(e) => {
+                e.preventDefault()
+                const filter: any = announcements.filter(item => item.model === "Cruze");
+                setFiltered(filter);
+              }}>Cruze</a></li>
+              <li><a href="" onClick={(e) => {
+                e.preventDefault()
+                const filter: any = announcements.filter(item => item.model === "Fit");
+                setFiltered(filter);
+              }}>Fit</a></li>
+              <li><a href="" onClick={(e) => {
+                e.preventDefault()
+                const filter: any = announcements.filter(item => item.model === "Gol");
+                setFiltered(filter);
+              }}>Gol</a></li>
+              <li><a href="" onClick={(e) => {
+                e.preventDefault()
+                const filter: any = announcements.filter(item => item.model === "Ka");
+                setFiltered(filter);
+              }}>Ka</a></li>
+              <li><a href="" onClick={(e) => {
+                e.preventDefault()
+                const filter: any = announcements.filter(item => item.model === "Onix");
+                setFiltered(filter);
+              }}>Onix</a></li>
+              <li><a href="" onClick={(e) => {
+                e.preventDefault()
+                const filter: any = announcements.filter(item => item.model === "Porsche");
+                setFiltered(filter);
+              }}>Porsche 718</a></li>
             </ul>
           </div>
 
           <div className={style.list}>
             <h2>Cor</h2>
             <ul>
-              <li><a href="" onClick={(e)=>{
-                    e.preventDefault()
-                    const filter: any = announcements.filter(item => item.color === "cinza");
-                    setFiltered(filter);
-                    }}>Cinza</a></li>
-              <li><a href="" onClick={(e)=>{
-                    e.preventDefault()
-                    const filter: any = announcements.filter(item => item.color === "fit");
-                    setFiltered(filter);
-                    }}>Fit</a></li>
-              <li><a href="" onClick={(e)=>{
-                    e.preventDefault()
-                    const filter: any = announcements.filter(item => item.color === "prata");
-                    setFiltered(filter);
-                    }}>Prata</a></li>
-              <li><a href="" onClick={(e)=>{
-                    e.preventDefault()
-                    const filter: any = announcements.filter(item => item.color === "preto");
-                    setFiltered(filter);
-                    }}>Preta</a></li>
-              <li><a href="" onClick={(e)=>{
-                    e.preventDefault()
-                    const filter: any = announcements.filter(item => item.color === 'verde');
-                    setFiltered(filter);
-                    }}>Verde</a></li>
+              <li><a href="" onClick={(e) => {
+                e.preventDefault()
+                const filter: any = announcements.filter(item => item.color === "cinza");
+                setFiltered(filter);
+              }}>Cinza</a></li>
+              <li><a href="" onClick={(e) => {
+                e.preventDefault()
+                const filter: any = announcements.filter(item => item.color === "fit");
+                setFiltered(filter);
+              }}>Fit</a></li>
+              <li><a href="" onClick={(e) => {
+                e.preventDefault()
+                const filter: any = announcements.filter(item => item.color === "prata");
+                setFiltered(filter);
+              }}>Prata</a></li>
+              <li><a href="" onClick={(e) => {
+                e.preventDefault()
+                const filter: any = announcements.filter(item => item.color === "preto");
+                setFiltered(filter);
+              }}>Preta</a></li>
+              <li><a href="" onClick={(e) => {
+                e.preventDefault()
+                const filter: any = announcements.filter(item => item.color === 'verde');
+                setFiltered(filter);
+              }}>Verde</a></li>
             </ul>
           </div>
 
           <div className={style.list}>
             <h2>Ano</h2>
             <ul>
-              <li><a href="" onClick={(e)=>{
-                    e.preventDefault()
-                    const filter: any = announcements.filter(item => item.year === "2022");
-                    setFiltered(filter);
-                    }}>2022</a></li>
-              <li><a href="" onClick={(e)=>{
-                    e.preventDefault()
-                    const filter: any = announcements.filter(item => item.year === "2021");
-                    setFiltered(filter);
-                    }}>2021</a></li>
-              <li><a href="" onClick={(e)=>{
-                    e.preventDefault()
-                    const filter: any = announcements.filter(item => item.year === "2018");
-                    setFiltered(filter);
-                    }}>2018</a></li>
-              <li><a href="" onClick={(e)=>{
-                    e.preventDefault()
-                    const filter: any = announcements.filter(item => item.year === "2015");
-                    setFiltered(filter);
-                    }}>2015</a></li>
-              <li><a href="" onClick={(e)=>{
-                    e.preventDefault()
-                    const filter: any = announcements.filter(item => item.year === "2013");
-                    setFiltered(filter);
-                    }}>2013</a></li>
-              <li><a href="" onClick={(e)=>{
-                    e.preventDefault()
-                    const filter: any = announcements.filter(item => item.year === "2012");
-                    setFiltered(filter);
-                    }}>2012</a></li>
-              <li><a href="" onClick={(e)=>{
-                    e.preventDefault()
-                    const filter: any = announcements.filter(item => item.year === "2010");
-                    setFiltered(filter);
-                    }}>2010</a></li>
+              <li><a href="" onClick={(e) => {
+                e.preventDefault()
+                const filter: any = announcements.filter(item => item.year === "2022");
+                setFiltered(filter);
+              }}>2022</a></li>
+              <li><a href="" onClick={(e) => {
+                e.preventDefault()
+                const filter: any = announcements.filter(item => item.year === "2021");
+                setFiltered(filter);
+              }}>2021</a></li>
+              <li><a href="" onClick={(e) => {
+                e.preventDefault()
+                const filter: any = announcements.filter(item => item.year === "2018");
+                setFiltered(filter);
+              }}>2018</a></li>
+              <li><a href="" onClick={(e) => {
+                e.preventDefault()
+                const filter: any = announcements.filter(item => item.year === "2015");
+                setFiltered(filter);
+              }}>2015</a></li>
+              <li><a href="" onClick={(e) => {
+                e.preventDefault()
+                const filter: any = announcements.filter(item => item.year === "2013");
+                setFiltered(filter);
+              }}>2013</a></li>
+              <li><a href="" onClick={(e) => {
+                e.preventDefault()
+                const filter: any = announcements.filter(item => item.year === "2012");
+                setFiltered(filter);
+              }}>2012</a></li>
+              <li><a href="" onClick={(e) => {
+                e.preventDefault()
+                const filter: any = announcements.filter(item => item.year === "2010");
+                setFiltered(filter);
+              }}>2010</a></li>
             </ul>
           </div>
 
           <div className={style.list}>
             <h2>Combustível</h2>
             <ul>
-              <li><a href="" onClick={(e)=>{
-                    e.preventDefault()
-                    const filter: any = announcements.filter(item => item.fuelType === "Diesel");
-                    setFiltered(filter);
-                    }}>Diesel</a></li>
-              <li><a href="" onClick={(e)=>{
-                    e.preventDefault()
-                    const filter: any = announcements.filter(item => item.fuelType === "Etanol");
-                    setFiltered(filter);
-                    }}>Etanol</a></li>
-              <li><a href="" onClick={(e)=>{
-                    e.preventDefault()
-                    const filter: any = announcements.filter(item => item.fuelType === "Gasolina");
-                    setFiltered(filter);
-                    }}>Gasolina</a></li>
-              <li><a href="" onClick={(e)=>{
-                    e.preventDefault()
-                    const filter: any = announcements.filter(item => item.fuelType === "Flex");
-                    setFiltered(filter);
-                    }}>Flex</a></li>
+              <li><a href="" onClick={(e) => {
+                e.preventDefault()
+                const filter: any = announcements.filter(item => item.fuelType === "Diesel");
+                setFiltered(filter);
+              }}>Diesel</a></li>
+              <li><a href="" onClick={(e) => {
+                e.preventDefault()
+                const filter: any = announcements.filter(item => item.fuelType === "Etanol");
+                setFiltered(filter);
+              }}>Etanol</a></li>
+              <li><a href="" onClick={(e) => {
+                e.preventDefault()
+                const filter: any = announcements.filter(item => item.fuelType === "Gasolina");
+                setFiltered(filter);
+              }}>Gasolina</a></li>
+              <li><a href="" onClick={(e) => {
+                e.preventDefault()
+                const filter: any = announcements.filter(item => item.fuelType === "Flex");
+                setFiltered(filter);
+              }}>Flex</a></li>
             </ul>
           </div>
 
           <div className={style.asideButtons}>
             <h2>Km</h2>
             <div>
-              <button onClick={(e)=>{
-                    e.preventDefault()
-                    const filter: any = announcements.filter(item => item.miles === "Poucas");
-                    setFiltered(filter);
-                    }}>Mínima</button>
-              <button onClick={(e)=>{
-                    e.preventDefault()
-                    const filter: any = announcements.filter(item => item.miles === "Muitas");
-                    setFiltered(filter);
-                    }}>Máxima</button>
+              <button onClick={(e) => {
+                e.preventDefault()
+                const filter: any = announcements.filter(item => item.miles === "Poucas");
+                setFiltered(filter);
+              }}>Mínima</button>
+              <button onClick={(e) => {
+                e.preventDefault()
+                const filter: any = announcements.filter(item => item.miles === "Muitas");
+                setFiltered(filter);
+              }}>Máxima</button>
             </div>
           </div>
 
           <div className={style.asideButtons}>
             <h2>Preço</h2>
             <div>
-              <button onClick={(e)=>{
-                    e.preventDefault()
-                    const filter: any = announcements.slice().sort((a, b) => a.price - b.price)
-                    setFiltered(filter)
+              <button onClick={(e) => {
+                e.preventDefault()
+                const filter: any = announcements.slice().sort((a, b) => a.price - b.price)
+                setFiltered(filter)
 
-                    }}>Mínima</button>
-              <button onClick={(e)=>{
-                    e.preventDefault()
-                    const filter: any = announcements.slice().sort((a, b) => b.price - a.price)
-                    setFiltered(filter)
+              }}>Mínima</button>
+              <button onClick={(e) => {
+                e.preventDefault()
+                const filter: any = announcements.slice().sort((a, b) => b.price - a.price)
+                setFiltered(filter)
 
-                    }}>Máxima</button>
+              }}>Máxima</button>
             </div>
           </div>
         </div>
@@ -407,7 +543,7 @@ export default function MainHome() {
               <Announcement key={announcement.id} announcement={announcement} />
             ))
             : announcements.map((announcement: any) => (
-                <Announcement key={announcement.id} announcement={announcement} />
+              <Announcement key={announcement.id} announcement={announcement} />
             ))
           }
 
