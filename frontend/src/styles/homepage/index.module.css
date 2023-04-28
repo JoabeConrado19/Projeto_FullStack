@@ -148,7 +148,7 @@
     width: 75%;
     gap: 2.5rem;
     margin-right: 30px;
-    height: 200px;
+    height: 100%;
     display: flex;
     justify-content: initial;
     flex-wrap: wrap;

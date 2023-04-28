@@ -51,10 +51,10 @@ export const RetrivePasswordForm = () => {
         {errors.passwordConfirmation?.message}
       </p>
       <div className={formStyles.buttonsAreaTwo}>
-        <ButtonComponent type="button">Cancelar</ButtonComponent>
-        <ButtonComponent className={ButtonStyles.brand1_white_button}>
+        <div><ButtonComponent type="button">Cancelar</ButtonComponent></div>
+        <div><ButtonComponent className={ButtonStyles.brand1_white_button}>
           Salvar alterações
-        </ButtonComponent>
+        </ButtonComponent></div>
       </div>
     </form>
   );
