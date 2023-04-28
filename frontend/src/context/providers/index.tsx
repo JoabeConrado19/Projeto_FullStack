@@ -2,6 +2,7 @@ import { ReactNode } from "react";
 import { RegisterUserProvider } from "../RegisterLoginContext";
 import { HomePageProvider } from "../HomePageContext";
 import { EditAdressProvider } from "../EditAddress";
+import { AnnouncementPageProvider } from "../AnnouncementPageContext";
 
 interface IProvidersPropps {
   children: ReactNode;
@@ -9,12 +10,15 @@ interface IProvidersPropps {
 
 const Providers = ({ children }: IProvidersPropps) => {
   return (
-    <RegisterUserProvider>
-  
-        <EditAdressProvider>
-          <HomePageProvider>{children}</HomePageProvider>
-        </EditAdressProvider>
-    </RegisterUserProvider>
+    <>
+      <HomePageProvider>
+        <AnnouncementPageProvider>
+          <EditAdressProvider>
+            <RegisterUserProvider>{children}</RegisterUserProvider>
+          </EditAdressProvider>
+        </AnnouncementPageProvider>
+      </HomePageProvider>
+    </>
   );
 };
 export default Providers;

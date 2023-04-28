@@ -32,6 +32,7 @@ export class CarsPrismaRepository implements CarsRepository {
         price: data.price,
         year: data.year,
         userId: user,
+        isPromotional: data.isPromotional,
       },
     });
 
@@ -58,8 +59,8 @@ export class CarsPrismaRepository implements CarsRepository {
   async findAll(page: string, limit: string): Promise<Car[]> {
     if (limit) {
       const cars = await this.prisma.cars.findMany({
-        skip: parseInt(page),
         take: parseInt(limit),
+        skip: parseInt(page) * parseInt(limit),
         include: {
           images: {
             select: {

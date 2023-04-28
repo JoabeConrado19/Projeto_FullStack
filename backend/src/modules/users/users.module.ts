@@ -11,16 +11,16 @@ import { UsersService } from './users.service';
   imports: [
     MailerModule.forRoot({
       transport: {
-        host: "smtp.gmail.com",
+        host: 'smtp.gmail.com',
         auth: {
           user: process.env.SMTP_USER,
           pass: process.env.SMTP_PASS,
-        }
+        },
       },
       defaults: {
-        from: "grupo16.t13@gmail.com"
-      }
-    })
+        from: 'grupo16.t13@gmail.com',
+      },
+    }),
   ],
   controllers: [UsersController],
   providers: [
@@ -34,4 +34,4 @@ import { UsersService } from './users.service';
   ],
   exports: [UsersService],
 })
-export class UsersModule { }
+export class UsersModule {}

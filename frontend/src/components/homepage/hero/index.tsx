@@ -1,5 +1,4 @@
 import style from '../../../styles/homepage/index.module.css'
-import Img from '../../../assets/MotorsShop.png'
 export default function Hero() {
   return (
     <div className={style.hero}>

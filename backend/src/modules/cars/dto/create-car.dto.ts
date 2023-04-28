@@ -44,6 +44,10 @@ export class CreateCarsDto {
   @ApiProperty()
   price: number;
 
+  @IsBoolean()
+  @IsNotEmpty()
+  isPromotional: boolean;
+
   @IsString()
   @IsNotEmpty()
   @ApiProperty({ required: false })

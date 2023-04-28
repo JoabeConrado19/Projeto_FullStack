@@ -223,13 +223,11 @@ export default function MainHome() {
               const price = announcement.price.toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2})
               const nome = announcement.user.name
               const nomeSplit = nome.split(" ")
-              let novoNome = ""
-              for (let i = 0; i < 2; i++){
-                novoNome += nomeSplit[i] = nomeSplit[i][0].toUpperCase()
-              }
+              let novoNome = nomeSplit[0][0] + nomeSplit[1][0]
               return (
                 <li key={announcement.id}>
                   <div className={style.cardImgContainer}>
+                    <span style={{display: announcement.isPromotional ? 'flex' : 'none'}}>$</span>
                     <img src={announcement.imagesUrl}/>
                   </div>
                   <div className={style.cardTextContainer}>

@@ -20,9 +20,14 @@ model User {
   password    String
   phone       String     @unique
   accountType String
+<<<<<<< HEAD
+  color       String
+  createdAt   DateTime   @default(now())
+=======
   color       String?
   createdAt   DateTime   @default(now())
   reset       String?
+>>>>>>> d7a9463c0316e31bfd24f79b576c5dcc4be4477d
   address     Address?
   cars        Cars[]
   comments    Comments[]
@@ -46,17 +51,18 @@ model Address {
 }
 
 model Cars {
-  id          String   @id @default(uuid())
-  model       String
-  year        String
-  fuelType    String
-  miles       String
-  color       String
-  description String
-  price       Float
-  imagesUrl   String
-  isActive    Boolean
-  createdAt   DateTime @default(now())
+  id            String   @id @default(uuid())
+  model         String
+  year          String
+  fuelType      String
+  miles         String
+  color         String
+  description   String
+  price         Float
+  imagesUrl     String
+  isActive      Boolean
+  isPromotional Boolean  @default(false)
+  createdAt     DateTime @default(now())
 
   userId String?
   user   User?   @relation(fields: [userId], references: [id], onDelete: Cascade)

@@ -9,7 +9,6 @@ export interface IUserData {
   birthdate: string;
   cpf: string;
   createdAt: string;
-  profileImage: string;
   accountType: string;
   color: string;
   address: IAddressData;
