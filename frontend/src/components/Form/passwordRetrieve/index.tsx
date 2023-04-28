@@ -1,40 +1,60 @@
 import formStyles from "./style.module.css";
-import buttonStyle from "../../Buttons/styles.module.css";
-import { ButtonOne, ButtonThree } from "@/components/Buttons";
+import { ButtonComponent } from "../../Buttons/index";
+import ButtonStyles from "../../Buttons/styles.module.css";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import {
-  IEditAdressSubmit,
-  formEditAdressSchema,
-} from "@/schemas/editAdressSchema";
 import { useContext } from "react";
-import { EditAdressContext } from "@/context/EditAddress";
-export const EditAdressForm = () => {
+import { IPasswordReset } from "@/interfaces/user";
+import { ResetPasswordContext } from "@/context/ResetPasswordContext";
+import { passwordResetSchema } from "@/schemas/forgotPasswordSchema";
+import { InputComponent } from "@/components/Input";
+
+export const RetrivePasswordForm = () => {
+  const { resetPassword } = useContext(ResetPasswordContext);
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<IEditAdressSubmit>({
-    resolver: yupResolver(formEditAdressSchema),
+  } = useForm<IPasswordReset>({
+    resolver: yupResolver(passwordResetSchema),
   });
-  const { editAdress } = useContext(EditAdressContext);
-
-
+  
   return (
-    <form className={formStyles.baseForm} onSubmit={handleSubmit(editAdress)}>
+    <form
+      className={formStyles.baseForm}
+      onSubmit={handleSubmit(resetPassword)}
+    >
       <div className={formStyles.formAdressTitleDiv}>
-      <h2 className={`headline-7-500 ${formStyles.titlesFont}`}>Editar endereço</h2>
-      <button className={formStyles.exitButton} type="button">X</button>
+        <h2 className={`headline-7-500 ${formStyles.titlesFont}`}>
+          Recuperar Senha
+        </h2>
       </div>
-      <h3 className={`body-2-500 ${formStyles.AdressSubTitle}`}>Infomações de endereço</h3>
-      
-      <InputOne label="Senha" inputId="senha" type="password" placeHolder="Digitar senha"/>
+      <h3 className={`body-2-500 ${formStyles.AdressSubTitle}`}>
+        Insira sua nova senha!
+      </h3>
+      <InputComponent
+        label="Senha"
+        inputId="senha"
+        placeholder="Digitar senha"
+        register={register("password")}
+        type="password"
+      />
+      <p className={formStyles.errorMessage}>{errors.password?.message}</p>
+      <InputComponent
+        placeholder="Confirmar senha"
+        inputId="confirmar"
+        label="Confirmar Senha"
+        type="password"
+        register={register("passwordConfirmation")}
+      />
+      <p className={formStyles.errorMessage}>
+        {errors.passwordConfirmation?.message}
+      </p>
       <div className={formStyles.buttonsAreaTwo}>
-        <ButtonThree buttonType="button">Cancelar</ButtonThree>
-
-        <button type="submit" className={buttonStyle.buttonConfirmThree}>
+        <ButtonComponent type="button">Cancelar</ButtonComponent>
+        <ButtonComponent className={ButtonStyles.brand1_white_button}>
           Salvar alterações
-        </button>
+        </ButtonComponent>
       </div>
     </form>
   );

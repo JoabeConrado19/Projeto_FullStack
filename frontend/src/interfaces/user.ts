@@ -46,3 +46,8 @@ export interface IRegisterSubmit {
 export interface IForgotPasswordSubmit {
   email: string
 }
+
+export interface IPasswordReset {
+  password: string;
+  passwordConfirmation: string;
+}
