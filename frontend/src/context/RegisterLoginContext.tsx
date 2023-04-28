@@ -1,14 +1,12 @@
 import { createContext, ReactNode, useEffect, useRef, useState } from "react";
-import api from "../services/api";
-import { IRegisterSubmit } from "../schemas/RegisterSchema";
-import { ILoginSubmit } from "@/interfaces/user";
+import api from "@/services/api";
+import { ILoginSubmit, IRegisterSubmit } from "@/interfaces/user";
 import { useRouter } from "next/router";
 import { setCookie, parseCookies } from "nookies";
 
 export interface IProviderProps {
   children: ReactNode;
 }
-
 interface IRegisterProviderData {
   registerUser: (data: IRegisterSubmit) => void;
   loginUser: (data: ILoginSubmit) => void;
@@ -18,6 +16,8 @@ interface IRegisterProviderData {
   setSucessModal:React.Dispatch<React.SetStateAction<boolean>>;
 }
 
+export const UserContext = createContext({} as IRegisterProviderData);
+
 export const RegisterUserProvider = ({ children }: IProviderProps) => {
   const router = useRouter();
   const [userType, setUserType] = useState<string>("Comprador");
@@ -26,15 +26,14 @@ export const RegisterUserProvider = ({ children }: IProviderProps) => {
   const registerUser = async (data: IRegisterSubmit) => {
     const { passwordConfirmation, ...newBody } = data;
     newBody.accountType = userType;
-    newBody.profileImage = "pedddrof";
+  
     await api
       .post("/users", newBody)
       .then((resp) => {
-        router.push("/login");
         setSucessModal(true)
       })
       .catch((err) => {
-        console.log(err);
+        console.error(err);
       });
   };
 
@@ -48,7 +47,7 @@ export const RegisterUserProvider = ({ children }: IProviderProps) => {
         router.push("/");
       })
       .catch((err) => {
-        console.log(err);
+        console.error(err);
       });
   };
 
@@ -67,5 +66,3 @@ export const RegisterUserProvider = ({ children }: IProviderProps) => {
     </UserContext.Provider>
   );
 };
-
-export const UserContext = createContext({} as IRegisterProviderData);

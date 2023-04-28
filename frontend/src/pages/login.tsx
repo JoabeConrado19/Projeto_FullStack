@@ -1,19 +1,17 @@
 import { LoginForm } from "@/components/Form/login-register";
-import styles from "../components/Form/login-register/style.module.css";
-import HeaderComponent from "../components/Header/index";
+import HeaderComponent from "@/components/Header/index";
 import FooterComponent from "@/components/Footer";
+
+import style from "@/styles/login_register_page/index.module.css";
+
 const LoginPage = () => {
   return (
     <>
       <HeaderComponent />
-      <section className={styles.BackgroundOne}>
+      <div className={style.page_body}>
         <LoginForm />
-        <FooterComponent
-          styles={{
-            width: "100%",
-          }}
-        />
-      </section>
+      </div>
+      <FooterComponent />
     </>
   );
 };
