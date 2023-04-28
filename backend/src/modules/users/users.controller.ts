@@ -8,12 +8,16 @@ import {
   Post,
   UseGuards,
 } from '@nestjs/common';
+import { ApiCreatedResponse, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../auth/jwt.auth.guard';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { User } from './entities/user.entity';
 import { UsersService } from './users.service';
 
+
 @Controller('users')
+@ApiTags("users")
 export class UsersController {
   constructor(private readonly usersService: UsersService) { }
 
@@ -23,18 +27,21 @@ export class UsersController {
   }
   @UseGuards(JwtAuthGuard)
   @Get()
+  @ApiCreatedResponse({ type: User, isArray: true })
   findAll() {
     return this.usersService.findAll();
   }
 
   @UseGuards(JwtAuthGuard)
   @Get(':id')
+  @ApiCreatedResponse({ type: User })
   findOne(@Param('id') id: string) {
     return this.usersService.findOne(id);
   }
 
   @UseGuards(JwtAuthGuard)
   @Patch(':id')
+  @ApiCreatedResponse({ type: User })
   update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
     return this.usersService.update(id, updateUserDto);
   }
