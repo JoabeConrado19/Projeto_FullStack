@@ -1,8 +1,6 @@
 import style from "./style.module.css";
 import buttonStyle from "@/components/Buttons/styles.module.css";
 
-import { Button } from "@mui/material";
-
 import LogoComponent from "../Logo";
 import { useEffect, useState } from "react";
 import api from "@/services/api";
@@ -18,7 +16,6 @@ import { useRouter } from "next/router";
 export default function HeaderComponent() {
   const [userData, setUserData] = useState<null | IUserData>(null);
 
-  const [windowWidth, setWindowWidth] = useState<number>(0);
   const [showMobileMenu, setShowMobileMenu] = useState<boolean>(false);
   const [showMenu, setShowMenu] = useState<boolean>(false);
   const [showEditModal, setShowEditModal] = useState<boolean>(false);

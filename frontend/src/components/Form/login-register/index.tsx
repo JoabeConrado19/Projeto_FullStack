@@ -1,24 +1,22 @@
+import Link from "next/link";
+
+import {
+  formRegisterSchema
+} from "../../../schemas/RegisterSchema";
+import { formLoginSchema } from "../../../schemas/LoginSchema";
+import { ILoginSubmit, IRegisterSubmit } from "@/interfaces/user";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { useContext, useState } from "react";
 import { UserContext } from "@/context/RegisterLoginContext";
-import { yupResolver } from "@hookform/resolvers/yup";
 
 import styles from "./style.module.css";
 
 import { ButtonComponent } from "@/components/Buttons";
 import buttonStyle from "@/components/Buttons/styles.module.css";
-
-import Link from "next/link";
-
-import { formRegisterSchema } from "@/schemas/RegisterSchema";
-import { formLoginSchema } from "@/schemas/LoginSchema";
-import { ILoginSubmit, IRegisterSubmit } from "@/interfaces/user";
-
-import {
-  InputComponent,
-  TextAreaInputComponent,
-} from "@/components/Input/modalInputs";
+import { InputComponent, TextAreaInputComponent } from "@/components/Input";
 import ForgotPasswordModal from "@/components/Modals/ForgotPasswordModal";
+
 
 export const LoginForm = () => {
   const [showForgotPassModal, setShowForgotPassModal] = useState<boolean>(false)

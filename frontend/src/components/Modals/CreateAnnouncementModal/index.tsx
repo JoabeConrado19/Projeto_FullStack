@@ -9,7 +9,7 @@ import {
   InputComponent,
   SelectInputComponent,
   TextAreaInputComponent,
-} from "@/components/Input/modalInputs";
+} from "@/components/Input";
 import { fuelType } from "@/utils/carData";
 import { ICar } from "@/interfaces/car";
 
@@ -34,7 +34,7 @@ export default function CreateAnnouncementModal({
     fuel: 1,
   });
 
-  const [inputList, setInputList] = useState<[] | (typeof InputOne)[]>([]);
+  const [inputList, setInputList] = useState<[] | (typeof InputComponent)[]>([]);
 
   useEffect(() => {
     async function getKenzieKars() {
