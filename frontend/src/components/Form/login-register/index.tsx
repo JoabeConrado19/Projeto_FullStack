@@ -1,19 +1,28 @@
-import styles from "./style.module.css";
-import { ButtonOne, ButtonTwo } from "../../Buttons/index";
-import { InputOne, InputTwo, TextFieldOne } from "../../Input";
-import Link from "next/link";
-import buttonStyle from "../../Buttons/styles.module.css";
-
-import { IRegisterSubmit, formRegisterSchema } from "@/schemas/RegisterSchema";
-import { formLoginSchema } from "@/schemas/LoginSchema";
-import { ILoginSubmit } from "@/interfaces/user";
-
-import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { UserContext } from "@/context/RegisterLoginContext";
+import { yupResolver } from "@hookform/resolvers/yup";
+
+import styles from "./style.module.css";
+
+import { ButtonComponent } from "@/components/Buttons";
+import buttonStyle from "@/components/Buttons/styles.module.css";
+
+import Link from "next/link";
+
+import { formRegisterSchema } from "@/schemas/RegisterSchema";
+import { formLoginSchema } from "@/schemas/LoginSchema";
+import { ILoginSubmit, IRegisterSubmit } from "@/interfaces/user";
+
+import {
+  InputComponent,
+  TextAreaInputComponent,
+} from "@/components/Input/modalInputs";
+import ForgotPasswordModal from "@/components/Modals/ForgotPasswordModal";
 
 export const LoginForm = () => {
+  const [showForgotPassModal, setShowForgotPassModal] = useState<boolean>(false)
+
   const {
     register,
     handleSubmit,
@@ -24,39 +33,56 @@ export const LoginForm = () => {
 
   const { loginUser } = useContext(UserContext);
   return (
-    <form className={styles.baseForm} onSubmit={handleSubmit(loginUser)}>
-      <h2 className={`headline-5-500 ${styles.title}`}>Login</h2>
-      <div className={styles.inputsAreaOne}>
-        <InputOne
-          inputId="user_email"
-          label="Email"
-          placeHolder="Digitar email"
-          register={register("email")}
-          type="email"
-        />
-        <p className={styles.errorMessage}>{errors.email?.message}</p>
-        <InputOne
-          placeHolder={"Digitar senha"}
-          inputId="user_password"
-          label="Senha"
-          register={register("password")}
-          type="password"
-        />
-        <p className={styles.errorMessage}>{errors.password?.message}</p>
-      </div>
-      <div className={styles.buttonsAreaOne}>
-        <p className={`${styles.passwordWarning} body-2-500`}>
-          Esqueci minha senha
-        </p>
-        <ButtonOne buttonType={"submit"}>Entrar</ButtonOne>
-        <p className={`${styles.acountWarningOne} body-2-400`}>
-          Ainda não possui conta
-        </p>
-        <Link className={styles.link} href={"register"}>
-          <ButtonTwo buttonType={"button"}>Cadastrar</ButtonTwo>
-        </Link>
-      </div>
-    </form>
+    <>
+      <form className={styles.base_form} onSubmit={handleSubmit(loginUser)}>
+        <h2 className={`headline-5-500 ${styles.title}`}>Login</h2>
+        <div>
+          <InputComponent
+            inputId="user_email"
+            label="Email"
+            placeholder="Digitar email"
+            register={register("email")}
+            type="email"
+            errorMessage={errors.email?.message}
+          />
+          <InputComponent
+            placeholder={"Digitar senha"}
+            inputId="user_password"
+            label="Senha"
+            register={register("password")}
+            type="password"
+            errorMessage={errors.password?.message}
+          />
+        </div>
+        <div>
+          <button
+            type="button"
+            className={`body-2-500 ${buttonStyle.no_style_button} ${styles.forgot_password}`}
+            onClick={() => {
+              setShowForgotPassModal((prevState) => !prevState)
+            }}
+          >
+            Esqueci minha senha
+          </button>
+          <ButtonComponent
+            type={"submit"}
+            className={buttonStyle.brand1_white_button}
+          >
+            Entrar
+          </ButtonComponent>
+          <p className={`${styles.centered_text} body-2-400`}>
+            Ainda não possui conta?
+          </p>
+          <Link className={styles.link} href={"/register"}>
+            <ButtonComponent type={"button"}>Cadastrar</ButtonComponent>
+          </Link>
+        </div>
+      </form>
+      {showForgotPassModal ? 
+        <ForgotPasswordModal closeModalFunc={setShowForgotPassModal}/> :
+        null
+      }
+    </>
   );
 };
 
@@ -73,172 +99,161 @@ export const RegisterForm = () => {
 
   return (
     <>
-      <form className={styles.baseForm} onSubmit={handleSubmit(registerUser)}>
+      <form className={styles.base_form} onSubmit={handleSubmit(registerUser)}>
         <h2 className={`headline-5-500 ${styles.title}`}>Cadastro</h2>
-        <p className={`body-2-500 ${styles.subTitle}`}>Infomações pessoais</p>
-        <div className={styles.inputsAreaOne}>
-          <InputOne
+        <p className={`body-1-600`}>Infomações pessoais</p>
+        <div className={styles.inputs_area_one}>
+          <InputComponent
             inputId="nome"
             label="Nome"
-            placeHolder="Ex: Samuel Leão"
+            placeholder="Ex: Samuel Leão"
             register={register("name")}
             type="text"
+            errorMessage={errors.name?.message}
           />
-          <p className={styles.errorMessage}>{errors.name?.message}</p>
-          <InputOne
-            placeHolder={"Ex: samuel@kenzie.com.br"}
+          <InputComponent
             inputId="email"
             label="Email"
+            placeholder={"Ex: samuel@kenzie.com.br"}
             register={register("email")}
             type="text"
+            errorMessage={errors.email?.message}
           />
-          <p className={styles.errorMessage}>{errors.email?.message}</p>
-          <InputOne
-            placeHolder={"Ex: 000.000.000-00"}
+          <InputComponent
             inputId="cpf"
             label="CPF"
+            placeholder={"Ex: 000.000.000-00"}
             register={register("cpf")}
             type="text"
+            errorMessage={errors.cpf?.message}
           />
-          <p className={styles.errorMessage}>{errors.cpf?.message}</p>
-          <InputOne
-            placeHolder={"(DDD) 90000-0000"}
+          <InputComponent
             inputId="celular"
             label="Celular"
+            placeholder={"(DDD) 90000-0000"}
             register={register("phone")}
             type="text"
+            errorMessage={errors.phone?.message}
           />
-          <p className={styles.errorMessage}>{errors.phone?.message}</p>
-          <InputOne
-            placeHolder={"00/00/00"}
+          <InputComponent
             inputId="Data de nascimento"
             label="Data nascimento"
+            placeholder={"00/00/00"}
             register={register("birthdate")}
             type="text"
+            errorMessage={errors.birthdate?.message}
           />
-          <p className={styles.errorMessage}>{errors.birthdate?.message}</p>
-          <TextFieldOne
-            placeHolder={"Digitar descrição"}
+          <TextAreaInputComponent
             inputId="Descrição"
             label="Descrição"
+            placeholder={"Digitar descrição"}
             register={register("description")}
-            type="text"
+            errorMessage={errors.description?.message}
           />
-
-          <p className={styles.errorMessage}>{errors.description?.message}</p>
-          <p className="body-2-500">Infomações de endereço</p>
-          <InputOne
-            placeHolder={"00000.000"}
+          <p className="body-1-600">Infomações de endereço</p>
+          <InputComponent
             inputId="cep"
             label="CEP"
+            placeholder={"00000.000"}
             register={register("address.cep")}
             type="text"
+            errorMessage={errors.address?.cep?.message}
           />
-          <p className={styles.errorMessage}>{errors.address?.cep?.message}</p>
           <div className={styles.inputsAreaTwo}>
-            <InputTwo
-              placeHolder={"Digitar Estado"}
+            <InputComponent
               inputId="estado"
               label="Estado"
+              placeholder={"Digitar Estado"}
               register={register("address.state")}
               type="text"
+              errorMessage={errors.address?.state?.message}
             />
-
-            <InputTwo
-              placeHolder={"Digitar cidade"}
+            <InputComponent
               inputId="cidade"
               label="Cidade"
+              placeholder={"Digitar cidade"}
               register={register("address.city")}
               type="text"
+              errorMessage={errors.address?.city?.message}
             />
           </div>
-          <p className={styles.errorMessage}>
-            {errors.address?.state?.message}
-          </p>
-          <p className={styles.errorMessage}>{errors.address?.city?.message}</p>
-          <InputOne
-            placeHolder={"Digitar rua"}
+          <InputComponent
             inputId="rua"
             label="Rua"
+            placeholder={"Digitar rua"}
             register={register("address.street")}
             type="text"
+            errorMessage={errors.address?.street?.message}
           />
-          <p className={styles.errorMessage}>
-            {errors.address?.street?.message}
-          </p>
-          <div className={styles.inputsAreaTwo}>
-            <InputTwo
-              placeHolder={"Digitar número"}
+          <div className={styles.inputs_area_two}>
+            <InputComponent
               inputId="número"
               label="Número"
+              placeholder={"Digitar número"}
               register={register("address.number")}
               type="text"
+              errorMessage={errors.address?.number?.message}
             />
-            <InputTwo
-              placeHolder={"Ex: apart 307"}
+            <InputComponent
               inputId="complemento"
               label="Complemento"
+              placeholder={"Ex: apart 307"}
               register={register("address.complement")}
               type="text"
+              errorMessage={errors.address?.complement?.message}
             />
           </div>
-          <p className={styles.errorMessage}>
-            {errors.address?.complement?.message}
-          </p>
-          <p className={styles.errorMessage}>
-            {errors.address?.number?.message}
-          </p>
-          <p className={`${styles.acountWarningTwo} body-2-500`}>
-            Tipo de conta
-          </p>
-          <div className={styles.buttonsAreaTwo}>
-            <button
+          <p className={`body-1-600`}>Tipo de conta</p>
+          <div className={styles.buttons_area_two}>
+            <ButtonComponent
               type="button"
               onClick={() => {
                 setUserType("Comprador");
               }}
-              className={`${buttonStyle.registerButton} ${
+              className={`${
                 userType === "Comprador"
                   ? buttonStyle.registerButtonSelected
                   : ""
               }`}
             >
               Comprador
-            </button>
-            <button
+            </ButtonComponent>
+            <ButtonComponent
               type="button"
               onClick={() => {
                 setUserType("Anunciante");
               }}
-              className={`${buttonStyle.registerButton} ${
+              className={`${
                 userType === "Anunciante"
                   ? buttonStyle.registerButtonSelected
                   : ""
               }`}
             >
               Anunciante
-            </button>
+            </ButtonComponent>
           </div>
-          <p className={styles.errorMessage}>{errors.accountType?.message}</p>
-          <InputOne
-            placeHolder={"Digitar senha"}
+          <InputComponent
             inputId="senha"
             label="Senha"
+            placeholder={"Digitar senha"}
             register={register("password")}
             type="password"
+            errorMessage={errors.password?.message}
           />
-          <p className={styles.errorMessage}>{errors.password?.message}</p>
-          <InputOne
-            placeHolder={"Digitar senha"}
+          <InputComponent
             inputId="confirmar"
             label="Confirmar Senha"
+            placeholder={"Digitar senha"}
             register={register("passwordConfirmation")}
             type="password"
+            errorMessage={errors.passwordConfirmation?.message}
           />
-          <p className={styles.errorMessage}>
-            {errors.passwordConfirmation?.message}
-          </p>
-          <ButtonOne buttonType={"submit"}>Finalizar cadastro</ButtonOne>
+          <ButtonComponent
+            type={"submit"}
+            className={buttonStyle.brand1_white_button}
+          >
+            Finalizar cadastro
+          </ButtonComponent>
         </div>
       </form>
     </>
