@@ -56,11 +56,26 @@ export class CarsPrismaRepository implements CarsRepository {
     return plainToInstance(Car, findCar);
   }
 
-  async findAll(page: string, limit: string): Promise<Car[]> {
-    if (limit) {
+  async findAll(
+    page: string,
+    limit: string,
+    brand: string,
+    model: string,
+    color: string,
+    year: string,
+    fuelType: string,
+  ): Promise<Car[]> {
+    if (brand || model || color || year || fuelType) {
       const cars = await this.prisma.cars.findMany({
         take: parseInt(limit),
         skip: parseInt(page) * parseInt(limit),
+        where: {
+          brand: { brandName: brand },
+          model: model,
+          color: color,
+          year: year,
+          fuelType: fuelType,
+        },
         include: {
           images: {
             select: {
