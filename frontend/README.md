@@ -25,7 +25,7 @@ $ git clone git@github.com:grupo16-t13-felipe/Projeto_FullStack.git
 npm install
 ```
 
-# 3 - Incializando seu projeto:
+# 3 - Inicializando seu projeto:
 
 ```bash
 cd frontend
