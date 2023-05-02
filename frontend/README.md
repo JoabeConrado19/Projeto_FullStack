@@ -42,14 +42,14 @@ npm run dev
 
 ## 👥 Desenvolvedores responsáveis 👥 ## 
 
-- [x] Julio Mello - <a href="https://github.com/juliomello93" target="_blank">
-- [x] - Henrique Sandim - <a href="https://github.com/HenriqueSandim" target="_blank">
-- [x] Matheus Oliveira - <a href="https://github.com/mt011997" target="_blank">
-- [x] Joabe Conrado - <a href="https://github.com/JoabeConrado19" target="_blank">
-- [x] Pedro Costa - <a href="https://github.com/pedrocosta2" target="_blank">
-
+- [x] [Julio Mello](https://github.com/juliomello93)
+- [x] [Henrique Sandim](https://github.com/HenriqueSandim)
+- [x] [Matheus Oliveira](https://github.com/mt011997)
+- [x] [Joabe Conrado](https://github.com/JoabeConrado19)
+- [x] [Pedro Costa](https://github.com/pedrocosta2)
+ 
 ## Instrutor Responsável pela equipe
-- [x] Felipe Silva - <a href="https://github.com/flp-ads" target="_blank">
+- [x] [Felipe Silva](https://github.com/flp-ads)
 
 ## Kenzie Academy Brasil
-Kenzie <a href="https://github.com/Kenzie-Academy-Brasil-Developers" target="_blank">
+[Kenzie](https://kenzie.com.br/quem-somos?utm_term=kenzie+academy&utm_campaign=INSC-PER-2022-TERMOS-MARCA-SEARCH&utm_source=adwords&utm_medium=google-ads&hsa_acc=2166776305&hsa_cam=15853756022&hsa_grp=137371409172&hsa_ad=648094279880&hsa_src=g&gad=1&gclid=Cj0KCQjw6cKiBhD5ARIsAKXUdyYEIK6wHbdJVYcZrvs__hDHpGLFqvbn6MoHqlouXRq0357JBuhBUVcaAs5aEALw_wcB)
