@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useEffect, useState, Dispatch, SetStateAction } from "react";
 import { IProviderProps } from "./RegisterLoginContext";
 import { parseCookies } from "nookies";
 import api from "@/services/api";
@@ -8,7 +8,8 @@ export const announcementPage = createContext({} as IAnnouncementProviderData)
 
 interface IAnnouncementProviderData{
     userAnnouncements: [] | ICarsData[]
-    user: IUserData | null
+    user: IUserData | null,
+    setUser: Dispatch<SetStateAction<IUserData | null>>
 }
 
 
@@ -43,13 +44,14 @@ export const AnnouncementPageProvider = ({children}: IProviderProps) =>{
             }
         }
         getUser()
-    },[])
+    },[user])
     
     return(
         <announcementPage.Provider
         value={{
             userAnnouncements,
-            user
+            user,
+            setUser
         }}
         >
             {children}
