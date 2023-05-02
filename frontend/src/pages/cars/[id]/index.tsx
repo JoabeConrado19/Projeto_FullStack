@@ -1,14 +1,10 @@
-import FooterComponent from "@/components/Footer";
-import HeaderComponent from "@/components/Header";
-
 import { useRouter } from "next/router";
-import { useEffect } from "react";
 
 import style from "@/styles/carsPage.module.css";
 import buttonStyle from "@/styles/buttons.module.css";
 
 import DetailContainerComponent from "@/components/DetailsContainer";
-import { Button, TextareaAutosize } from "@mui/material";
+import { Button } from "@mui/material";
 
 import Image from "next/image";
 import carImage from "@/assets/carImages/EXTERIOR-frontSidePilotNear-1653845164710-removebg-preview 1.png";
@@ -18,7 +14,6 @@ export default function CarsDetailPage() {
 
   return (
     <>
-      <HeaderComponent />
       <div className={style.page}>
         <div className={style.main_content}>
           <div className={style.wrap_container}>
@@ -179,7 +174,6 @@ export default function CarsDetailPage() {
           </div>
         </div>
       </div>
-      <FooterComponent />
     </>
   );
 }
