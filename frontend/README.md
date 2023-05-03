@@ -1,71 +1,55 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## 🛠 Tecnologias e ferramentas utilizadas no projeto
 
-## Getting Started
+- ✅ [Figma](https://www.figma.com/) - Ferramenta de prototipação
+- ✅ [Next.Js](https://nextjs.org/docs) - O React Framework para Produção
+- ✅ [StyledComponents](https://styled-components.com/) - Aplicação de estilos na aplicação
+- ✅ [Axios](https://axios-http.com/ptbr/docs/intro) - Gerenciamento de requisições HTTP
+- ✅ [React Hook Form](https://reactrouter.com/) - Gerenciador de formulários
+- ✅ [Yup](https://www.npmjs.com/package/yup) - Validações
+- ✅ [React Icons](https://react-icons.github.io/react-icons/) - Lib de ícones pra aplicação
+- ✅ [Nookies Next](https://www.npmjs.com/package/nookies) - Obtendo, configurando e removendo cookies com NEXT.JS
+- ✅ [Vercel](https://vercel.com/) - Ferramenta pra deploy da aplicação
+- ✅ [MUI](https://mui.com/pt/) - Lib de componentes
 
-First, run the development server:
+### 🎲 Preparando o ambiente
+
+# 1 - Faça o clone do repositório
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
+$ git clone git@github.com:grupo16-t13-felipe/Projeto_FullStack.git
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+# 2 - Instale as dependencias do projeto:
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+```bash
+npm install
+```
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+# 3 - Inicializando seu projeto:
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+```bash
+cd frontend
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+npm run dev
+```
 
-## Learn More
+- Após isso, o Next irá te informar em qual porta sua apliação está sendo rodada, EX: "http://localhost:3000"
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+- Prontinho, seu ambiente está totalmente configurado.
 
 ## Deploy on Vercel
+ - Link para o vercel:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 👥 Desenvolvedores responsáveis 👥 ## 
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- ✅ [Julio Mello](https://github.com/juliomello93)
+- ✅ [Henrique Sandim](https://github.com/HenriqueSandim)
+- ✅ [Matheus Oliveira](https://github.com/mt011997)
+- ✅ [Joabe Conrado](https://github.com/JoabeConrado19)
+- ✅ [Pedro Costa](https://github.com/pedrocosta2)
+ 
+## Instrutor Responsável pela equipe
+- 👥 [Felipe Silva](https://github.com/flp-ads)
 
-
-## The MIT License (MIT)
-
--declaração utilizada por conta do Material UI 
-Material-UI
-
-- link para mais informações: https://github.com/mui/material-ui/blob/next/README.md
-
-(c) 2014-present, Material-UI contributors.
-
-This software is released under the MIT License.
-This project is licensed under the terms of the MIT license.
-Copyright (c) 2014 Call-Em-All
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-
+## Kenzie Academy Brasil
+[Kenzie](https://kenzie.com.br/quem-somos?utm_term=kenzie+academy&utm_campaign=INSC-PER-2022-TERMOS-MARCA-SEARCH&utm_source=adwords&utm_medium=google-ads&hsa_acc=2166776305&hsa_cam=15853756022&hsa_grp=137371409172&hsa_ad=648094279880&hsa_src=g&gad=1&gclid=Cj0KCQjw6cKiBhD5ARIsAKXUdyYEIK6wHbdJVYcZrvs__hDHpGLFqvbn6MoHqlouXRq0357JBuhBUVcaAs5aEALw_wcB)

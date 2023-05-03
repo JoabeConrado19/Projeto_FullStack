@@ -19,11 +19,10 @@ import { CreateCarsDto } from './dto/create-car.dto';
 import { UpdateCarsDto } from './dto/update-car.dto';
 import { Car } from './entities/car.entity';
 
-
 @Controller('cars')
-@ApiTags("cars")
+@ApiTags('cars')
 export class CarsController {
-  constructor(private readonly carsService: CarsService) { }
+  constructor(private readonly carsService: CarsService) {}
 
   @UseGuards(JwtAuthGuard)
   @Post('user/:id')
@@ -35,8 +34,24 @@ export class CarsController {
   @Get()
   @UseInterceptors(ClassSerializerInterceptor)
   @ApiCreatedResponse({ type: Car, isArray: true })
-  findAll(@Query('page') page = '0', @Query('limit') limit?: string) {
-    return this.carsService.findAll(page, limit);
+  findAll(
+    @Query('page') page = '0',
+    @Query('limit') limit = '15',
+    @Query('brand') brand?: string,
+    @Query('model') model?: string,
+    @Query('color') color?: string,
+    @Query('year') year?: string,
+    @Query('fuelType') fuelType?: string,
+  ) {
+    return this.carsService.findAll(
+      page,
+      limit,
+      brand,
+      model,
+      color,
+      year,
+      fuelType,
+    );
   }
 
   @Get(':id')

@@ -12,8 +12,24 @@ export class CarsService {
     return cars;
   }
 
-  async findAll(page: string, limit: string) {
-    return this.carsRepository.findAll(page, limit);
+  async findAll(
+    page: string,
+    limit: string,
+    brand: string,
+    model: string,
+    color: string,
+    year: string,
+    fuelType: string,
+  ) {
+    return this.carsRepository.findAll(
+      page,
+      limit,
+      brand,
+      model,
+      color,
+      year,
+      fuelType,
+    );
   }
 
   async findOne(id: string) {
