@@ -1,21 +1,28 @@
 import { PageContext } from "@/context/HomePageContext";
-import style from "../../../styles/homepage/index.module.css";
+import style from "@/styles/homepage/index.module.css";
 import Backdrop from "@mui/material/Backdrop";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Slide from "@mui/material/Slide";
-import { useContext, useState } from "react";
-// import Fade from '@mui/material/Fade';
-// import Button from '@mui/material/Button';
-// import Typography from '@mui/material/Typography';
-import { AnnouncementsList } from "../../../interfaces/announcement";
-import { IAnnouncementsData } from "../../../interfaces/announcement";
+import { useContext, useEffect, useState } from "react";
+import { AnnouncementsList } from "@/interfaces/announcement";
+
+import kenzieKars from "@/services/kenzieKars";
+
+import buttonStyle from "@/components/Buttons/styles.module.css";
+import Announcement from "../car";
+import api from "@/services/api";
+import { ICar } from "@/interfaces/car";
 
 export default function MainHome() {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const [filtered, setFiltered] = useState<any>(undefined);
+
+  const [possibleBrands, setPossibleBrands] = useState<string[] | []>([]);
+  const [filtered, setFiltered] = useState<ICar[] | null>(null);
+
+  const [requestString, setRequestString] = useState<string>(``);
 
   const { announcements }: AnnouncementsList = useContext(PageContext);
 
@@ -32,52 +39,27 @@ export default function MainHome() {
     p: 4,
   };
 
-  function Announcement({
-    announcement,
-  }: {
-    announcement: IAnnouncementsData;
-  }) {
-    const price = announcement.price.toLocaleString("pt-BR", {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
-    });
-    const nome = announcement.user.name;
-    const nomeSplit = nome.split(" ");
-    let novoNome = "";
-    if (nomeSplit.length >= 1) {
-      novoNome = nomeSplit[0][0].toUpperCase();
-      if (nomeSplit.length >= 2) {
-        novoNome += nomeSplit[1][0].toUpperCase();
-      }
-    }
-    return (
-      <li key={announcement.id}>
-        <div className={style.cardImgContainer}>
-          <img src={announcement.imagesUrl} />
-        </div>
-        <div className={style.cardTextContainer}>
-          <h3>{announcement.model}</h3>
-          <p>{announcement.description}</p>
-        </div>
-        <div className={style.cardUserContainer}>
-          <div
-            className={style.circle}
-            style={{ backgroundColor: announcement.user.color }}
-          >
-            {novoNome}
-          </div>
-          <p>{announcement.user.name}</p>
-        </div>
-        <div className={style.cardDataContainer}>
-          <div className={style.badge}>
-            <button>{announcement.miles} KM</button>
-            <button>{announcement.year}</button>
-          </div>
-          <p>R$ {price}</p>
-        </div>
-      </li>
-    );
-  }
+  useEffect(() => {
+    const getKenzieKars = async () => {
+      const kars = await kenzieKars.get("/cars");
+
+      const karsArr = Object.keys(kars.data);
+
+      setPossibleBrands(karsArr);
+    };
+
+    getKenzieKars();
+  }, []);
+
+  useEffect(() => {
+    const getCarsFromApi = async () => {
+      const { data } = await api.get(`/cars?${requestString}`);
+
+      setFiltered(data);
+    };
+
+    getCarsFromApi();
+  }, [requestString]);
 
   return (
     <>
@@ -106,90 +88,19 @@ export default function MainHome() {
                 <h2>Marca</h2>
                 <ul>
                   <li>
-                    <a
-                      href=""
-                      onClick={(e) => {
-                        e.preventDefault();
-                        const filter: any = announcements.filter(
-                          (item: any) =>
-                            item.brand.brandName === "General Motors"
-                        );
-                        setFiltered(filter);
-                      }}
-                    >
+                    <button className={buttonStyle.no_style_button}>
                       General Motors
-                    </a>
+                    </button>
                   </li>
-                  <li>
-                    <a
-                      href=""
-                      onClick={(e) => {
-                        e.preventDefault();
-                        const filter: any = announcements.filter(
-                          (item: any) => item.brand.brandName === "Fiat"
-                        );
-                        setFiltered(filter);
-                      }}
-                    >
-                      Fiat
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href=""
-                      onClick={(e) => {
-                        e.preventDefault();
-                        const filter: any = announcements.filter(
-                          (item: any) => item.brand.brandName === "Ford"
-                        );
-                        setFiltered(filter);
-                      }}
-                    >
-                      Ford
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href=""
-                      onClick={(e) => {
-                        e.preventDefault();
-                        const filter: any = announcements.filter(
-                          (item: any) => item.brand.brandName === "Honda"
-                        );
-                        setFiltered(filter);
-                      }}
-                    >
-                      Honda
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href=""
-                      onClick={(e) => {
-                        e.preventDefault();
-                        const filter: any = announcements.filter(
-                          (item: any) => item.brand.brandName === "Porsche"
-                        );
-                        setFiltered(filter);
-                      }}
-                    >
-                      Porsche
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href=""
-                      onClick={(e) => {
-                        e.preventDefault();
-                        const filter: any = announcements.filter(
-                          (item: any) => item.brand.brandName === "Volswagen"
-                        );
-                        setFiltered(filter);
-                      }}
-                    >
-                      volswagen
-                    </a>
-                  </li>
+                  {possibleBrands?.map((brand, index) => {
+                    return (
+                      <li key={index}>
+                        <button className={buttonStyle.no_style_button}>
+                          {brand[0].toUpperCase() + brand.slice(1)}
+                        </button>
+                      </li>
+                    );
+                  })}
                 </ul>
               </div>
 
@@ -313,78 +224,7 @@ export default function MainHome() {
 
               <div className={style.modalSection}>
                 <h2>Cor</h2>
-                <ul>
-                  <li>
-                    <a
-                      href=""
-                      onClick={(e) => {
-                        e.preventDefault();
-                        const filter: any = announcements.filter(
-                          (item) => item.color === "cinza"
-                        );
-                        setFiltered(filter);
-                      }}
-                    >
-                      Cinza
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href=""
-                      onClick={(e) => {
-                        e.preventDefault();
-                        const filter: any = announcements.filter(
-                          (item) => item.color === "fit"
-                        );
-                        setFiltered(filter);
-                      }}
-                    >
-                      Fit
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href=""
-                      onClick={(e) => {
-                        e.preventDefault();
-                        const filter: any = announcements.filter(
-                          (item) => item.color === "prata"
-                        );
-                        setFiltered(filter);
-                      }}
-                    >
-                      Prata
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href=""
-                      onClick={(e) => {
-                        e.preventDefault();
-                        const filter: any = announcements.filter(
-                          (item) => item.color === "preto"
-                        );
-                        setFiltered(filter);
-                      }}
-                    >
-                      Preta
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href=""
-                      onClick={(e) => {
-                        e.preventDefault();
-                        const filter: any = announcements.filter(
-                          (item) => item.color === "verde"
-                        );
-                        setFiltered(filter);
-                      }}
-                    >
-                      Verde
-                    </a>
-                  </li>
-                </ul>
+                <ul>{}</ul>
               </div>
 
               <div className={style.modalSection}>
@@ -622,89 +462,45 @@ export default function MainHome() {
             <h2>Marca</h2>
             <ul>
               <li>
-                <a
-                  href=""
-                  onClick={(e) => {
-                    e.preventDefault();
-                    const filter: any = announcements.filter(
-                      (item: any) => item.brand.brandName === "General Motors"
-                    );
-                    setFiltered(filter);
+                <button
+                  className={buttonStyle.no_style_button}
+                  onClick={() => {
+                    setRequestString("");
                   }}
                 >
                   General Motors
-                </a>
+                </button>
               </li>
-              <li>
-                <a
-                  href=""
-                  onClick={(e) => {
-                    e.preventDefault();
-                    const filter: any = announcements.filter(
-                      (item: any) => item.brand.brandName === "Fiat"
-                    );
-                    setFiltered(filter);
-                  }}
-                >
-                  Fiat
-                </a>
-              </li>
-              <li>
-                <a
-                  href=""
-                  onClick={(e) => {
-                    e.preventDefault();
-                    const filter: any = announcements.filter(
-                      (item: any) => item.brand.brandName === "Ford"
-                    );
-                    setFiltered(filter);
-                  }}
-                >
-                  Ford
-                </a>
-              </li>
-              <li>
-                <a
-                  href=""
-                  onClick={(e) => {
-                    e.preventDefault();
-                    const filter: any = announcements.filter(
-                      (item: any) => item.brand.brandName === "Honda"
-                    );
-                    setFiltered(filter);
-                  }}
-                >
-                  Honda
-                </a>
-              </li>
-              <li>
-                <a
-                  href=""
-                  onClick={(e) => {
-                    e.preventDefault();
-                    const filter: any = announcements.filter(
-                      (item: any) => item.brand.brandName === "Porsche"
-                    );
-                    setFiltered(filter);
-                  }}
-                >
-                  Porsche
-                </a>
-              </li>
-              <li>
-                <a
-                  href=""
-                  onClick={(e) => {
-                    e.preventDefault();
-                    const filter: any = announcements.filter(
-                      (item: any) => item.brand.brandName === "Volswagen"
-                    );
-                    setFiltered(filter);
-                  }}
-                >
-                  volswagen
-                </a>
-              </li>
+              {possibleBrands?.map((brand, index) => {
+                return (
+                  <li key={index}>
+                    <button
+                      className={buttonStyle.no_style_button}
+                      onClick={() => {
+                        if (requestString.includes("brand")) {
+                          return setRequestString((prevState) => {
+                            let prevStateArr = prevState.split("&");
+
+                            prevStateArr = prevStateArr.filter(
+                              (elem) => !elem.includes("brand")
+                            );
+
+                            prevState = prevStateArr.join("&");
+
+                            return `${prevState}brand=${brand}&`;
+                          });
+                        }
+
+                        return setRequestString(
+                          (prevState) => `${prevState}brand=${brand}&`
+                        );
+                      }}
+                    >
+                      {brand[0].toUpperCase() + brand.slice(1)}
+                    </button>
+                  </li>
+                );
+              })}
             </ul>
           </div>
 
@@ -829,76 +625,13 @@ export default function MainHome() {
           <div className={style.list}>
             <h2>Cor</h2>
             <ul>
-              <li>
-                <a
-                  href=""
-                  onClick={(e) => {
-                    e.preventDefault();
-                    const filter: any = announcements.filter(
-                      (item) => item.color === "cinza"
-                    );
-                    setFiltered(filter);
-                  }}
-                >
-                  Cinza
-                </a>
-              </li>
-              <li>
-                <a
-                  href=""
-                  onClick={(e) => {
-                    e.preventDefault();
-                    const filter: any = announcements.filter(
-                      (item) => item.color === "fit"
-                    );
-                    setFiltered(filter);
-                  }}
-                >
-                  Fit
-                </a>
-              </li>
-              <li>
-                <a
-                  href=""
-                  onClick={(e) => {
-                    e.preventDefault();
-                    const filter: any = announcements.filter(
-                      (item) => item.color === "prata"
-                    );
-                    setFiltered(filter);
-                  }}
-                >
-                  Prata
-                </a>
-              </li>
-              <li>
-                <a
-                  href=""
-                  onClick={(e) => {
-                    e.preventDefault();
-                    const filter: any = announcements.filter(
-                      (item) => item.color === "preto"
-                    );
-                    setFiltered(filter);
-                  }}
-                >
-                  Preta
-                </a>
-              </li>
-              <li>
-                <a
-                  href=""
-                  onClick={(e) => {
-                    e.preventDefault();
-                    const filter: any = announcements.filter(
-                      (item) => item.color === "verde"
-                    );
-                    setFiltered(filter);
-                  }}
-                >
-                  Verde
-                </a>
-              </li>
+              {filtered?.map((car, index) => {                
+                return (
+                  <li key={index}>
+                    <button className={buttonStyle.no_style_button}>{car.color}</button>
+                  </li>
+                )
+              })}
             </ul>
           </div>
 
@@ -1125,19 +858,9 @@ export default function MainHome() {
           </div>
         </div>
         <ul className={style.rightContainer}>
-          {filtered
-            ? filtered.map((announcement: any) => (
-                <Announcement
-                  key={announcement.id}
-                  announcement={announcement}
-                />
-              ))
-            : announcements.map((announcement: any) => (
-                <Announcement
-                  key={announcement.id}
-                  announcement={announcement}
-                />
-              ))}
+          {filtered?.map((announcement: any) => (
+            <Announcement key={announcement.id} announcement={announcement} />
+          ))}
         </ul>
       </div>
 

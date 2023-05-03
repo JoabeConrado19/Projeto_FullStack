@@ -358,14 +358,18 @@
     margin-left: 10px;
 }
 
-.list>ul>li>a {
+.list>ul>li>button {
     font-family: 'Lexend';
     font-style: normal;
     font-weight: 500;
     font-size: 20px;
     line-height: 25px;
-    color: #868E96;
-    text-decoration: none;
+    color: var(--gray-3);
+    transition: 0.2s ease-in-out;
+}
+
+.list>ul>li>button:hover {
+    color: var(--gray-1);
 }
 
 .list > ul > li {
@@ -592,14 +596,18 @@ color: #FFFFFF;
         color: #000000;
     }
 
-    .modalSection > ul > li > a{
+    .modalSection>ul>li>button {
         font-family: 'Lexend';
         font-style: normal;
         font-weight: 500;
-        font-size: 18px;
+        font-size: 20px;
         line-height: 25px;
-        color: #868E96;
-
+        color: var(--gray-3);
+        transition: 0.2s ease-in-out;
+    }
+    
+    .modalSection>ul>li>button:hover {
+        color: var(--gray-1);
     }
 
     .modalBtns{
