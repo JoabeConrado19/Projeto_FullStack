@@ -3,9 +3,16 @@ import { useContext, useState } from "react";
 import CreateAnnouncementModal from "../Modals/CreateAnnouncementModal";
 import { Button } from "@mui/material";
 import { announcementPage } from "@/context/AnnouncementPageContext";
+import EditAnnouncementModal from "../Modals/EditAnnouncementModal";
+import { ButtonComponent } from "../Buttons";
+import { ICar } from "@/interfaces/car";
 
 export default function AnnouncementPage() {
   const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
+
+  const [showCarEditModal, setShowCarEditModal] = useState<boolean>(false);
+  const [targerCarData, setTargetCarData] = useState<ICar>();
+
   const { userAnnouncements, user } = useContext(announcementPage);
 
   if (user) {
@@ -41,7 +48,7 @@ export default function AnnouncementPage() {
 
         <div className={style.containerCards}>
           <ul className={style.ulContainer}>
-            {userAnnouncements.map((car) => {
+            {userAnnouncements.map((car: ICar) => {
               const price = car.price.toLocaleString("pt-BR", {
                 minimumFractionDigits: 2,
                 maximumFractionDigits: 2,
@@ -67,8 +74,16 @@ export default function AnnouncementPage() {
                     <p>{price}</p>
                   </div>
                   <div className={style.divButtons}>
-                    <button>Editar</button>
-                    <button>Ver Detalhes</button>
+                    <ButtonComponent
+                      onClick={() => {
+                        setTargetCarData(car);
+
+                        setShowCarEditModal(true);
+                      }}
+                    >
+                      Editar
+                    </ButtonComponent>
+                    <ButtonComponent>Ver Detalhes</ButtonComponent>
                   </div>
                 </li>
               );
@@ -81,7 +96,16 @@ export default function AnnouncementPage() {
         </div>
       </div>
       {modalIsOpen ? (
-        <CreateAnnouncementModal closeModalFunc={setModalIsOpen} />
+        <CreateAnnouncementModal
+          closeModalFunc={setModalIsOpen}
+          userData={user!}
+        />
+      ) : null}
+      {showCarEditModal ? (
+        <EditAnnouncementModal
+          carActualData={targerCarData!}
+          closeModalFunc={setShowCarEditModal}
+        />
       ) : null}
     </>
   );
