@@ -20,10 +20,12 @@ export default function CarsDetailPage() {
   const { id } = router.query;
   const [targerCarData, setTargetCarData] = useState<ICar>();
   const [commentInput, setCommentInput] = useState<string>();
+  const [comments, setComments] = useState<any>([]);
+
 
   function handleCommentInputChange(event:any) {
     setCommentInput(event.target.value);
-    console.log(event.target.value)
+    
   }
 
 
@@ -53,7 +55,8 @@ export default function CarsDetailPage() {
           );
 
           setTargetCarData(data);
-          console.log(data)
+          setComments([...data.comments])
+          
         } catch {
 
           
@@ -63,6 +66,28 @@ export default function CarsDetailPage() {
 
     getAnnunc();
   }, []);
+
+  useEffect( () => {
+    const getComments = async ()=> {
+      try {
+         
+
+        const { data }: { data: any } = await api.get(
+          `/cars/${id}`
+        );
+
+        setComments([...data.comments])
+        
+      } catch {
+
+        
+      
+    }
+  }
+  getComments()
+     
+
+  }, [comments]);
   
 
   return (
@@ -171,7 +196,23 @@ export default function CarsDetailPage() {
             >
               <p className="headline-6-600">Comentários</p>
               <ul className={style.commentary_list}>
-                <li>
+
+              {comments
+            ? comments.map((comment: any) => (
+              <li>
+              <div className={style.perfil_infos}>
+                <p className={style.comments_profile_pic}>JL</p>
+                <p className="body-2-500">{comment.user.name}</p>
+                <div className={style.gray_dot}></div>
+                <span className="body-2-400">há 3 dias</span>
+              </div>
+              <p className="body-2-400">
+                {comment.description}
+              </p>
+            </li>
+              ))
+            : <p>oii</p>}
+                {/* <li>
                   <div className={style.perfil_infos}>
                     <p className={style.comments_profile_pic}>JL</p>
                     <p className="body-2-500">Julia Lima</p>
@@ -215,7 +256,7 @@ export default function CarsDetailPage() {
                     printer took a galley of type and scrambled it to make a
                     type specimen book.
                   </p>
-                </li>
+                </li> */}
               </ul>
             </DetailContainerComponent>
             <DetailContainerComponent>
@@ -239,12 +280,22 @@ export default function CarsDetailPage() {
                           api.defaults.headers.common.Authorization = `Bearer ${userToken}`;
                 
                           const tokenUserData = parseJwt(userToken);
-                          console.log(tokenUserData)
+                          
                           const { data }: { data: any } = await api.post(
                             `/cars/${id}/comments/${tokenUserData.sub}`,
                             {description: commentInput}
                           );
-                          console.log(data)
+                          
+
+                          const { data2 }: { data2: any } = await api.get(
+                            `/cars/${id}`
+                          );
+                
+
+                          setComments(data2.comments)
+                          
+                          
+                          // setComments((prevComments :any) => [{}, ...prevComments]);
                 
                           // setUserAnnouncements(data.cars);
                           // setUser(data);
