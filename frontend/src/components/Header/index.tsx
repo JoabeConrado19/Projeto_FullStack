@@ -2,49 +2,27 @@ import style from "./style.module.css";
 import buttonStyle from "@/components/Buttons/styles.module.css";
 
 import LogoComponent from "../Logo";
-import { useEffect, useState } from "react";
-import api from "@/services/api";
+import { useEffect, useState, useContext } from "react";
 import Link from "next/link";
-import { parseCookies, destroyCookie } from "nookies";
-import { parseJwt } from "@/utils/jwt";
 import EditUserInfosModal from "../Modals/EditUserInfosModal";
 
-import { IUserData } from "@/interfaces/user";
 import { ButtonComponent } from "../Buttons";
 import { useRouter } from "next/router";
 import EditUserAddressModal from "../Modals/EditUserAddressModal";
 
 import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
+import { announcementPage } from "@/context/AnnouncementPageContext";
+import { destroyCookie } from "nookies";
 
 export default function HeaderComponent() {
-  const [userData, setUserData] = useState<null | IUserData>(null);
-
   const [showMobileMenu, setShowMobileMenu] = useState<boolean>(false);
   const [showMenu, setShowMenu] = useState<boolean>(false);
   const [showEditModal, setShowEditModal] = useState<boolean>(false);
   const [showAddressModal, setShowAddressModal] = useState<boolean>(false);
 
-  const router = useRouter();
+  const { user } = useContext(announcementPage)
 
   useEffect(() => {
-    const getUser = async () => {
-      const userToken = parseCookies().tokenMotorsShop;
-
-      if (userToken) {
-        api.defaults.headers.common.Authorization = `Bearer ${userToken}`;
-
-        const tokenUserData = parseJwt(userToken);
-
-        const { data }: { data: IUserData } = await api.get(
-          `/users/${tokenUserData.sub}`
-        );
-
-        setUserData(data);
-      }
-    };
-
-    getUser();
-
     window.addEventListener("resize", () => {
       if (window.innerWidth < 700) {
         setShowMobileMenu(true);
@@ -52,7 +30,7 @@ export default function HeaderComponent() {
         setShowMobileMenu(false);
       }
     });
-  }, []);
+  }, [user]);
 
   return (
     <header className={style.page_header}>
@@ -98,7 +76,7 @@ export default function HeaderComponent() {
           </li>
         </ul>
         <div className={style.page_header_buttons}>
-          {userData ? (
+          {user ? (
             <div className={style.profile_container}>
               <ButtonComponent
                 className={buttonStyle.no_style_button}
@@ -109,19 +87,19 @@ export default function HeaderComponent() {
                 <div className={style.profile_infos}>
                   <div
                     className={style.profile_image_container}
-                    style={{ backgroundColor: `${userData.color}` }}
+                    style={{ backgroundColor: `${user.color}` }}
                   >
                     <p>
-                      {userData.name.split(" ").reduce((acc, act) => {                        
+                      {user.name.split(" ").reduce((acc, act) => {
                         if (acc.length >= 2) {
-                          return acc
+                          return acc;
                         }
 
-                        return acc += act[0].toLocaleUpperCase();
+                        return (acc += act[0].toLocaleUpperCase());
                       }, "")}
                     </p>
                   </div>
-                  <p>{userData.name}</p>
+                  <p>{user.name}</p>
                 </div>
               </ButtonComponent>
               <ul
@@ -150,7 +128,7 @@ export default function HeaderComponent() {
                     Editar endereço
                   </ButtonComponent>
                 </li>
-                {userData.accountType === "Anunciante" ? (
+                {user.accountType === "Anunciante" ? (
                   <li>
                     <a href="/announcement">
                       <ButtonComponent
@@ -167,7 +145,7 @@ export default function HeaderComponent() {
                     onClick={() => {
                       destroyCookie(undefined, "tokenMotorsShop");
 
-                      router.push("/login");
+                      location.assign("/login")
                     }}
                   >
                     Sair
@@ -197,13 +175,13 @@ export default function HeaderComponent() {
       {showEditModal ? (
         <EditUserInfosModal
           closeModalFunc={setShowEditModal}
-          userData={userData!}
+          userData={user!}
         />
       ) : null}
       {showAddressModal ? (
         <EditUserAddressModal
           closeModalFunc={setShowAddressModal}
-          userData={userData!}
+          userData={user!}
         />
       ) : null}
     </header>

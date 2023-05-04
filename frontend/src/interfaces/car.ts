@@ -19,6 +19,7 @@ export interface ICar {
   price: number;
   imagesUrl: string;
   isActive: boolean;
+  isPromotional: boolean;
   createdAt: string;
   userId: string;
   images: IImages;
@@ -26,7 +27,7 @@ export interface ICar {
 }
 
 export interface ICarRequest extends Partial<ICar> {
-  carPriceChart: string;
+  carPriceChart: number;
 }
 
 export interface IKenzieKar {

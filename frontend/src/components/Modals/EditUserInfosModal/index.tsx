@@ -1,22 +1,15 @@
-import { Dispatch, SetStateAction, useState } from "react";
+import { useState, useContext } from "react";
 import ModalBase from "../ModalBase";
-import {
-  InputComponent,
-  TextAreaInputComponent,
-} from "@/components/Input";
+import { InputComponent, TextAreaInputComponent } from "@/components/Input";
 import buttonStyle from "@/components/Buttons/styles.module.css";
 import style from "./style.module.css";
 import { useForm } from "react-hook-form";
 
 import { ButtonComponent } from "@/components/Buttons";
-import { IUserData } from "@/interfaces/user";
 import api from "@/services/api";
 import DeleteUserConfirmModal from "../DeleteUserConfirmModal";
-
-interface IEditUserInfosModal {
-  closeModalFunc: Dispatch<SetStateAction<boolean>>;
-  userData: IUserData;
-}
+import { IEditUserInfosModal } from "@/interfaces/components/modal";
+import { announcementPage } from "@/context/AnnouncementPageContext";
 
 export default function EditUserInfosModal({
   closeModalFunc,
@@ -26,12 +19,16 @@ export default function EditUserInfosModal({
 
   const { register, handleSubmit } = useForm();
 
-  const editUserRequest = (data: any) => {
+  const { setUser } = useContext(announcementPage)
+
+  const editUserRequest = async (data: any) => {
     const { id } = userData;
 
-    api.patch(`/users/${id}`, data);
+    await api.patch(`/users/${id}`, data);
 
-    location.reload();
+    setUser(null)
+
+    closeModalFunc((prevState) => !prevState)
   };
 
   return (
@@ -81,7 +78,7 @@ export default function EditUserInfosModal({
                 type="button"
                 className={buttonStyle.alert1_white_button}
                 onClick={() => {
-                  setShowDeleteModal(true)
+                  setShowDeleteModal(true);
                 }}
               >
                 Deletar usuário

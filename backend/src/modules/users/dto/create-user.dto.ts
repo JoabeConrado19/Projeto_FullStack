@@ -14,47 +14,59 @@ import { Address } from '../entities/user.entity';
 export class CreateUserDto {
   @IsString()
   @IsNotEmpty()
-  @ApiProperty()
+  @ApiProperty({ example: "Nome Completo" })
   name: string;
 
   @IsEmail()
-  @ApiProperty()
+  @ApiProperty({
+    example: "email@mail.com",
+    description: "Usar email válido para recebimento da senha se for necessária a recuperação!"
+  })
   email: string;
 
   @IsString()
   @IsNotEmpty()
   @MinLength(11)
-  @ApiProperty()
+  @ApiProperty({ example: "123.456.789-10" })
   cpf: string;
 
   @IsString()
   @IsNotEmpty()
-  @ApiProperty()
+  @ApiProperty({ example: "00912345678" })
   phone: string;
 
   @IsString()
   @IsNotEmpty()
-  @ApiProperty()
+  @ApiProperty({ example: "01/01/01" })
   birthdate: string;
 
   @IsString()
   @IsNotEmpty()
-  @ApiProperty()
+  @ApiProperty({ example: "Usuário para teste" })
   description: string;
 
   @IsString()
   @IsNotEmpty()
-  @ApiProperty({ required: false })
+  @ApiProperty({ example: "Vendedor", description: "Este campo define se o usuário será Anunciante ou Comprador" })
   accountType: string;
 
   @IsObject()
   @IsNotEmpty()
-  @ApiProperty()
+  @ApiProperty({
+    example: {
+      "cep": "15000-000",
+      "state": "São Paulo",
+      "city": "São Paulo",
+      "street": "Rua Teste",
+      "number": 1,
+      "complement": "Se houver"
+    },
+  })
   address: Address;
 
   @IsNotEmpty()
   @MinLength(6)
-  @ApiProperty()
+  @ApiProperty({ example: "senhateste123" })
   @Transform(({ value }: { value: string }) => hashSync(value, 10), {
     groups: ['transform'],
   })
