@@ -13,13 +13,15 @@ export class CarsService {
   }
 
   async findAll(
-    page: string,
-    limit: string,
-    brand: string,
-    model: string,
-    color: string,
-    year: string,
-    fuelType: string,
+    page?: string,
+    limit?: string,
+    brand?: string,
+    model?: string,
+    color?: string,
+    year?: string,
+    fuelType?: string,
+    priceMin?: string,
+    priceMax?: string,
   ) {
     return this.carsRepository.findAll(
       page,
@@ -29,6 +31,8 @@ export class CarsService {
       color,
       year,
       fuelType,
+      priceMin,
+      priceMax,
     );
   }
 

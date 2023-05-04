@@ -3,6 +3,7 @@ import { useContext, useState } from "react";
 import CreateAnnouncementModal from "../Modals/CreateAnnouncementModal";
 import { Button } from "@mui/material";
 import { announcementPage } from "@/context/AnnouncementPageContext";
+import CardAnnouncement from "../AnnouncementCarCard";
 
 export default function AnnouncementPage() {
   const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
@@ -23,7 +24,7 @@ export default function AnnouncementPage() {
             className={style.imgPerfil}
             style={{ backgroundColor: user?.color }}
           >
-            {novoNome}
+            {novoNome!}
           </div>
           <div className={style.userData}>
             <h2>{user?.name}</h2>
@@ -47,30 +48,16 @@ export default function AnnouncementPage() {
                 maximumFractionDigits: 2,
               });
               return (
-                <li key={car.id} className={style.liCard}>
-                  <div>
-                    <img
-                      className={style.imgCard}
-                      src={car.imagesUrl}
-                      alt="Carro"
-                    />
-                  </div>
-                  <div className={style.cardTextContainer}>
-                    <h3>{car.model}</h3>
-                    <p>{car.description}</p>
-                  </div>
-                  <div className={style.cardDataContainer}>
-                    <div className={style.badge}>
-                      <button>{car.miles} KM</button>
-                      <button>{car.year}</button>
-                    </div>
-                    <p>{price}</p>
-                  </div>
-                  <div className={style.divButtons}>
-                    <button>Editar</button>
-                    <button>Ver Detalhes</button>
-                  </div>
-                </li>
+                <CardAnnouncement
+                key={car.id}
+                carModel={car.model}
+                carDescription={car.description}
+                carImg={car.imagesUrl}
+                carMiles={car.miles}
+                carYear={car.year}
+                price={price}
+                isActive={car.isActive}
+                />
               );
             })}
           </ul>
