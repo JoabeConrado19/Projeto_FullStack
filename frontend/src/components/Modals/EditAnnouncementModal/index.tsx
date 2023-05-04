@@ -1,39 +1,46 @@
 import { useState, useEffect, useContext } from "react";
+import { IEditAnnouncementModal } from "@/interfaces/components/modal";
 import { useForm } from "react-hook-form";
-
-import kenzieKars from "@/services/kenzieKars";
 import ModalBase from "../ModalBase";
-
 import {
   InputComponent,
   SelectInputComponent,
   TextAreaInputComponent,
 } from "@/components/Input";
-import { fuelType } from "@/utils/carData";
-import { ICar, ICarRequest, IKenzieKar } from "@/interfaces/car";
+import kenzieKars from "@/services/kenzieKars";
 
-import { formCreateAnnounceSchema } from "@/schemas/createAnnounceSchema";
+import styles from "./styles.module.css";
+import createModalStyles from "../CreateAnnouncementModal/style.module.css";
+import buttonStyles from "@/components/Buttons/styles.module.css";
 
-import style from "./style.module.css";
-import buttonStyle from "@/components/Buttons/styles.module.css";
 import { ButtonComponent } from "@/components/Buttons";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { ICreateAnnouncementModal } from "@/interfaces/components/modal";
+import { ICar, IKenzieKar } from "@/interfaces/car";
 import api from "@/services/api";
+import { fuelType } from "@/utils/carData";
 import { announcementPage } from "@/context/AnnouncementPageContext";
 
-export default function CreateAnnouncementModal({
+export default function EditAnnouncementModal({
   closeModalFunc,
-  userData
-}: ICreateAnnouncementModal) {
+  carActualData,
+}: IEditAnnouncementModal) {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    setValue,
+  } = useForm();
+
   const [brandsArr, setBrandsArr] = useState<[] | string[]>([]);
   const [modelOptions, setModelOptions] = useState<any>(null);
+  const [isActive, setIsActive] = useState<boolean>(true);
 
   const [carData, setCarData] = useState<Partial<IKenzieKar> | IKenzieKar>();
 
   const [inputList, setInputList] = useState<[] | (typeof InputComponent)[]>(
     []
   );
+
+  const { setUser } = useContext(announcementPage)
 
   useEffect(() => {
     async function getKenzieKars() {
@@ -44,53 +51,31 @@ export default function CreateAnnouncementModal({
       setBrandsArr(karsArr);
     }
 
+    setValue("isActive", true);
+
     getKenzieKars();
   }, []);
 
-  const { setUser } = useContext(announcementPage)
+  const updateCarFunc = async (data: any) => {
+    data.price = Number(data.price);
 
-  const {
-    register,
-    handleSubmit,
-    setValue,
-    formState: { errors },
-  } = useForm({
-    resolver: yupResolver(formCreateAnnounceSchema),
-  });
-
-  const createCarFunc = async (data: any) => {
-    let { carPriceChart, ...filteredData } = data as ICarRequest;
-
-    filteredData.price = Number(data.price);
-    filteredData.isActive = true;
-
-    const promotionalPrice = carPriceChart - (carPriceChart * 0.05)
-
-    if (filteredData.price <= promotionalPrice) {
-      filteredData.isPromotional = true
-    } else {
-      filteredData.isPromotional = false
-    }
-  
-    await api.post(`/cars/user/${userData.id}`, filteredData).
-    then(() => {
-      setUser(null)
-      
-      closeModalFunc((prevState) => !prevState)
-    })
+    const returnedData = await api
+      .patch(`/cars/${carActualData.id}`, data)
+      .then(() => {
+        closeModalFunc((prevState) => !prevState);
+      });
   };
 
   return (
-    <ModalBase modalTitle="Criar anuncio" closeModal={closeModalFunc}>
+    <ModalBase modalTitle="Editar anúncio" closeModal={closeModalFunc}>
       <form
-        onSubmit={handleSubmit(createCarFunc)}
-        className={style.form_container}
+        onSubmit={handleSubmit(updateCarFunc)}
+        className={createModalStyles.form_container}
       >
         <SelectInputComponent
           inputId="car-brand"
           label="Marca"
           register={register("brand.brandName")}
-          placeholder="Teste"
           options={brandsArr.map((value) => {
             return {
               id: value,
@@ -134,7 +119,8 @@ export default function CreateAnnouncementModal({
           }}
           errorMessage={errors.model && errors.model.message}
         />
-        <div className={style.side_to_side_container}>
+
+        <div className={createModalStyles.side_to_side_container}>
           <InputComponent
             inputId="car-year"
             label="Ano"
@@ -154,7 +140,7 @@ export default function CreateAnnouncementModal({
             errorMessage={errors.model && errors.model.message}
           />
         </div>
-        <div className={style.side_to_side_container}>
+        <div className={createModalStyles.side_to_side_container}>
           <InputComponent
             inputId="car-miles"
             label="Quilometragem"
@@ -172,7 +158,7 @@ export default function CreateAnnouncementModal({
             errorMessage={errors.color && errors.color.message}
           />
         </div>
-        <div className={style.side_to_side_container}>
+        <div className={createModalStyles.side_to_side_container}>
           <InputComponent
             inputId="car-FIPE"
             label="Preço tabela FIPE"
@@ -204,6 +190,33 @@ export default function CreateAnnouncementModal({
           errorMessage={errors.description && errors.description.message}
         />
         <div>
+          <p className="body-2-500">Publicado</p>
+          <div className={createModalStyles.side_to_side_container}>
+            <ButtonComponent
+              onClick={() => {
+                setValue("isActive", true);
+
+                setIsActive(true);
+              }}
+              className={`${isActive ? buttonStyles.brand1_white_button : ""}`}
+              type="button"
+            >
+              Sim
+            </ButtonComponent>
+            <ButtonComponent
+              onClick={() => {
+                setValue("isActive", false);
+
+                setIsActive(false);
+              }}
+              className={`${isActive ? "" : buttonStyles.brand1_white_button}`}
+              type="button"
+            >
+              Não
+            </ButtonComponent>
+          </div>
+        </div>
+        <div>
           <InputComponent
             inputId="main-image"
             label="Imagem da capa"
@@ -217,17 +230,17 @@ export default function CreateAnnouncementModal({
           <InputComponent
             inputId="1-car-image"
             label="1° imagem da galeria"
-            register={register("images.0.url")}
+            register={register("images_url.0.url")}
             type="text"
             placeholder="Insira link da imagem aqui"
             errorMessage={
-              errors.images && "Insira todos os links das imagens"
+              errors.images_url && "Insira todos os links das imagens"
             }
           />
           <InputComponent
             inputId="2-car-image"
             label="2° Imagem da galeria"
-            register={register("images.1.url")}
+            register={register("images_url.1.url")}
             type="text"
             placeholder="Insira link da imagem aqui"
           />
@@ -235,19 +248,19 @@ export default function CreateAnnouncementModal({
             return (
               <div
                 key={`${index + 3}-car-image`}
-                className={style.link_input_container}
+                className={createModalStyles.link_input_container}
               >
                 <InputComponent
                   inputId={`${index + 3}-car-image`}
                   label={`${index + 3}° Imagem da galeria`}
-                  register={register(`images.${index + 2}.url`)}
+                  register={register(`images_url.${index + 2}.url`)}
                   type="text"
                   placeholder="Insira link da imagem aqui"
                 />
               </div>
             );
           })}
-          <div className={style.add_input_container}>
+          <div className={createModalStyles.add_input_container}>
             <ButtonComponent
               type="button"
               onClick={() => {
@@ -257,30 +270,36 @@ export default function CreateAnnouncementModal({
 
                 return "";
               }}
-              className={`${buttonStyle.brand3_bran1_button}`}
+              className={`${buttonStyles.brand3_bran1_button}`}
             >
               Adicionar campo para imagem da galeria
             </ButtonComponent>
           </div>
         </div>
-        <div className={style.button_confirm_cancel_container}>
+        <div className={styles.button_exclude_save_container}>
           <div>
-          <ButtonComponent
-            type="button"
-            onClick={() => {
-              closeModalFunc((prevState) => !prevState);
-            }}
-            className={`${buttonStyle.gray_black_button}`}
-          >
-            Cancelar
-          </ButtonComponent>
+            <ButtonComponent
+              type="button"
+              onClick={async () => {
+                await api.delete(`/cars/${carActualData.id}`)
+
+                setUser(null)
+
+                closeModalFunc((prevState) => !prevState);
+              }}
+              className={`${buttonStyles.gray_black_button}`}
+            >
+              Excluir anuncio
+            </ButtonComponent>
           </div>
-          <ButtonComponent
-            type="submit"
-            className={`${buttonStyle.brand1_white_button}`}
-          >
-            Criar anuncio
-          </ButtonComponent>
+          <div>
+            <ButtonComponent
+              type="submit"
+              className={`${buttonStyles.brand1_white_button}`}
+            >
+              Atualizar
+            </ButtonComponent>
+          </div>
         </div>
       </form>
     </ModalBase>

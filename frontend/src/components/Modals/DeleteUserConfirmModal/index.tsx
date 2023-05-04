@@ -1,6 +1,3 @@
-import { IUserData } from "@/interfaces/user";
-import { Dispatch, SetStateAction } from "react";
-
 import ModalBase from "../ModalBase";
 import { ButtonComponent } from "@/components/Buttons";
 import buttonStyle from "@/components/Buttons/styles.module.css";
@@ -9,11 +6,7 @@ import api from "@/services/api";
 import { useRouter } from "next/router";
 
 import {destroyCookie} from "nookies"
-
-interface IDeleteUserConfirmModal {
-  userData: IUserData;
-  closeModalFunc: Dispatch<SetStateAction<boolean>>;
-}
+import { IDeleteUserConfirmModal } from "@/interfaces/components/modal";
 
 export default function DeleteUserConfirmModal({
   userData,

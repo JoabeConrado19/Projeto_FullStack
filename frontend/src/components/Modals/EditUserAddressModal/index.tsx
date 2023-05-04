@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useContext, useState } from "react";
+import { Dispatch, SetStateAction, useContext } from "react";
 import ModalBase from "../ModalBase";
 import { InputComponent } from "@/components/Input";
 import buttonStyle from "@/components/Buttons/styles.module.css";
@@ -16,6 +16,7 @@ import {
 import { yupResolver } from "@hookform/resolvers/yup";
 import { parseCookies } from "nookies";
 import { parseJwt } from "@/utils/jwt";
+import { announcementPage } from "@/context/AnnouncementPageContext";
 
 interface IEditAddressInfosModal {
   closeModalFunc: Dispatch<SetStateAction<boolean>>;
@@ -34,6 +35,8 @@ export default function EditUserAddressModal({
     resolver: yupResolver(formEditAdressSchema),
   });
 
+  const { setUser } = useContext(announcementPage)
+
   const editAdress = async (data: IEditAdressSubmit) => {
     const token = parseCookies().tokenMotorsShop;
     const parseTokens = parseJwt(token);
@@ -43,7 +46,9 @@ export default function EditUserAddressModal({
     await api
       .patch(`/users/${parseTokens.sub}`, treatedData)
       .then((resp) => {
-        location.reload();
+        setUser(null)
+
+        closeModalFunc((prevState) => !prevState)
       })
       .catch((err) => {
         console.error(err);

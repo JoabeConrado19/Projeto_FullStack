@@ -20,7 +20,7 @@ export const formCreateAnnounceSchema = yup.object({
   price: yup.string().required("Informe o preço"),
   description: yup.string().required("Informe uma descrição"),
   imagesUrl: yup.string().required("Informe um link para a imagem"),
-  images_url: yup
+  images: yup
     .array()
     .of(imagesUrlSchema)
     .required("Informe link para as imagens"),
