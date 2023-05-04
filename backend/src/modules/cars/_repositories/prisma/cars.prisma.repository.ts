@@ -5,6 +5,8 @@ import { CreateCarsDto } from '../../dto/create-car.dto';
 import { UpdateCarsDto } from '../../dto/update-car.dto';
 import { Brand, Car } from '../../entities/car.entity';
 import { CarsRepository } from '../cars.repository';
+import { Comment } from '../../entities/comment.entity';
+import { CreateCommentDto } from '../../dto/create-comments.dto';
 
 @Injectable()
 export class CarsPrismaRepository implements CarsRepository {
@@ -199,5 +201,13 @@ export class CarsPrismaRepository implements CarsRepository {
     await this.prisma.cars.delete({
       where: { id },
     });
+  }
+
+  async createComment(car: string, data: CreateCommentDto): Promise<Comment> {
+    const comment = new Comment();
+    Object.assign(comment, {
+      ...data,
+    });
+    return plainToInstance(Comment, comment);
   }
 }

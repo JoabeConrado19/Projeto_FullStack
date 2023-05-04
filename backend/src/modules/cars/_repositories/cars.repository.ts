@@ -1,4 +1,5 @@
 import { CreateCarsDto } from '../dto/create-car.dto';
+import { CreateCommentDto } from '../dto/create-comments.dto';
 import { UpdateCarsDto } from '../dto/update-car.dto';
 import { Car } from '../entities/car.entity';
 
@@ -16,4 +17,8 @@ export abstract class CarsRepository {
   abstract findOne(id: string): Promise<Car | undefined>;
   abstract update(id: string, data: UpdateCarsDto): Promise<Car>;
   abstract delete(id: string): Promise<void>;
+  abstract createComment(
+    carId: string,
+    data: CreateCommentDto,
+  ): Promise<Comment>;
 }

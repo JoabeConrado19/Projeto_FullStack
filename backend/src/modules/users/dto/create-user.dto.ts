@@ -53,14 +53,14 @@ export class CreateUserDto {
   @IsObject()
   @IsNotEmpty()
   @ApiProperty({
-    example: `${{
+    example: {
       "cep": "15000-000",
       "state": "São Paulo",
       "city": "São Paulo",
       "street": "Rua Teste",
       "number": 1,
       "complement": "Se houver"
-    }}`
+    },
   })
   address: Address;
 
