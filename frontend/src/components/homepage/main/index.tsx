@@ -13,16 +13,24 @@ import buttonStyle from "@/components/Buttons/styles.module.css";
 import Announcement from "../car";
 import api from "@/services/api";
 import { ICar } from "@/interfaces/car";
+import { FilterButtonComponent } from "@/components/Buttons";
 
 export default function MainHome() {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  const [possibleBrands, setPossibleBrands] = useState<string[] | []>([]);
   const [filtered, setFiltered] = useState<ICar[] | null>(null);
 
-  const [requestString, setRequestString] = useState<string>(``);
+  const [avaliableBrands, setAvaliableBrands] = useState<string[]>([]);
+  const [avaliableColors, setAvaliableColors] = useState<string[]>([]);
+  const [avaliableModels, setAvaliableModels] = useState<string[]>([]);
+  const [avaliableYears, setAvaliableYears] = useState<string[]>([]);
+  const [avaliableFuelTypes, setAvaliableFuelTypes] = useState<
+    string[] | number[]
+  >([]);
+
+  const [requestString, setRequestString] = useState<string | null>(null);
 
   const { announcements }: AnnouncementsList = useContext(PageContext);
 
@@ -45,7 +53,7 @@ export default function MainHome() {
 
       const karsArr = Object.keys(kars.data);
 
-      setPossibleBrands(karsArr);
+      setAvaliableBrands(karsArr);
     };
 
     getKenzieKars();
@@ -53,9 +61,52 @@ export default function MainHome() {
 
   useEffect(() => {
     const getCarsFromApi = async () => {
-      const { data } = await api.get(`/cars?${requestString}`);
+      const { data }: { data: ICar[] } = await api.get(
+        `/cars?${requestString}`
+      );
 
       setFiltered(data);
+
+      const avaliableOptions = data.reduce(
+        (
+          acc: {
+            colors: string[];
+            models: string[];
+            years: string[];
+            fuelTypes: string[] | number[];
+          },
+          act
+        ) => {
+          if (!acc.colors.includes(act.color)) {
+            acc.colors.push(act.color);
+          }
+
+          if (!acc.models.includes(act.model)) {
+            acc.models.push(act.model);
+          }
+
+          if (!acc.years.includes(act.year)) {
+            acc.years.push(act.year);
+          }
+
+          if (!acc.fuelTypes.includes(act.fuelType)) {
+            acc.fuelTypes.push(act.fuelType);
+          }
+
+          return acc;
+        },
+        {
+          colors: [],
+          models: [],
+          years: [],
+          fuelTypes: [],
+        }
+      );
+
+      setAvaliableColors(avaliableOptions.colors);
+      setAvaliableModels(avaliableOptions.models);
+      setAvaliableYears(avaliableOptions.years);
+      setAvaliableFuelTypes(avaliableOptions.fuelTypes);
     };
 
     getCarsFromApi();
@@ -85,19 +136,68 @@ export default function MainHome() {
               </div>
 
               <div className={style.modalSection}>
+                <div className={style.filters_header}>
+                  <h2>Filtros</h2>
+                  <ul>
+                    <li>
+                      <button
+                        className={buttonStyle.button_base}
+                        onClick={() => {
+                          setRequestString(null);
+                        }}
+                      >
+                        Limpar filtros
+                      </button>
+                    </li>
+                    {requestString
+                      ?.split("&")
+                      .slice(1)
+                      .map((stringFragment, index) => {
+                        const splitedArr = stringFragment.split("=");
+
+                        return (
+                          <>
+                            <li key={index}>
+                              <button
+                                className={buttonStyle.button_base}
+                                onClick={() => {
+                                  setRequestString((prevState) => {
+                                    const newString = prevState
+                                      ?.split("&")
+                                      .filter(
+                                        (strFragment: string) =>
+                                          !strFragment.includes(splitedArr[0])
+                                      );
+
+                                    return newString?.join("&")!;
+                                  });
+                                }}
+                              >
+                                <div className={style.clear_filter_button}>
+                                  <span>x</span>
+                                </div>
+                                <p>{`${splitedArr[1]}`}</p>
+                              </button>
+                            </li>
+                          </>
+                        );
+                      })}
+                  </ul>
+                </div>
+              </div>
+
+              <div className={style.modalSection}>
                 <h2>Marca</h2>
                 <ul>
-                  <li>
-                    <button className={buttonStyle.no_style_button}>
-                      General Motors
-                    </button>
-                  </li>
-                  {possibleBrands?.map((brand, index) => {
+                  {avaliableBrands?.map((brand, index) => {
                     return (
                       <li key={index}>
-                        <button className={buttonStyle.no_style_button}>
-                          {brand[0].toUpperCase() + brand.slice(1)}
-                        </button>
+                        <FilterButtonComponent
+                          filterName="brand"
+                          optionName={brand}
+                          requestString={requestString}
+                          setRequestString={setRequestString}
+                        />
                       </li>
                     );
                   })}
@@ -107,289 +207,72 @@ export default function MainHome() {
               <div className={style.modalSection}>
                 <h2>Modelo</h2>
                 <ul>
-                  <li>
-                    <a
-                      href=""
-                      onClick={(e) => {
-                        e.preventDefault();
-                        const filter: any = announcements.filter(
-                          (item) => item.model === "Civic"
-                        );
-                        setFiltered(filter);
-                      }}
-                    >
-                      Civic
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href=""
-                      onClick={(e) => {
-                        e.preventDefault();
-                        const filter: any = announcements.filter(
-                          (item) => item.model === "Corolla"
-                        );
-                        setFiltered(filter);
-                      }}
-                    >
-                      Corolla
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href=""
-                      onClick={(e) => {
-                        e.preventDefault();
-                        const filter: any = announcements.filter(
-                          (item) => item.model === "Cruze"
-                        );
-                        setFiltered(filter);
-                      }}
-                    >
-                      Cruze
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href=""
-                      onClick={(e) => {
-                        e.preventDefault();
-                        const filter: any = announcements.filter(
-                          (item) => item.model === "Fit"
-                        );
-                        setFiltered(filter);
-                      }}
-                    >
-                      Fit
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href=""
-                      onClick={(e) => {
-                        e.preventDefault();
-                        const filter: any = announcements.filter(
-                          (item) => item.model === "Gol"
-                        );
-                        setFiltered(filter);
-                      }}
-                    >
-                      Gol
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href=""
-                      onClick={(e) => {
-                        e.preventDefault();
-                        const filter: any = announcements.filter(
-                          (item) => item.model === "Ka"
-                        );
-                        setFiltered(filter);
-                      }}
-                    >
-                      Ka
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href=""
-                      onClick={(e) => {
-                        e.preventDefault();
-                        const filter: any = announcements.filter(
-                          (item) => item.model === "Onix"
-                        );
-                        setFiltered(filter);
-                      }}
-                    >
-                      Onix
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href=""
-                      onClick={(e) => {
-                        e.preventDefault();
-                        const filter: any = announcements.filter(
-                          (item) => item.model === "Porsche"
-                        );
-                        setFiltered(filter);
-                      }}
-                    >
-                      Porsche 718
-                    </a>
-                  </li>
+                  {avaliableModels?.map((model, index) => {
+                    return (
+                      <li key={index}>
+                        <FilterButtonComponent
+                          filterName="model"
+                          optionName={model}
+                          requestString={requestString}
+                          setRequestString={setRequestString}
+                        />
+                      </li>
+                    );
+                  })}
                 </ul>
               </div>
 
               <div className={style.modalSection}>
                 <h2>Cor</h2>
-                <ul>{}</ul>
+                <ul>
+                  {avaliableColors?.map((color, index) => {
+                    return (
+                      <li key={index}>
+                        <FilterButtonComponent
+                          filterName="color"
+                          optionName={color}
+                          requestString={requestString}
+                          setRequestString={setRequestString}
+                        />
+                      </li>
+                    );
+                  })}
+                </ul>
               </div>
 
               <div className={style.modalSection}>
                 <h2>Ano</h2>
                 <ul>
-                  <li>
-                    <a
-                      href=""
-                      onClick={(e) => {
-                        e.preventDefault();
-                        const filter: any = announcements.filter(
-                          (item) => item.year === "2022"
-                        );
-                        setFiltered(filter);
-                      }}
-                    >
-                      2022
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href=""
-                      onClick={(e) => {
-                        e.preventDefault();
-                        const filter: any = announcements.filter(
-                          (item) => item.year === "2021"
-                        );
-                        setFiltered(filter);
-                      }}
-                    >
-                      2021
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href=""
-                      onClick={(e) => {
-                        e.preventDefault();
-                        const filter: any = announcements.filter(
-                          (item) => item.year === "2018"
-                        );
-                        setFiltered(filter);
-                      }}
-                    >
-                      2018
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href=""
-                      onClick={(e) => {
-                        e.preventDefault();
-                        const filter: any = announcements.filter(
-                          (item) => item.year === "2015"
-                        );
-                        setFiltered(filter);
-                      }}
-                    >
-                      2015
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href=""
-                      onClick={(e) => {
-                        e.preventDefault();
-                        const filter: any = announcements.filter(
-                          (item) => item.year === "2013"
-                        );
-                        setFiltered(filter);
-                      }}
-                    >
-                      2013
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href=""
-                      onClick={(e) => {
-                        e.preventDefault();
-                        const filter: any = announcements.filter(
-                          (item) => item.year === "2012"
-                        );
-                        setFiltered(filter);
-                      }}
-                    >
-                      2012
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href=""
-                      onClick={(e) => {
-                        e.preventDefault();
-                        const filter: any = announcements.filter(
-                          (item) => item.year === "2010"
-                        );
-                        setFiltered(filter);
-                      }}
-                    >
-                      2010
-                    </a>
-                  </li>
+                  {avaliableYears?.map((year, index) => {
+                    return (
+                      <li key={index}>
+                        <FilterButtonComponent
+                          filterName="year"
+                          optionName={year}
+                          requestString={requestString}
+                          setRequestString={setRequestString}
+                        />
+                      </li>
+                    );
+                  })}
                 </ul>
               </div>
 
               <div className={style.modalSection}>
                 <h2>Combustível</h2>
                 <ul>
-                  <li>
-                    <a
-                      href=""
-                      onClick={(e) => {
-                        e.preventDefault();
-                        const filter: any = announcements.filter(
-                          (item) => item.fuelType === "Diesel"
-                        );
-                        setFiltered(filter);
-                      }}
-                    >
-                      Diesel
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href=""
-                      onClick={(e) => {
-                        e.preventDefault();
-                        const filter: any = announcements.filter(
-                          (item) => item.fuelType === "Etanol"
-                        );
-                        setFiltered(filter);
-                      }}
-                    >
-                      Etanol
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href=""
-                      onClick={(e) => {
-                        e.preventDefault();
-                        const filter: any = announcements.filter(
-                          (item) => item.fuelType === "Gasolina"
-                        );
-                        setFiltered(filter);
-                      }}
-                    >
-                      Gasolina
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href=""
-                      onClick={(e) => {
-                        e.preventDefault();
-                        const filter: any = announcements.filter(
-                          (item) => item.fuelType === "Flex"
-                        );
-                        setFiltered(filter);
-                      }}
-                    >
-                      Flex
-                    </a>
-                  </li>
+                  {avaliableFuelTypes?.map((fuelType, index) => {
+                    return (
+                      <li key={index}>
+                        <FilterButtonComponent
+                          filterName="fuelType"
+                          optionName={fuelType}
+                          requestString={requestString}
+                          setRequestString={setRequestString}
+                        />
+                      </li>
+                    );
+                  })}
                 </ul>
               </div>
 
@@ -458,46 +341,67 @@ export default function MainHome() {
 
       <div className={style.mainContainer}>
         <div className={style.leftContainer}>
-          <div className={style.list}>
-            <h2>Marca</h2>
+          <div className={style.filters_header}>
+            <h2>Filtros</h2>
             <ul>
               <li>
                 <button
-                  className={buttonStyle.no_style_button}
+                  className={buttonStyle.button_base}
                   onClick={() => {
-                    setRequestString("");
+                    setRequestString(null);
                   }}
                 >
-                  General Motors
+                  Limpar filtros
                 </button>
               </li>
-              {possibleBrands?.map((brand, index) => {
+              {requestString
+                ?.split("&")
+                .slice(1)
+                .map((stringFragment, index) => {
+                  const splitedArr = stringFragment.split("=");
+
+                  return (
+                    <>
+                      <li key={index}>
+                        <button
+                          className={buttonStyle.button_base}
+                          onClick={() => {
+                            setRequestString((prevState) => {
+                              const newString = prevState
+                                ?.split("&")
+                                .filter(
+                                  (strFragment: string) =>
+                                    !strFragment.includes(splitedArr[0])
+                                );
+
+                              return newString?.join("&")!;
+                            });
+                          }}
+                        >
+                          <div className={style.clear_filter_button}>
+                            <span>x</span>
+                          </div>
+                          <p>{`${splitedArr[1]}`}</p>
+                        </button>
+                      </li>
+                    </>
+                  );
+                })}
+            </ul>
+          </div>
+
+          <div className={style.list}>
+            <h2>Marca</h2>
+            <ul>
+              {avaliableBrands?.map((brand, index) => {
                 return (
                   <li key={index}>
-                    <button
-                      className={buttonStyle.no_style_button}
-                      onClick={() => {
-                        if (requestString.includes("brand")) {
-                          return setRequestString((prevState) => {
-                            let prevStateArr = prevState.split("&");
-
-                            prevStateArr = prevStateArr.filter(
-                              (elem) => !elem.includes("brand")
-                            );
-
-                            prevState = prevStateArr.join("&");
-
-                            return `${prevState}brand=${brand}&`;
-                          });
-                        }
-
-                        return setRequestString(
-                          (prevState) => `${prevState}brand=${brand}&`
-                        );
-                      }}
-                    >
-                      {brand[0].toUpperCase() + brand.slice(1)}
-                    </button>
+                    <FilterButtonComponent
+                      filterName="brand"
+                      optionName={brand}
+                      requestString={requestString}
+                      setRequestString={setRequestString}
+                    />
                   </li>
                 );
               })}
@@ -507,130 +411,35 @@ export default function MainHome() {
           <div className={style.list}>
             <h2>Modelo</h2>
             <ul>
-              <li>
-                <a
-                  href=""
-                  onClick={(e) => {
-                    e.preventDefault();
-                    const filter: any = announcements.filter(
-                      (item) => item.model === "Civic"
-                    );
-                    setFiltered(filter);
-                  }}
-                >
-                  Civic
-                </a>
-              </li>
-              <li>
-                <a
-                  href=""
-                  onClick={(e) => {
-                    e.preventDefault();
-                    const filter: any = announcements.filter(
-                      (item) => item.model === "Corolla"
-                    );
-                    setFiltered(filter);
-                  }}
-                >
-                  Corolla
-                </a>
-              </li>
-              <li>
-                <a
-                  href=""
-                  onClick={(e) => {
-                    e.preventDefault();
-                    const filter: any = announcements.filter(
-                      (item) => item.model === "Cruze"
-                    );
-                    setFiltered(filter);
-                  }}
-                >
-                  Cruze
-                </a>
-              </li>
-              <li>
-                <a
-                  href=""
-                  onClick={(e) => {
-                    e.preventDefault();
-                    const filter: any = announcements.filter(
-                      (item) => item.model === "Fit"
-                    );
-                    setFiltered(filter);
-                  }}
-                >
-                  Fit
-                </a>
-              </li>
-              <li>
-                <a
-                  href=""
-                  onClick={(e) => {
-                    e.preventDefault();
-                    const filter: any = announcements.filter(
-                      (item) => item.model === "Gol"
-                    );
-                    setFiltered(filter);
-                  }}
-                >
-                  Gol
-                </a>
-              </li>
-              <li>
-                <a
-                  href=""
-                  onClick={(e) => {
-                    e.preventDefault();
-                    const filter: any = announcements.filter(
-                      (item) => item.model === "Ka"
-                    );
-                    setFiltered(filter);
-                  }}
-                >
-                  Ka
-                </a>
-              </li>
-              <li>
-                <a
-                  href=""
-                  onClick={(e) => {
-                    e.preventDefault();
-                    const filter: any = announcements.filter(
-                      (item) => item.model === "Onix"
-                    );
-                    setFiltered(filter);
-                  }}
-                >
-                  Onix
-                </a>
-              </li>
-              <li>
-                <a
-                  href=""
-                  onClick={(e) => {
-                    e.preventDefault();
-                    const filter: any = announcements.filter(
-                      (item) => item.model === "Porsche"
-                    );
-                    setFiltered(filter);
-                  }}
-                >
-                  Porsche 718
-                </a>
-              </li>
+              {avaliableModels?.map((model, index) => {
+                return (
+                  <li key={index}>
+                    <FilterButtonComponent
+                      filterName="model"
+                      optionName={model}
+                      requestString={requestString}
+                      setRequestString={setRequestString}
+                    />
+                  </li>
+                );
+              })}
             </ul>
           </div>
 
           <div className={style.list}>
             <h2>Cor</h2>
             <ul>
-              {filtered?.map((car, index) => {                
+              {avaliableColors?.map((color, index) => {
                 return (
                   <li key={index}>
-                    <button className={buttonStyle.no_style_button}>{car.color}</button>
+                    <FilterButtonComponent
+                      filterName="color"
+                      optionName={color}
+                      requestString={requestString}
+                      setRequestString={setRequestString}
+                    />
                   </li>
-                )
+                );
               })}
             </ul>
           </div>
@@ -638,166 +447,36 @@ export default function MainHome() {
           <div className={style.list}>
             <h2>Ano</h2>
             <ul>
-              <li>
-                <a
-                  href=""
-                  onClick={(e) => {
-                    e.preventDefault();
-                    const filter: any = announcements.filter(
-                      (item) => item.year === "2022"
-                    );
-                    setFiltered(filter);
-                  }}
-                >
-                  2022
-                </a>
-              </li>
-              <li>
-                <a
-                  href=""
-                  onClick={(e) => {
-                    e.preventDefault();
-                    const filter: any = announcements.filter(
-                      (item) => item.year === "2021"
-                    );
-                    setFiltered(filter);
-                  }}
-                >
-                  2021
-                </a>
-              </li>
-              <li>
-                <a
-                  href=""
-                  onClick={(e) => {
-                    e.preventDefault();
-                    const filter: any = announcements.filter(
-                      (item) => item.year === "2018"
-                    );
-                    setFiltered(filter);
-                  }}
-                >
-                  2018
-                </a>
-              </li>
-              <li>
-                <a
-                  href=""
-                  onClick={(e) => {
-                    e.preventDefault();
-                    const filter: any = announcements.filter(
-                      (item) => item.year === "2015"
-                    );
-                    setFiltered(filter);
-                  }}
-                >
-                  2015
-                </a>
-              </li>
-              <li>
-                <a
-                  href=""
-                  onClick={(e) => {
-                    e.preventDefault();
-                    const filter: any = announcements.filter(
-                      (item) => item.year === "2013"
-                    );
-                    setFiltered(filter);
-                  }}
-                >
-                  2013
-                </a>
-              </li>
-              <li>
-                <a
-                  href=""
-                  onClick={(e) => {
-                    e.preventDefault();
-                    const filter: any = announcements.filter(
-                      (item) => item.year === "2012"
-                    );
-                    setFiltered(filter);
-                  }}
-                >
-                  2012
-                </a>
-              </li>
-              <li>
-                <a
-                  href=""
-                  onClick={(e) => {
-                    e.preventDefault();
-                    const filter: any = announcements.filter(
-                      (item) => item.year === "2010"
-                    );
-                    setFiltered(filter);
-                  }}
-                >
-                  2010
-                </a>
-              </li>
+              {avaliableYears?.map((year, index) => {
+                return (
+                  <li key={index}>
+                    <FilterButtonComponent
+                      filterName="year"
+                      optionName={year}
+                      requestString={requestString}
+                      setRequestString={setRequestString}
+                    />
+                  </li>
+                );
+              })}
             </ul>
           </div>
 
           <div className={style.list}>
             <h2>Combustível</h2>
             <ul>
-              <li>
-                <a
-                  href=""
-                  onClick={(e) => {
-                    e.preventDefault();
-                    const filter: any = announcements.filter(
-                      (item) => item.fuelType === "Diesel"
-                    );
-                    setFiltered(filter);
-                  }}
-                >
-                  Diesel
-                </a>
-              </li>
-              <li>
-                <a
-                  href=""
-                  onClick={(e) => {
-                    e.preventDefault();
-                    const filter: any = announcements.filter(
-                      (item) => item.fuelType === "Etanol"
-                    );
-                    setFiltered(filter);
-                  }}
-                >
-                  Etanol
-                </a>
-              </li>
-              <li>
-                <a
-                  href=""
-                  onClick={(e) => {
-                    e.preventDefault();
-                    const filter: any = announcements.filter(
-                      (item) => item.fuelType === "Gasolina"
-                    );
-                    setFiltered(filter);
-                  }}
-                >
-                  Gasolina
-                </a>
-              </li>
-              <li>
-                <a
-                  href=""
-                  onClick={(e) => {
-                    e.preventDefault();
-                    const filter: any = announcements.filter(
-                      (item) => item.fuelType === "Flex"
-                    );
-                    setFiltered(filter);
-                  }}
-                >
-                  Flex
-                </a>
-              </li>
+              {avaliableFuelTypes?.map((fuelType, index) => {
+                return (
+                  <li key={index}>
+                    <FilterButtonComponent
+                      filterName="fuelType"
+                      optionName={fuelType}
+                      requestString={requestString}
+                      setRequestString={setRequestString}
+                    />
+                  </li>
+                );
+              })}
             </ul>
           </div>
 
