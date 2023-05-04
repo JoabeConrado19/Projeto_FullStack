@@ -18,6 +18,7 @@ import { CarsService } from './cars.service';
 import { CreateCarsDto } from './dto/create-car.dto';
 import { UpdateCarsDto } from './dto/update-car.dto';
 import { Car } from './entities/car.entity';
+import { CreateCommentDto } from './dto/create-comments.dto';
 
 @Controller('cars')
 @ApiTags('cars')
@@ -72,5 +73,21 @@ export class CarsController {
   @UseGuards(JwtAuthGuard)
   delete(@Param('id') id: string) {
     return this.carsService.delete(id);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Post(':id/comments/:Id')
+  createComment(
+    @Param('id') carId: string,
+    @Param('Id') userId: string,
+    @Body() createCommentDto: CreateCommentDto,
+  ) {
+    return this.carsService.createComment(carId, userId, createCommentDto);
+  }
+
+  @Delete('comments/:id')
+  @UseGuards(JwtAuthGuard)
+  deleteComment(@Param('id') id: string) {
+    return this.carsService.deleteComment(id);
   }
 }
