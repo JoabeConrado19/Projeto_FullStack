@@ -53,7 +53,7 @@ export class CarsPrismaRepository implements CarsRepository {
     const id = newCar.id;
     const findCar = await this.prisma.cars.findFirst({
       where: { id },
-      include: { images: true, brand: true },
+      include: { images: true, brand: true, comments: true },
     });
     return plainToInstance(Car, findCar);
   }
@@ -84,7 +84,19 @@ export class CarsPrismaRepository implements CarsRepository {
               url: true,
             },
           },
-          comments: true,
+          comments: {
+            select: {
+              id: true,
+              description: true,
+              createdAt: true,
+              user: {
+                select: {
+                  name: true,
+                  color: true,
+                },
+              },
+            },
+          },
           brand: {
             select: {
               brandName: true,
@@ -109,7 +121,19 @@ export class CarsPrismaRepository implements CarsRepository {
               url: true,
             },
           },
-          comments: true,
+          comments: {
+            select: {
+              id: true,
+              description: true,
+              createdAt: true,
+              user: {
+                select: {
+                  name: true,
+                  color: true,
+                },
+              },
+            },
+          },
           brand: {
             select: {
               brandName: true,
@@ -140,7 +164,19 @@ export class CarsPrismaRepository implements CarsRepository {
             url: true,
           },
         },
-        comments: true,
+        comments: {
+          select: {
+            id: true,
+            description: true,
+            createdAt: true,
+            user: {
+              select: {
+                name: true,
+                color: true,
+              },
+            },
+          },
+        },
         brand: {
           select: {
             brandName: true,
@@ -191,7 +227,7 @@ export class CarsPrismaRepository implements CarsRepository {
 
     const carsUpdated = await this.prisma.cars.findUnique({
       where: { id },
-      include: { images: true },
+      include: { images: true, comments: true },
     });
 
     return plainToInstance(Car, carsUpdated);
@@ -203,11 +239,31 @@ export class CarsPrismaRepository implements CarsRepository {
     });
   }
 
-  async createComment(car: string, data: CreateCommentDto): Promise<Comment> {
+  async createComment(
+    carId: string,
+    userId: string,
+    data: CreateCommentDto,
+  ): Promise<Comment> {
     const comment = new Comment();
     Object.assign(comment, {
       ...data,
     });
-    return plainToInstance(Comment, comment);
+    const newComment = await this.prisma.comments.create({
+      data: { description: data.description, carId: carId, userId: userId },
+    });
+
+    return plainToInstance(Comment, newComment);
+  }
+
+  async deleteComment(id: string): Promise<void> {
+    await this.prisma.comments.delete({
+      where: { id },
+    });
+  }
+  async findComment(id: string): Promise<Comment> {
+    const findComment = await this.prisma.comments.findUnique({
+      where: { id },
+    });
+    return findComment;
   }
 }

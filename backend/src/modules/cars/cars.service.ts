@@ -58,11 +58,24 @@ export class CarsService {
     }
     return this.carsRepository.delete(id);
   }
-  async createComment(carId: string, createCommentDto: CreateCommentDto) {
+  async createComment(
+    carId: string,
+    userId: string,
+    createCommentDto: CreateCommentDto,
+  ) {
     const comments = await this.carsRepository.createComment(
       carId,
+      userId,
       createCommentDto,
     );
     return comments;
+  }
+
+  async deleteComment(id: string) {
+    const findComment = await this.carsRepository.findComment(id);
+    if (!findComment) {
+      throw new NotFoundException('Comment not found');
+    }
+    return this.carsRepository.deleteComment(id);
   }
 }
