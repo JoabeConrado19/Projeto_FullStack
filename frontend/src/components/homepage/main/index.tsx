@@ -10,12 +10,16 @@ import { useContext, useState } from "react";
 // import Typography from '@mui/material/Typography';
 import { AnnouncementsList } from "../../../interfaces/announcement";
 import { IAnnouncementsData } from "../../../interfaces/announcement";
+import Link from "next/link";
+import { Router, useRouter } from "next/router";
 
 export default function MainHome() {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const [filtered, setFiltered] = useState<any>(undefined);
+
+  const router = useRouter()
 
   const { announcements }: AnnouncementsList = useContext(PageContext);
 
@@ -51,7 +55,12 @@ export default function MainHome() {
       }
     }
     return (
-      <li key={announcement.id}>
+      
+              
+      <li key={announcement.id} id={announcement.id} onClick={()=>{router.push({
+        pathname: '/cars/[id]',
+        query: { id: announcement.id },
+      });}}>
         <div className={style.cardImgContainer}>
           <img src={announcement.imagesUrl} />
         </div>
@@ -63,7 +72,7 @@ export default function MainHome() {
           <div
             className={style.circle}
             style={{ backgroundColor: announcement.user.color }}
-          >
+            >
             {novoNome}
           </div>
           <p>{announcement.user.name}</p>
@@ -76,8 +85,10 @@ export default function MainHome() {
           <p>R$ {price}</p>
         </div>
       </li>
+      
     );
   }
+            
 
   return (
     <>
