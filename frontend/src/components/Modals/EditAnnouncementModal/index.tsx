@@ -61,6 +61,9 @@ export default function EditAnnouncementModal({
   }, []);
 
   const updateCarFunc = async (data: any) => {
+    console.log(carActualData.id);
+    
+
     let { carPriceChart, ...filteredData } = data as ICarRequest;
 
     const priceInNumber = Number(data.price);
@@ -73,6 +76,7 @@ export default function EditAnnouncementModal({
     } else {
       filteredData.isPromotional = false
     }
+    
 
     const returnedData = await api
       .patch(`/cars/${carActualData.id}`, filteredData)
@@ -245,7 +249,7 @@ export default function EditAnnouncementModal({
           <InputComponent
             inputId="1-car-image"
             label="1° imagem da galeria"
-            register={register("images_url.0.url")}
+            register={register("images.0.url")}
             type="text"
             placeholder="Insira link da imagem aqui"
             errorMessage={
@@ -255,7 +259,7 @@ export default function EditAnnouncementModal({
           <InputComponent
             inputId="2-car-image"
             label="2° Imagem da galeria"
-            register={register("images_url.1.url")}
+            register={register("images.1.url")}
             type="text"
             placeholder="Insira link da imagem aqui"
           />
@@ -268,7 +272,7 @@ export default function EditAnnouncementModal({
                 <InputComponent
                   inputId={`${index + 3}-car-image`}
                   label={`${index + 3}° Imagem da galeria`}
-                  register={register(`images_url.${index + 2}.url`)}
+                  register={register(`images.${index + 2}.url`)}
                   type="text"
                   placeholder="Insira link da imagem aqui"
                 />
@@ -311,6 +315,10 @@ export default function EditAnnouncementModal({
             <ButtonComponent
               type="submit"
               className={`${buttonStyles.brand1_white_button}`}
+              onClick={() => {
+                console.log(errors);
+                
+              }}
             >
               Atualizar
             </ButtonComponent>
