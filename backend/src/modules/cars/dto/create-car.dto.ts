@@ -4,6 +4,7 @@ import {
   IsBoolean,
   IsNotEmpty,
   IsNumber,
+  IsOptional,
   IsString,
 } from 'class-validator';
 import { CarImages } from '../entities/car.entity';
@@ -44,7 +45,7 @@ export class CreateCarsDto {
   price: number;
 
   @IsBoolean()
-  @IsNotEmpty()
+  @IsOptional()
   isPromotional: boolean;
 
   @IsString()
