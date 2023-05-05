@@ -43,6 +43,8 @@ export class CarsController {
     @Query('color') color?: string,
     @Query('year') year?: string,
     @Query('fuelType') fuelType?: string,
+    @Query('priceMin') priceMin = '0',
+    @Query('priceMax') priceMax?: string,
   ) {
     return this.carsService.findAll(
       page,
@@ -52,6 +54,8 @@ export class CarsController {
       color,
       year,
       fuelType,
+      priceMin,
+      priceMax,
     );
   }
 

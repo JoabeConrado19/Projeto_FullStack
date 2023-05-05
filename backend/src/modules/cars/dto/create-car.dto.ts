@@ -4,7 +4,6 @@ import {
   IsBoolean,
   IsNotEmpty,
   IsNumber,
-  IsObject,
   IsString,
 } from 'class-validator';
 import { CarImages } from '../entities/car.entity';
@@ -39,10 +38,10 @@ export class CreateCarsDto {
   @ApiProperty({ example: 'Carro novo, unico dono' })
   description: string;
 
-  @IsNumber({ maxDecimalPlaces: 2 })
+  @IsString()
   @IsNotEmpty()
-  @ApiProperty({ example: 'R$ 193.812,00' })
-  price: number;
+  @ApiProperty()
+  price: string;
 
   @IsBoolean()
   @IsNotEmpty()
@@ -66,9 +65,9 @@ export class CreateCarsDto {
   @ApiProperty()
   images?: CarImages[] | null;
 
-  @IsObject()
-  @ApiProperty({ example: 'Volkswagen' })
-  brand?: object;
+  @IsString()
+  @ApiProperty()
+  brandName: string;
 }
 
 export class CreateImagesDto {

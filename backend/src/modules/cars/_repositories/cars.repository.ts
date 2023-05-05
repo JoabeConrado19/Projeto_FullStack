@@ -9,11 +9,13 @@ export abstract class CarsRepository {
   abstract findAll(
     page: string,
     limit: string,
-    brand: string,
-    model: string,
-    color: string,
-    year: string,
-    fuelType: string,
+    brand?: string,
+    model?: string,
+    color?: string,
+    year?: string,
+    fuelType?: string,
+    priceMin?: string,
+    priceMax?: string,
   ): Promise<Car[]>;
   abstract findOne(id: string): Promise<Car | undefined>;
   abstract update(id: string, data: UpdateCarsDto): Promise<Car>;
