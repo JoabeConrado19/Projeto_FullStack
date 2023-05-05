@@ -54,16 +54,20 @@ export default function AnnouncementPage() {
                 minimumFractionDigits: 2,
                 maximumFractionDigits: 2,
               });
+
               return (
                 <CardAnnouncement
-                key={car.id}
-                carModel={car.model}
-                carDescription={car.description}
-                carImg={car.imagesUrl}
-                carMiles={car.miles}
-                carYear={car.year}
-                price={price}
-                isActive={car.isActive}
+                  key={car.id}
+                  carModel={car.model}
+                  carDescription={car.description}
+                  carImg={car.imagesUrl}
+                  carMiles={car.miles}
+                  carYear={car.year}
+                  price={price}
+                  isActive={car.isActive}
+                  setShowCarEditModal={setShowCarEditModal}
+                  setTargetCarData={setTargetCarData}
+                  car={car}
                 />
               );
             })}
