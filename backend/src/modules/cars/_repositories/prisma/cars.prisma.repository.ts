@@ -105,6 +105,9 @@ export class CarsPrismaRepository implements CarsRepository {
           },
           comments: {
             select: {
+              description: true,
+              createdAt: true,
+              id: true,
               user: {
                 select: {
                   name: true,
