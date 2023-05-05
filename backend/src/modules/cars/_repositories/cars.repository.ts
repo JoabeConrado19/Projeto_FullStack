@@ -14,8 +14,10 @@ export abstract class CarsRepository {
     color?: string,
     year?: string,
     fuelType?: string,
-    priceMin?: string,
-    priceMax?: string,
+    priceMin?: number,
+    priceMax?: number,
+    kmMin?: number,
+    kmMax?: number,
   ): Promise<Car[]>;
   abstract findOne(id: string): Promise<Car | undefined>;
   abstract update(id: string, data: UpdateCarsDto): Promise<Car>;
