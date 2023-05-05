@@ -45,14 +45,14 @@ export default function CardAnnouncement({
      <button>{carMiles} KM</button>
      <button>{carYear}</button>
     </div>
-    <p>R$ {car.price.toLocaleString("pt-BR", {style:"currency", currency:"BRL"})}</p>
+    <p>{car.price.toLocaleString("pt-BR", {style:"currency", currency:"BRL"})}</p>
    </div>
    <div className={style.divButtons}>
     <button onClick={() => {
         setShowCarEditModal((prevState) => !prevState)
         setTargetCarData(car)
     }}>Editar</button>
-    <button>Ver Detalhes</button>
+    <button >Ver Detalhes</button>
    </div>
   </li>
  );

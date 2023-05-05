@@ -61,15 +61,14 @@ export default function CreateAnnouncementModal({
   const createCarFunc = async (data: any) => {
     let { carPriceChart, ...filteredData } = data as ICarRequest;
 
-    const priceInNumber = Number(data.price);
+    filteredData.miles = Math.trunc(data.miles);
+    filteredData.price = Math.trunc(data.price);
     filteredData.isActive = true;
 
     const promotionalPrice = carPriceChart - (carPriceChart * 0.05)
 
-    if (priceInNumber <= promotionalPrice) {
+    if (data.price <= promotionalPrice) {
       filteredData.isPromotional = true
-    } else {
-      filteredData.isPromotional = false
     }
   
     await api.post(`/cars/user/${userData.id}`, filteredData).

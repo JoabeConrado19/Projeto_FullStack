@@ -15,7 +15,7 @@ export interface ICar {
   model: string;
   year: string;
   fuelType: string | number;
-  miles: string;
+  miles: number;
   color: string;
   description: string;
   price: number;

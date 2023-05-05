@@ -16,6 +16,7 @@ import { ButtonComponent } from "@/components/Buttons";
 import buttonStyle from "@/components/Buttons/styles.module.css";
 import { InputComponent, TextAreaInputComponent } from "@/components/Input";
 import ForgotPasswordModal from "@/components/Modals/ForgotPasswordModal";
+import LoginErrorModal from "@/components/Modals/LoginError";
 
 
 export const LoginForm = () => {
@@ -29,7 +30,7 @@ export const LoginForm = () => {
     resolver: yupResolver(formLoginSchema),
   });
 
-  const { loginUser } = useContext(UserContext);
+  const { loginUser, loginError, setLoginError } = useContext(UserContext);
   
   return (
     <>
@@ -80,6 +81,10 @@ export const LoginForm = () => {
       {showForgotPassModal ? 
         <ForgotPasswordModal closeModalFunc={setShowForgotPassModal}/> :
         null
+      }
+      {loginError ?
+        <LoginErrorModal />
+        : null
       }
     </>
   );

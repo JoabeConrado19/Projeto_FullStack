@@ -14,6 +14,8 @@ interface IRegisterProviderData {
   setUserType: React.Dispatch<React.SetStateAction<string>>;
   sucessModal:boolean;
   setSucessModal:React.Dispatch<React.SetStateAction<boolean>>;
+  loginError: boolean;
+  setLoginError: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const UserContext = createContext({} as IRegisterProviderData);
@@ -22,6 +24,7 @@ export const RegisterUserProvider = ({ children }: IProviderProps) => {
   const router = useRouter();
   const [userType, setUserType] = useState<string>("Comprador");
   const [sucessModal, setSucessModal] = useState<boolean>(false)
+  const [loginError, setLoginError] = useState<boolean>(false)
 
   const registerUser = async (data: IRegisterSubmit) => {
     const { passwordConfirmation, ...newBody } = data;
@@ -47,7 +50,7 @@ export const RegisterUserProvider = ({ children }: IProviderProps) => {
         router.push("/");
       })
       .catch((err) => {
-        console.error(err);
+        setLoginError(true)
       });
   };
 
@@ -59,7 +62,9 @@ export const RegisterUserProvider = ({ children }: IProviderProps) => {
         loginUser,
         registerUser,
         sucessModal,
-        setSucessModal
+        setSucessModal,
+        loginError,
+        setLoginError
       }}
     >
       {children}

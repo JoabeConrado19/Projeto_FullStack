@@ -1,0 +1,5 @@
+.login_error_modal {
+  width: min(100%, 120px);
+  margin-left: auto;
+  margin-top: 24px;
+}

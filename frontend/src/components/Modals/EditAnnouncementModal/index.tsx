@@ -66,17 +66,15 @@ export default function EditAnnouncementModal({
 
     let { carPriceChart, ...filteredData } = data as ICarRequest;
 
-    const priceInNumber = Number(data.price);
+    filteredData.miles = Math.trunc(data.miles);
+    filteredData.price = Math.trunc(data.price);
     filteredData.isActive = true;
 
     const promotionalPrice = carPriceChart - (carPriceChart * 0.05)
 
-    if (priceInNumber <= promotionalPrice) {
+    if (filteredData.price <= promotionalPrice) {
       filteredData.isPromotional = true
-    } else {
-      filteredData.isPromotional = false
     }
-    
 
     const returnedData = await api
       .patch(`/cars/${carActualData.id}`, filteredData)
