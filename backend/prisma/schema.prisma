@@ -50,10 +50,10 @@ model Cars {
   model         String
   year          String
   fuelType      String
-  miles         String
+  miles         Int
   color         String
   description   String
-  price         String
+  price         Int
   imagesUrl     String
   isActive      Boolean
   isPromotional Boolean  @default(false)

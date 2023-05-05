@@ -20,8 +20,10 @@ export class CarsService {
     color?: string,
     year?: string,
     fuelType?: string,
-    priceMin?: string,
-    priceMax?: string,
+    priceMin?: number,
+    priceMax?: number,
+    kmMin?: number,
+    kmMax?: number,
   ) {
     return this.carsRepository.findAll(
       page,
@@ -33,6 +35,8 @@ export class CarsService {
       fuelType,
       priceMin,
       priceMax,
+      kmMin,
+      kmMax,
     );
   }
 

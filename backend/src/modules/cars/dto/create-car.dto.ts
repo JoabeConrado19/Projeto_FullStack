@@ -23,10 +23,10 @@ export class CreateCarsDto {
   @ApiProperty({ example: 'Flex' })
   fuelType: string;
 
-  @IsString()
+  @IsNumber()
   @IsNotEmpty()
   @ApiProperty({ example: '10.000' })
-  miles: string;
+  miles: number;
 
   @IsString()
   @IsNotEmpty()
@@ -38,10 +38,10 @@ export class CreateCarsDto {
   @ApiProperty({ example: 'Carro novo, unico dono' })
   description: string;
 
-  @IsString()
+  @IsNumber()
   @IsNotEmpty()
   @ApiProperty()
-  price: string;
+  price: number;
 
   @IsBoolean()
   @IsNotEmpty()

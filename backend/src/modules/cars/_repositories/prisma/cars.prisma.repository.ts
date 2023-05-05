@@ -69,20 +69,33 @@ export class CarsPrismaRepository implements CarsRepository {
     color?: string,
     year?: string,
     fuelType?: string,
-    priceMin?: string,
-    priceMax?: string,
+    priceMin?: number,
+    priceMax?: number,
+    kmMin?: number,
+    kmMax?: number,
   ): Promise<Car[]> {
-    if (brand || model || color || year || fuelType || priceMin || priceMax) {
+    if (
+      brand ||
+      model ||
+      color ||
+      year ||
+      fuelType ||
+      priceMin ||
+      priceMax ||
+      kmMin ||
+      kmMax
+    ) {
       const cars = await this.prisma.cars.findMany({
         take: parseInt(limit),
         skip: parseInt(page) * parseInt(limit),
         where: {
-          price: { lte: priceMax, gte: priceMin },
           brand: { brandName: brand },
           model: model,
           color: color,
           year: year,
           fuelType: fuelType,
+          price: { lte: Number(priceMax), gte: Number(priceMin) },
+          miles: { lte: Number(kmMax), gte: Number(kmMin) },
         },
         include: {
           images: {
