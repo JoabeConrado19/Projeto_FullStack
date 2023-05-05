@@ -3,13 +3,10 @@ import { useContext, useState } from "react";
 import CreateAnnouncementModal from "../Modals/CreateAnnouncementModal";
 import { Button } from "@mui/material";
 import { announcementPage } from "@/context/AnnouncementPageContext";
-<<<<<<< HEAD
-import CardAnnouncement from "../AnnouncementCarCard";
-=======
 import EditAnnouncementModal from "../Modals/EditAnnouncementModal";
 import { ButtonComponent } from "../Buttons";
 import { ICar } from "@/interfaces/car";
->>>>>>> 72cc83d34844a51b166b6cc296f2513f8997c1b1
+import CardAnnouncement from "../AnnouncementCarCard";
 
 export default function AnnouncementPage() {
   const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
@@ -52,13 +49,12 @@ export default function AnnouncementPage() {
 
         <div className={style.containerCards}>
           <ul className={style.ulContainer}>
-            {userAnnouncements.map((car: ICar) => {
+            {userAnnouncements.map((car: any) => {
               const price = car.price.toLocaleString("pt-BR", {
                 minimumFractionDigits: 2,
                 maximumFractionDigits: 2,
               });
               return (
-<<<<<<< HEAD
                 <CardAnnouncement
                 key={car.id}
                 carModel={car.model}
@@ -69,40 +65,6 @@ export default function AnnouncementPage() {
                 price={price}
                 isActive={car.isActive}
                 />
-=======
-                <li key={car.id} className={style.liCard}>
-                  <div>
-                    <img
-                      className={style.imgCard}
-                      src={car.imagesUrl}
-                      alt="Carro"
-                    />
-                  </div>
-                  <div className={style.cardTextContainer}>
-                    <h3>{car.model}</h3>
-                    <p>{car.description}</p>
-                  </div>
-                  <div className={style.cardDataContainer}>
-                    <div className={style.badge}>
-                      <button>{car.miles} KM</button>
-                      <button>{car.year}</button>
-                    </div>
-                    <p>{price}</p>
-                  </div>
-                  <div className={style.divButtons}>
-                    <ButtonComponent
-                      onClick={() => {
-                        setTargetCarData(car);
-
-                        setShowCarEditModal(true);
-                      }}
-                    >
-                      Editar
-                    </ButtonComponent>
-                    <ButtonComponent>Ver Detalhes</ButtonComponent>
-                  </div>
-                </li>
->>>>>>> 72cc83d34844a51b166b6cc296f2513f8997c1b1
               );
             })}
           </ul>

@@ -22,8 +22,11 @@ export default function CardAnnouncement({
     
  return (
   <li>
-   <div>
-    <img className={style.imgCard} src={carImg} alt="Carro" />
+   <div className={style.cardImgContainer}>
+    {
+     isActive ? <span style={{background: '#4529E6' }}>Ativo</span> : <span style={{ background: '#ADB5BD'}}>Inativo</span>
+    }
+    <img src={carImg} alt="Carro" />
    </div>
    <div className={style.cardTextContainer}>
     <h3>{carModel}</h3>
