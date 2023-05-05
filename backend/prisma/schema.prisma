@@ -1,0 +1,105 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id          String     @id @default(uuid())
+  name        String
+  email       String     @unique
+  cpf         String     @unique
+  birthdate   String
+  description String
+  password    String
+  phone       String     @unique
+  accountType String
+  color       String?
+  createdAt   DateTime   @default(now())
+  reset       String?
+  address     Address?
+  cars        Cars[]
+  comments    Comments[]
+
+  @@map("users")
+}
+
+model Address {
+  id         String  @id @default(uuid())
+  cep        String
+  state      String
+  city       String
+  street     String
+  number     Int
+  complement String?
+
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("address")
+}
+
+model Cars {
+  id            String   @id @default(uuid())
+  model         String
+  year          String
+  fuelType      String
+  miles         Int
+  color         String
+  description   String
+  price         Int
+  imagesUrl     String
+  isActive      Boolean
+  isPromotional Boolean  @default(false)
+  createdAt     DateTime @default(now())
+
+  userId String?
+  user   User?   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  comments Comments[]
+  images   CarImages[]
+
+  brandName  String
+  brand    Brands @relation(fields: [brandName], references: [brandName], onDelete: Cascade)
+
+  @@map("cars")
+}
+
+model Brands {
+  id        String @id @default(uuid())
+  brandName String @unique
+
+  cars  Cars[]   
+
+  @@map("brands")
+}
+
+model CarImages {
+  id  String @id @default(uuid())
+  url String
+
+  carId String?
+  car   Cars?   @relation(fields: [carId], references: [id], onDelete: Cascade)
+
+  @@map("carImages")
+}
+
+model Comments {
+  id          String   @id @default(uuid())
+  description String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  userId String
+  user   User?  @relation(fields: [userId], references: [id])
+  carId  String
+  car    Cars?  @relation(fields: [carId], references: [id])
+
+  @@map("comments")
+}

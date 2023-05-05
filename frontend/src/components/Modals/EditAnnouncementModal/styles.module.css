@@ -1,0 +1,10 @@
+.button_exclude_save_container {
+    display: flex;
+    justify-content: space-between;
+    
+    margin-top: 32px;
+}
+
+.button_exclude_save_container > div {
+    width: 48%;
+}

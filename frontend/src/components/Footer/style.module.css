@@ -1,0 +1,34 @@
+.page_footer {
+    background-color: var(--gray-0);
+
+    color: var(--whiteFixed);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+
+    padding: 16px;
+
+    font-family: "Roboto", sans-serif;
+}
+
+.footer_button {
+    background-color: var(--gray-1);
+    color: none;
+
+    height: 3rem;
+    width: 3rem;
+    min-width: auto;
+}
+
+.footer_button:hover, .footer_button:active {
+    background-color: var(--gray-2)
+}
+
+@media (min-width: 700px) {
+    .page_footer {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+}

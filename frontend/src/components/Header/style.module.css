@@ -1,0 +1,140 @@
+.page_header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    position: relative;
+
+    padding: min(5%, 24px);
+    
+    font-family: "Roboto", sans-serif;
+}
+
+.page_header_menu {
+    width: 100%;
+
+    position: absolute;
+    z-index: 2;
+    top: 90%;
+    right: 50%;
+    transform: translate(50%);
+    border-top: solid 1px rgba(0, 0, 0, 0.267);
+
+    display: none;
+    flex-direction: column;
+    align-items: center;
+
+    background-color: white;
+
+    padding: 16px;
+}
+
+.mobile_menu {
+    width: min(100%, 250px);
+}
+
+.page_header_buttons {
+    padding-left: 12px;
+
+    position: relative;
+
+    width: min(100%, 250px);
+    height: 100%;
+    margin-top: 16px;
+}
+
+.page_header_buttons > a > button {
+    margin: 8px 0px;
+} 
+
+.profile_container {
+    position: relative;
+
+    width: min(100%, 250px);
+    margin: 0 auto;
+}
+
+.profile_infos {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+
+    position: relative;
+
+    padding-right: 32px;
+}
+
+.profile_image_container {
+    padding: 4px;
+    min-width: 32px;
+    min-height: 32px;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 50%;
+
+    background-color: var(--brand-1);
+    color: var(--whiteFixed)
+}
+
+.hidden_menu {
+    position: absolute;
+    z-index: 1;
+
+    top: 100%;
+    background-color: var(--whiteFixed);
+
+    border-radius: 5px;
+    padding: 8px;
+    width: min(85%, 200px);
+
+    transform: translate(50%);
+    right: 50%;
+
+    box-shadow: 0px 2px 10px #00000047;
+}
+
+.hidden_menu_buttons {
+    border: none;
+    background-color: unset;
+
+    text-decoration: none;
+    font-size: 0.9rem;
+    padding: 8px 0px;
+}
+
+@media (min-width: 700px) {
+    .mobile_menu_button {
+        display: none;
+    }
+
+    .page_header_menu {
+        padding: 0;
+        border-top: unset;
+
+        width: min(100%, 300px);
+
+        position: unset;
+        transform: unset;
+        display: flex;
+    }
+
+    .page_header_buttons {
+        border-left: solid #0b0d0d3d 2px;
+
+        display: flex;
+        justify-content: space-around;
+
+        margin-top: unset;
+    }
+
+    .page_header_buttons > a > button {
+        margin: 0px;
+    }
+
+    .mobile_menu {
+        display: none;
+    }
+}

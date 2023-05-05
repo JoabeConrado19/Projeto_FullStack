@@ -1,0 +1,165 @@
+.containerGeral{
+    background-color: var(--gray-8);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: 'Lexend';
+
+    min-height: 85vh;
+}
+
+.backgroundBlue{
+    background-color: var(--brand-1);
+    width: 100vw;
+    height: 200px;
+}
+
+.perfilUser{
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 10rem;
+    width: 80vw;
+    background-color: var(--gray-10);
+    border-radius: 5px;
+    padding: 30px 20px;
+}
+
+.perfilUser p{
+    font-family: 'inter';
+    line-height: 22px;
+    margin-bottom: 1rem;
+}
+
+.perfilUser button{
+    width: 160px;
+    max-width: 160px;
+    height: 50px;
+    border-radius: 5px;
+    background-color: var(--gray-10);
+    border: solid var(--brand-1) 1.5px;
+    color: var(--brand-1);
+    font-family: 'inter';
+    font-weight: 600;
+}
+
+.imgPerfil{
+    width: 100px;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    font-size: 2.3rem;
+    align-items: center;
+    border-radius: 50%;
+}
+
+.containerCards{
+    margin-top: 18rem;
+}
+
+
+
+.cardUserContainer {
+    height: 32px;
+    margin-top: 7px;
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+}
+
+.cardUserContainer>p {
+    /* Text/body-2-500 */
+
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 24px;
+    /* identical to box height, or 171% */
+
+
+    /* Grey Scale/grey-2 */
+
+    color: #495057;
+
+
+    /* Inside auto layout */
+
+    flex: none;
+    order: 1;
+    flex-grow: 0;
+}
+
+.userData{
+    display: flex;
+    margin: 20px 0;
+    gap: 2rem; 
+}
+
+.userData h2{
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.userData span{
+    color: var(--brand-1);
+    background-color: var(--brand-4);
+    padding: 5px;
+    height: 25px;
+    border-radius: 2px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.ulContainer {
+    display: flex;
+    width: 90vw;
+    gap: 5rem;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+}
+
+.ulContainer>li {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    width: 312px;
+    max-width: 312px;
+    height: 356px;
+    gap: 1rem;
+}
+
+.nextPrev{
+    width: 100%;
+    height: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: auto 0 20px;
+}
+
+.nextPrev > span {
+    font-family: 'Lexend';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 22px;
+    line-height: 30px;
+    display: flex;
+    text-align: center;
+    color: #868E96;
+}
+
+.nextPrev > a {
+    font-family: 'Lexend';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 22px;
+    line-height: 30px;
+    display: flex;
+    text-align: center;
+
+    color: #5126EA;
+    text-decoration: none;
+
+}

@@ -1,0 +1,690 @@
+.header {
+  height: 80px;
+  box-sizing: border-box;
+
+  /* Auto layout */
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px 60px;
+  width: 100%;
+
+  position: absolute;
+
+  left: 0px;
+  top: 0px;
+
+  /* Grey Scale/grey-10 */
+
+  background: #fdfdfd;
+  border-bottom: 2px solid #dee2e6;
+}
+
+.w80pc {
+  width: 80%;
+}
+
+.w20pc {
+  width: 20%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.button2 {
+  /* Text Button */
+
+  width: 128px;
+  height: 40px;
+
+  /* Inputs Buttons/button-big-text */
+
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 0px;
+
+  color: #0b0d0d;
+  border: 1px solid #9a9fa5;
+  background-color: transparent;
+  border-radius: 4px;
+}
+
+.button1 {
+  /* Fazer Login */
+
+  width: 100px;
+  height: 28px;
+  margin-right: 50px;
+
+  /* Text/body-1-600 */
+
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 28px;
+  /* identical to box height, or 175% */
+
+  /* Grey Scale/grey-2 */
+
+  color: #495057;
+}
+
+.hero {
+  width: 100%;
+  height: 387px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  overflow: hidden;
+
+  position: absolute;
+  top: 80px;
+  margin-bottom: 30px;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.29) 0%, #000000 100%);
+}
+
+.hero > img {
+  width: 60%;
+  margin-top: 50px;
+  z-index: -1;
+}
+
+.text {
+  position: absolute;
+
+  position: absolute;
+
+  height: 479px;
+  top: 110px;
+
+  /* Heading/Heading-1-700 */
+
+  font-family: "Lexend";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 36px;
+  line-height: 56px;
+  /* or 127% */
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+
+  /* Grey Scale/grey-10 */
+
+  color: #fdfdfd;
+}
+
+.mainContainer {
+  width: 100%;
+  height: auto;
+  margin-top: 500px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.leftContainer {
+  width: 20%;
+  margin-left: 30px;
+}
+
+.rightContainer {
+  width: 75%;
+  gap: 2.5rem;
+  margin-right: 30px;
+  height: 100%;
+  display: flex;
+  justify-content: initial;
+  flex-wrap: wrap;
+}
+
+.rightContainer > li {
+  min-width: 300px;
+  width: 300px;
+  height: 345px;
+  margin-bottom: 50px;
+}
+
+.rightContainer > li > a {
+  text-decoration: none;
+}
+
+.cardImgContainer {
+  width: 100%;
+  height: 50%;
+  background-color: var(--gray-7);
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  flex-direction: row-reverse;
+}
+
+.cardImgContainer > img {
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+.cardImgContainer > span {
+  z-index: 2;
+  position: relative;
+  right: 1.18rem;
+  color: var(--gray-10);
+  padding: 5px;
+  background-color: var(--sucess-1);
+  margin-top: -9.1rem;
+}
+
+.ulCard {
+  width: 100%;
+  height: 150px;
+  background-color: #e9ecef;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.cardImgContainer > img {
+  width: 100%;
+}
+
+.cardTextContainer {
+  height: 90px;
+}
+
+.cardTextContainer > h3 {
+  font-family: "Lexend";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 20px;
+
+  /* Grey Scale/grey-1 */
+
+  color: #212529;
+  margin-bottom: 13px;
+  margin-top: 13px;
+}
+
+.cardTextContainer > p {
+  font-family: "Inter";
+  font-style: normal;
+  word-wrap: inherit;
+  max-height: 60px;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 26px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  /* or 171% */
+
+  /* Grey Scale/grey-2 */
+
+  color: #495057;
+
+  /* Inside auto layout */
+
+  flex: none;
+  order: 2;
+  flex-grow: 0;
+}
+
+.cardUserContainer {
+  height: 32px;
+  margin-top: 7px;
+  margin-bottom: 18px;
+  display: flex;
+  align-items: center;
+}
+
+.circle {
+  width: 32px;
+  height: 32px;
+  background-color: blue;
+  border-radius: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 0px;
+  /* identical to box height, or 0% */
+
+  color: #ffffff;
+  margin-right: 7px;
+}
+
+.cardUserContainer > p {
+  /* Text/body-2-500 */
+
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 24px;
+  /* identical to box height, or 171% */
+
+  /* Grey Scale/grey-2 */
+
+  color: #495057;
+
+  /* Inside auto layout */
+
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+}
+
+.cardDataContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.badge > button {
+  height: 32px;
+
+  /* Brand/brand4 */
+
+  background: #edeafd;
+  border-radius: 4px;
+
+  border: none;
+  cursor: pointer;
+  margin-right: 10px;
+
+  /* Text/body-2-500 */
+
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 24px;
+
+  color: #4529e6;
+
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+
+.cardDataContainer > p {
+  font-family: "Lexend";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 20px;
+  color: #212529;
+}
+
+.list {
+  margin-bottom: 30px;
+}
+
+.list > h2 {
+  font-family: "Lexend";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 28px;
+  line-height: 35px;
+
+  color: #000000;
+  margin-bottom: 20px;
+}
+
+.list > ul > li > button {
+  font-family: "Lexend";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 25px;
+  color: var(--gray-3);
+  transition: 0.2s ease-in-out;
+
+  width: fit-content;
+  padding: 4px 0px;
+}
+
+.list > ul > li > button:hover {
+  color: var(--gray-1);
+}
+
+.filters_header {
+  margin-bottom: 30px;
+}
+
+.filters_header > h2 {
+  font-family: "Lexend";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 28px;
+  line-height: 35px;
+
+  color: #000000;
+  margin-bottom: 20px;
+}
+
+.filters_header > ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.clear_filter_button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 1rem;
+  height: 1rem;
+  border-radius: 45%;
+  background-color: var(--brand-3);
+
+  margin-right: 4px;
+}
+
+.clear_filter_button > span {
+  width: fit-content;
+}
+
+.filters_header > ul > li > button {
+  color: var(--brand-2);
+  background-color: var(--brand-4);
+
+  font-family: "Lexend";
+  font-style: normal;
+  font-weight: 500;
+  line-height: 25px;
+  transition: 0.2s ease-in-out;
+
+  width: fit-content;
+  padding: 6px;
+}
+
+.asideButtons {
+  font-family: "Lexend";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 28px;
+  line-height: 35px;
+
+  color: #000000;
+  margin-bottom: 20px;
+}
+
+.asideButtons > div {
+  margin-left: 10px;
+  display: flex;
+  margin-top: 20px;
+}
+.asideButtons > div > button {
+  width: 125px;
+  height: 37px;
+  background: #ced4da;
+  font-family: "Lexend";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 20px;
+  margin-right: 20px;
+  border: none;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  text-align: center;
+
+  color: #868e96;
+}
+
+.nextPrev {
+  width: 100%;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 70px 0 70px 0;
+}
+
+.nextPrev > span {
+  font-family: "Lexend";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 22px;
+  line-height: 30px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+
+  color: #868e96;
+  margin-right: 50px;
+}
+
+.nextPrev > a {
+  font-family: "Lexend";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 22px;
+  line-height: 30px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+
+  color: #5126ea;
+  text-decoration: none;
+}
+
+.filtersBtn {
+  width: 100%;
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  display: none;
+}
+
+.filtersBtn > button {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 80%;
+  height: 42px;
+  gap: 10px;
+
+  background: #5126ea;
+  /* Brand/brand2 */
+
+  border: 1.5px solid #5126ea;
+  border-radius: 4px;
+
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 0px;
+  /* identical to box height, or 0% */
+
+  color: #ffffff;
+}
+
+@media (max-width: 922px) {
+  .mainContainer {
+    display: flex;
+    flex-direction: column-reverse;
+    width: 100%;
+    margin-top: 430px;
+    padding: 0;
+  }
+
+  .rightContainer {
+    min-width: 100%;
+    height: 380px;
+    padding: 0;
+    display: flex;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    margin-bottom: 40px;
+    padding: 0 20px;
+  }
+
+  .rightContainer > li {
+    min-width: 300px;
+    width: 300px;
+    margin-right: 30px;
+    border-radius: 10px;
+  }
+
+  .leftContainer {
+    display: none;
+  }
+
+  .filtersBtn {
+    display: flex;
+  }
+
+  .nextPrev {
+    margin: 40px 0 40px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .nextPrev > a {
+    margin-top: 20px;
+  }
+
+  .nextPrev > span {
+    margin-left: 35px;
+  }
+
+  .modalFilter {
+    overflow-y: scroll;
+    max-height: 100%;
+    padding: 0;
+    margin-bottom: 10px;
+  }
+
+  .modalClose {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .modalClose > p {
+    font-family: "Lexend";
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 20px;
+    color: #212529;
+  }
+
+  .modalClose > span {
+    color: #adb5bd;
+    cursor: pointer;
+    font-size: 18px;
+  }
+
+  .modalSection {
+    margin-top: 20px;
+  }
+
+  .modalSection > h2 {
+    font-family: "Lexend";
+    font-style: normal;
+    font-weight: 600;
+    font-size: 26px;
+    line-height: 35px;
+    color: #000000;
+  }
+
+  .modalSection > ul > li > button {
+    font-family: "Lexend";
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 25px;
+    color: var(--gray-3);
+    transition: 0.2s ease-in-out;
+
+    width: fit-content;
+    padding: 4px 0px;
+  }
+
+  .modalSection > ul > li > button:hover {
+    color: var(--gray-1);
+  }
+
+  .modalBtns {
+    margin-top: 20px;
+  }
+
+  .modalBtns > h2 {
+    font-family: "Lexend";
+    font-style: normal;
+    font-weight: 600;
+    font-size: 28px;
+    line-height: 35px;
+    color: #000000;
+  }
+
+  .modalBtns > div > button {
+    width: 40%;
+    height: 37px;
+    background: #ced4da;
+    font-family: "Lexend";
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 20px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: #868e96;
+    cursor: pointer;
+    margin: 20px 30px 0 0;
+    border: none;
+  }
+
+  .modalBtns > div {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .modalBottom {
+    margin-top: 50px;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    text-align: center;
+  }
+
+  .modalBottom > button {
+    width: 80%;
+    height: 48px;
+    background: #5126ea;
+    border: 1.5px solid #5126ea;
+    border-radius: 4px;
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 0px;
+    color: #ffffff;
+  }
+}

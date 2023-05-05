@@ -1,0 +1,76 @@
+.base_form {
+  background-color: var(--whiteFixed);
+  
+  width: min(450px, 90%);
+  padding: 44px clamp(28px, 5%, 48px);
+
+  border-radius: var(--radius-1);
+
+  height: max-content;
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  margin-bottom: 15px;
+  font-family: "Lexend";
+  font-style: normal;
+}
+
+.sub_title {
+  margin-bottom: 15px;
+}
+
+.link {
+  width: 100%;
+}
+
+.inputs_area_two {
+  display: flex;
+  justify-content: space-between;
+}
+
+.inputs_area_two div {
+  width: 48%;
+  margin: 20px 0px;
+}
+
+.buttons_area_one {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 5px;
+}
+
+.buttons_area_two {
+  display: flex;
+  justify-content: space-between;
+}
+
+.buttons_area_two > button {
+  width: 48%;
+}
+
+.background_one {
+  width: 100%;
+  min-height: 100vh;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--gray-8);
+}
+
+.forgot_password {
+  display: block;
+  
+  margin-left: auto;
+  margin-bottom: 16px;
+}
+
+.centered_text {
+  margin: 16px 0px;
+  text-align: center;
+}

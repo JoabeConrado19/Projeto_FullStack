@@ -1,0 +1,41 @@
+.modal_background {
+    position: fixed;
+    z-index: 10;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    min-height: 100vh;
+
+    overflow: hidden;
+
+    background-color: #00000047;
+}
+
+.modal_container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    width: 90%;
+    max-width: 550px;
+    max-height: 90vh;
+    overflow-y: auto;
+
+    background-color: var(--whiteFixed);
+    border-radius: 4px;
+}
+
+.modal_header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    width: 95%;
+    margin: 0 auto;
+}
+
+.modal_body {
+    padding: 24px;
+}
