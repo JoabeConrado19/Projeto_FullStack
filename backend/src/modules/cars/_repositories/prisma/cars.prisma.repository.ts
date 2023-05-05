@@ -3,8 +3,10 @@ import { plainToInstance } from 'class-transformer';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateCarsDto } from '../../dto/create-car.dto';
 import { UpdateCarsDto } from '../../dto/update-car.dto';
-import { Brand, Car } from '../../entities/car.entity';
+import { Car } from '../../entities/car.entity';
 import { CarsRepository } from '../cars.repository';
+import { Comment } from '../../entities/comment.entity';
+import { CreateCommentDto } from '../../dto/create-comments.dto';
 
 @Injectable()
 export class CarsPrismaRepository implements CarsRepository {
@@ -16,10 +18,16 @@ export class CarsPrismaRepository implements CarsRepository {
       ...data,
     });
 
-    const brand = new Brand();
-    Object.assign(brand, {
-      ...data.brand,
+    const findBrand = await this.prisma.brands.findUnique({
+      where: { brandName: data.brandName },
     });
+
+    if (!findBrand) {
+      await this.prisma.brands.create({
+        data: { brandName: data.brandName },
+      });
+    }
+
     const newCar = await this.prisma.cars.create({
       data: {
         color: data.color,
@@ -32,12 +40,9 @@ export class CarsPrismaRepository implements CarsRepository {
         price: data.price,
         year: data.year,
         userId: user,
+        brandName: data.brandName,
         isPromotional: data.isPromotional,
       },
-    });
-
-    await this.prisma.brands.create({
-      data: { ...brand, carId: newCar.id },
     });
 
     if (data.images.length) {
@@ -51,7 +56,7 @@ export class CarsPrismaRepository implements CarsRepository {
     const id = newCar.id;
     const findCar = await this.prisma.cars.findFirst({
       where: { id },
-      include: { images: true, brand: true },
+      include: { images: true, brand: true, comments: true },
     });
     return plainToInstance(Car, findCar);
   }
@@ -59,17 +64,20 @@ export class CarsPrismaRepository implements CarsRepository {
   async findAll(
     page: string,
     limit: string,
-    brand: string,
-    model: string,
-    color: string,
-    year: string,
-    fuelType: string,
+    brand?: string,
+    model?: string,
+    color?: string,
+    year?: string,
+    fuelType?: string,
+    priceMin?: string,
+    priceMax?: string,
   ): Promise<Car[]> {
-    if (brand || model || color || year || fuelType) {
+    if (brand || model || color || year || fuelType || priceMin || priceMax) {
       const cars = await this.prisma.cars.findMany({
         take: parseInt(limit),
         skip: parseInt(page) * parseInt(limit),
         where: {
+          price: { lte: priceMax, gte: priceMin },
           brand: { brandName: brand },
           model: model,
           color: color,
@@ -82,10 +90,14 @@ export class CarsPrismaRepository implements CarsRepository {
               url: true,
             },
           },
-          comments: true,
-          brand: {
+          comments: {
             select: {
-              brandName: true,
+              user: {
+                select: {
+                  name: true,
+                  color: true,
+                },
+              },
             },
           },
           user: {
@@ -107,7 +119,19 @@ export class CarsPrismaRepository implements CarsRepository {
               url: true,
             },
           },
-          comments: true,
+          comments: {
+            select: {
+              id: true,
+              description: true,
+              createdAt: true,
+              user: {
+                select: {
+                  name: true,
+                  color: true,
+                },
+              },
+            },
+          },
           brand: {
             select: {
               brandName: true,
@@ -138,7 +162,19 @@ export class CarsPrismaRepository implements CarsRepository {
             url: true,
           },
         },
-        comments: true,
+        comments: {
+          select: {
+            id: true,
+            description: true,
+            createdAt: true,
+            user: {
+              select: {
+                name: true,
+                color: true,
+              },
+            },
+          },
+        },
         brand: {
           select: {
             brandName: true,
@@ -159,6 +195,16 @@ export class CarsPrismaRepository implements CarsRepository {
   }
 
   async update(id: string, data: UpdateCarsDto): Promise<Car> {
+    const findBrand = await this.prisma.brands.findUnique({
+      where: { brandName: data.brandName },
+    });
+
+    if (!findBrand) {
+      await this.prisma.brands.create({
+        data: { brandName: data.brandName },
+      });
+    }
+
     await this.prisma.cars.update({
       where: { id },
       data: {
@@ -171,6 +217,7 @@ export class CarsPrismaRepository implements CarsRepository {
         model: data.model,
         price: data.price,
         year: data.year,
+        brandName: data.brandName,
       },
     });
 
@@ -189,7 +236,7 @@ export class CarsPrismaRepository implements CarsRepository {
 
     const carsUpdated = await this.prisma.cars.findUnique({
       where: { id },
-      include: { images: true },
+      include: { images: true, comments: true },
     });
 
     return plainToInstance(Car, carsUpdated);
@@ -199,5 +246,33 @@ export class CarsPrismaRepository implements CarsRepository {
     await this.prisma.cars.delete({
       where: { id },
     });
+  }
+
+  async createComment(
+    carId: string,
+    userId: string,
+    data: CreateCommentDto,
+  ): Promise<Comment> {
+    const comment = new Comment();
+    Object.assign(comment, {
+      ...data,
+    });
+    const newComment = await this.prisma.comments.create({
+      data: { description: data.description, carId: carId, userId: userId },
+    });
+
+    return plainToInstance(Comment, newComment);
+  }
+
+  async deleteComment(id: string): Promise<void> {
+    await this.prisma.comments.delete({
+      where: { id },
+    });
+  }
+  async findComment(id: string): Promise<Comment> {
+    const findComment = await this.prisma.comments.findUnique({
+      where: { id },
+    });
+    return findComment;
   }
 }

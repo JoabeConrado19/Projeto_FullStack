@@ -1,3 +1,5 @@
+import { IUserData } from "./user";
+
 export interface IImages {
   id: string;
   url: string;
@@ -17,11 +19,12 @@ export interface ICar {
   color: string;
   description: string;
   price: number;
-  imagesUrl: string;
+  imagesUrl: string | undefined;
   isActive: boolean;
   isPromotional: boolean;
   createdAt: string;
   userId: string;
+  user: IUserData;
   images: IImages;
   brand: IBrand;
 }

@@ -32,6 +32,8 @@ export default function MainHome() {
 
   const [requestString, setRequestString] = useState<string | null>(null);
 
+  const router = useRouter()
+
   const { announcements }: AnnouncementsList = useContext(PageContext);
 
   const styleModal = {
