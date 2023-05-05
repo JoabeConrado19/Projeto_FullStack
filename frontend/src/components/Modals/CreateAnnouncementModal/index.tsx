@@ -10,7 +10,7 @@ import {
   TextAreaInputComponent,
 } from "@/components/Input";
 import { fuelType } from "@/utils/carData";
-import { ICar, ICarRequest, IKenzieKar } from "@/interfaces/car";
+import { ICar, ICarRequest, IKenzieKar, IKenzieKarParcial } from "@/interfaces/car";
 
 import { formCreateAnnounceSchema } from "@/schemas/createAnnounceSchema";
 
@@ -29,7 +29,9 @@ export default function CreateAnnouncementModal({
   const [brandsArr, setBrandsArr] = useState<[] | string[]>([]);
   const [modelOptions, setModelOptions] = useState<any>(null);
 
-  const [carData, setCarData] = useState<Partial<IKenzieKar> | IKenzieKar>();
+  const [carData, setCarData] = useState<Partial<IKenzieKar> | IKenzieKar>({
+    fuel: 1
+  });
 
   const [inputList, setInputList] = useState<[] | (typeof InputComponent)[]>(
     []
@@ -128,7 +130,7 @@ export default function CreateAnnouncementModal({
             setCarData(carData);
 
             setValue("year", carData.year);
-            setValue("fuelType", fuelType[carData?.fuel]);
+            setValue("fuelType", fuelType[carData.fuel - 1]);
             setValue("carPriceChart", carData.value);
           }}
           errorMessage={errors.model && errors.model.message}
@@ -146,7 +148,7 @@ export default function CreateAnnouncementModal({
           <InputComponent
             inputId="car-fuel"
             label="Combustivel"
-            value={fuelType[carData?.fuel]}
+            value={fuelType[carData.fuel! - 1]}
             register={register("fuelType")}
             readOnly
             placeholder="Híbrido"

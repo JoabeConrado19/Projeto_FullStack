@@ -41,3 +41,11 @@ export interface IKenzieKar {
   fuel: number;
   value: number;
 }
+
+export interface IKenzieKarParcial {
+  id?: string;
+  name?: string;
+  brand?: string;
+  year?: string;
+  value?: number;
+}

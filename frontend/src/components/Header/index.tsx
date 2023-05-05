@@ -130,13 +130,13 @@ export default function HeaderComponent() {
                 </li>
                 {user.accountType === "Anunciante" ? (
                   <li>
-                    <a href="/announcement">
+                    <Link href="/announcement">
                       <ButtonComponent
                         className={buttonStyle.hidden_menu_buttons}
                       >
                         Meus anúncios
                       </ButtonComponent>
-                    </a>
+                    </Link>
                   </li>
                 ) : null}
                 <li>

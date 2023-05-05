@@ -266,7 +266,7 @@ export default function MainHome() {
                       <li key={index}>
                         <FilterButtonComponent
                           filterName="fuelType"
-                          optionName={fuelType}
+                          optionName={fuelType as string}
                           requestString={requestString}
                           setRequestString={setRequestString}
                         />
@@ -470,7 +470,7 @@ export default function MainHome() {
                   <li key={index}>
                     <FilterButtonComponent
                       filterName="fuelType"
-                      optionName={fuelType}
+                      optionName={fuelType as string}
                       requestString={requestString}
                       setRequestString={setRequestString}
                     />

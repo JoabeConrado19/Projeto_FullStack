@@ -10,5 +10,5 @@ export interface IButton extends ButtonHTMLAttributes<HTMLButtonElement> {
     requestString: string | null;
     setRequestString: (value: SetStateAction<string | null>) => void;
     filterName: string;
-    optionName: string | number;
+    optionName: string;
   }

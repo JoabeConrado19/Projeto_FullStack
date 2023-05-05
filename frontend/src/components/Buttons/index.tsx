@@ -26,13 +26,13 @@ export const FilterButtonComponent = ({
       onClick={() => {
         if (requestString?.includes(`${filterName}`)) {
           return setRequestString((prevState) => {
-            let prevStateArr = prevState.split("&");
+            let prevStateArr = prevState?.split("&");
 
-            prevStateArr = prevStateArr.filter(
+            prevStateArr = prevStateArr?.filter(
               (elem) => !elem.includes(`${filterName}`)
-            );
+            ) as string[]
 
-            prevState = prevStateArr.join("&");
+            prevState = prevStateArr?.join("&");
 
             return `${prevState}&${filterName}=${optionName}`;
           });

@@ -38,7 +38,9 @@ export default function EditAnnouncementModal({
   const [modelOptions, setModelOptions] = useState<any>(null);
   const [isActive, setIsActive] = useState<boolean>(true);
 
-  const [carData, setCarData] = useState<Partial<IKenzieKar> | IKenzieKar>();
+  const [carData, setCarData] = useState<Partial<IKenzieKar> | IKenzieKar>({
+    fuel: 1
+  });
 
   const [inputList, setInputList] = useState<[] | (typeof InputComponent)[]>(
     []
@@ -131,7 +133,7 @@ export default function EditAnnouncementModal({
             setCarData(carData);
 
             setValue("year", carData.year);
-            setValue("fuelType", fuelType[carData?.fuel]);
+            setValue("fuelType", fuelType[carData.fuel - 1]);
             setValue("carPriceChart", carData.value);
           }}
           errorMessage={errors.model && errors.model.message}
@@ -150,7 +152,7 @@ export default function EditAnnouncementModal({
           <InputComponent
             inputId="car-fuel"
             label="Combustivel"
-            value={fuelType[carData?.fuel]}
+            value={fuelType[carData.fuel! - 1]}
             register={register("fuelType")}
             readOnly
             placeholder="Híbrido"

@@ -176,7 +176,7 @@ export default function CarsDetailPage() {
               <p className="headline-6-600">Comentários</p>
               <ul className={style.commentary_list}>
                 {
-                  comments?.map((comment: any, index) => (
+                  comments?.map((comment: any, index: number) => (
                     <li key={index}>
                       <div className={style.perfil_infos}>
                         <p className={style.comments_profile_pic}>JL</p>
