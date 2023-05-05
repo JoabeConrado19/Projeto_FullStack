@@ -61,12 +61,12 @@ export default function CreateAnnouncementModal({
   const createCarFunc = async (data: any) => {
     let { carPriceChart, ...filteredData } = data as ICarRequest;
 
-    filteredData.price = Number(data.price);
+    const priceInNumber = Number(data.price);
     filteredData.isActive = true;
 
     const promotionalPrice = carPriceChart - (carPriceChart * 0.05)
 
-    if (filteredData.price <= promotionalPrice) {
+    if (priceInNumber <= promotionalPrice) {
       filteredData.isPromotional = true
     } else {
       filteredData.isPromotional = false
@@ -89,7 +89,7 @@ export default function CreateAnnouncementModal({
         <SelectInputComponent
           inputId="car-brand"
           label="Marca"
-          register={register("brand.brandName")}
+          register={register("brandName")}
           placeholder="Teste"
           options={brandsArr.map((value) => {
             return {
@@ -104,7 +104,7 @@ export default function CreateAnnouncementModal({
 
             setModelOptions(filterModels.data);
           }}
-          errorMessage={errors.brand && errors.brand.brandName.message}
+          errorMessage={errors.brand && errors.brand.message}
         />
         <SelectInputComponent
           disabled={modelOptions ? false : true}
