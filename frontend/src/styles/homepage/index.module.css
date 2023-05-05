@@ -153,6 +153,10 @@
   margin-bottom: 50px;
 }
 
+.rightContainer > li > a {
+  text-decoration: none;
+}
+
 .cardImgContainer {
   width: 100%;
   height: 50%;
