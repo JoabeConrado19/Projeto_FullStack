@@ -1,4 +1,6 @@
+import { Dispatch, SetStateAction } from "react";
 import style from "./style.module.css";
+import { ICar } from "@/interfaces/car";
 
 interface ICardAnnouncementProps{
     carImg: string,
@@ -7,7 +9,10 @@ interface ICardAnnouncementProps{
     carMiles: string,
     carYear: string,
     price: string,
-    isActive: boolean
+    isActive: boolean,
+    setShowCarEditModal: Dispatch<SetStateAction<boolean>>,
+    setTargetCarData: Dispatch<SetStateAction<ICar | undefined>>,
+    car: ICar
 }
 
 export default function CardAnnouncement({
@@ -17,7 +22,10 @@ export default function CardAnnouncement({
  carMiles,
  carYear,
  price,
- isActive
+ isActive,
+ setShowCarEditModal,
+ setTargetCarData,
+ car
 }: ICardAnnouncementProps) {
     
  return (
@@ -37,10 +45,13 @@ export default function CardAnnouncement({
      <button>{carMiles} KM</button>
      <button>{carYear}</button>
     </div>
-    <p>{price}</p>
+    <p>R$ {car.price.toLocaleString("pt-BR", {style:"currency", currency:"BRL"})}</p>
    </div>
    <div className={style.divButtons}>
-    <button>Editar</button>
+    <button onClick={() => {
+        setShowCarEditModal((prevState) => !prevState)
+        setTargetCarData(car)
+    }}>Editar</button>
     <button>Ver Detalhes</button>
    </div>
   </li>
