@@ -14,10 +14,12 @@ import createModalStyles from "../CreateAnnouncementModal/style.module.css";
 import buttonStyles from "@/components/Buttons/styles.module.css";
 
 import { ButtonComponent } from "@/components/Buttons";
-import { ICar, IKenzieKar } from "@/interfaces/car";
+import { ICar, ICarRequest, IKenzieKar } from "@/interfaces/car";
 import api from "@/services/api";
 import { fuelType } from "@/utils/carData";
 import { announcementPage } from "@/context/AnnouncementPageContext";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { formCreateAnnounceSchema } from "@/schemas/createAnnounceSchema";
 
 export default function EditAnnouncementModal({
   closeModalFunc,
@@ -28,7 +30,9 @@ export default function EditAnnouncementModal({
     handleSubmit,
     formState: { errors },
     setValue,
-  } = useForm();
+  } = useForm({
+    resolver: yupResolver(formCreateAnnounceSchema)
+  });
 
   const [brandsArr, setBrandsArr] = useState<[] | string[]>([]);
   const [modelOptions, setModelOptions] = useState<any>(null);
@@ -57,10 +61,21 @@ export default function EditAnnouncementModal({
   }, []);
 
   const updateCarFunc = async (data: any) => {
-    data.price = Number(data.price);
+    let { carPriceChart, ...filteredData } = data as ICarRequest;
+
+    const priceInNumber = Number(data.price);
+    filteredData.isActive = true;
+
+    const promotionalPrice = carPriceChart - (carPriceChart * 0.05)
+
+    if (priceInNumber <= promotionalPrice) {
+      filteredData.isPromotional = true
+    } else {
+      filteredData.isPromotional = false
+    }
 
     const returnedData = await api
-      .patch(`/cars/${carActualData.id}`, data)
+      .patch(`/cars/${carActualData.id}`, filteredData)
       .then(() => {
         closeModalFunc((prevState) => !prevState);
       });
@@ -75,7 +90,7 @@ export default function EditAnnouncementModal({
         <SelectInputComponent
           inputId="car-brand"
           label="Marca"
-          register={register("brand.brandName")}
+          register={register("brandName")}
           options={brandsArr.map((value) => {
             return {
               id: value,
@@ -89,7 +104,7 @@ export default function EditAnnouncementModal({
 
             setModelOptions(filterModels.data);
           }}
-          errorMessage={errors.brand && errors.brand.brandName.message}
+          errorMessage={errors.brand && errors.brand.message}
         />
         <SelectInputComponent
           disabled={modelOptions ? false : true}
