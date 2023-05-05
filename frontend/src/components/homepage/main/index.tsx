@@ -73,7 +73,7 @@ export default function MainHome() {
             colors: string[];
             models: string[];
             years: string[];
-            fuelTypes: string[] | number[];
+            fuelTypes: string[];
           },
           act
         ) => {
@@ -89,8 +89,8 @@ export default function MainHome() {
             acc.years.push(act.year);
           }
 
-          if (!acc.fuelTypes.includes(act.fuelType)) {
-            acc.fuelTypes.push(act.fuelType);
+          if (!acc.fuelTypes.includes(act.fuelType as string)) {
+            acc.fuelTypes.push(act.fuelType as string);
           }
 
           return acc;
