@@ -16,14 +16,22 @@ export default function AnnouncementPage() {
 
   const { userAnnouncements, user } = useContext(announcementPage);
 
+  let novoNome;
+ 
+
   if (user) {
     const nome = user.name;
     const nomeSplit = nome.split(" ");
-    var novoNome = nomeSplit[0][0] + nomeSplit[1][0];
+    novoNome = nomeSplit[0][0] + nomeSplit[1][0];
   }
+  const carFilter = userAnnouncements.find((car) =>{
+    return car.userId == user?.id
+  })
 
   return (
     <>
+    {
+      carFilter ? 
       <div className={style.containerGeral}>
         <div className={style.backgroundBlue}></div>
         <div className={style.perfilUser}>
@@ -31,7 +39,7 @@ export default function AnnouncementPage() {
             className={style.imgPerfil}
             style={{ backgroundColor: user?.color }}
           >
-            {novoNome!}
+            {novoNome}
           </div>
           <div className={style.userData}>
             <h2>{user?.name}</h2>
@@ -78,6 +86,9 @@ export default function AnnouncementPage() {
           <a href="">Seguinte</a>
         </div>
       </div>
+      :
+      <h1>Não é igual</h1>
+    }
       {modalIsOpen ? (
         <CreateAnnouncementModal
           closeModalFunc={setModalIsOpen}
