@@ -15,7 +15,6 @@ export const EditDeleteUserProvider = ({ children }: IProviderProps) => {
   const router = useRouter();
 
   const editUser = async (data: IEditUserSubmit) => {
-    data.profileImage = "pedddrof";
     await api
       .patch("/users", data)
       .then((resp) => {

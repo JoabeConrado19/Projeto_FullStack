@@ -14,38 +14,35 @@ export default function AnnouncementPage() {
   const [showCarEditModal, setShowCarEditModal] = useState<boolean>(false);
   const [targerCarData, setTargetCarData] = useState<ICar>();
 
-  const { userAnnouncements, user } = useContext(announcementPage);
+  const { userAnnouncements, user, carUser, userCarData } = useContext(announcementPage);
 
   let novoNome;
  
 
-  if (user) {
-    const nome = user.name;
+  if (userCarData) {
+    const nome = userCarData.name;
     const nomeSplit = nome.split(" ");
     novoNome = nomeSplit[0][0] + nomeSplit[1][0];
   }
-  const carFilter = userAnnouncements.find((car) =>{
-    return car.userId == user?.id
-  })
 
   return (
     <>
     {
-      carFilter ? 
+      carUser === user?.id ? 
       <div className={style.containerGeral}>
         <div className={style.backgroundBlue}></div>
         <div className={style.perfilUser}>
           <div
             className={style.imgPerfil}
-            style={{ backgroundColor: user?.color }}
+            style={{ backgroundColor: userCarData?.color }}
           >
             {novoNome}
           </div>
           <div className={style.userData}>
-            <h2>{user?.name}</h2>
-            <span>{user?.accountType}</span>
+            <h2>{userCarData?.name}</h2>
+            <span>{userCarData?.accountType}</span>
           </div>
-          <p>{user?.description}</p>
+          <p>{userCarData?.description}</p>
           <Button
             onClick={() => {
               setModalIsOpen((prevState) => !prevState);
@@ -66,6 +63,7 @@ export default function AnnouncementPage() {
               return (
                 <CardAnnouncement
                   key={car.id}
+                  user={true}
                   carModel={car.model}
                   carDescription={car.description}
                   carImg={car.imagesUrl}
@@ -87,7 +85,54 @@ export default function AnnouncementPage() {
         </div>
       </div>
       :
-      <h1>Não é igual</h1>
+      <div className={style.containerGeral}>
+        <div className={style.backgroundBlue}></div>
+        <div className={style.perfilUser}>
+          <div
+            className={style.imgPerfil}
+            style={{ backgroundColor: userCarData?.color }}
+          >
+            {novoNome}
+          </div>
+          <div className={style.userData}>
+            <h2>{userCarData?.name}</h2>
+            <span>{userCarData?.accountType}</span>
+          </div>
+          <p>{userCarData?.description}</p>
+        </div>
+
+        <div className={style.containerCards}>
+          <ul className={style.ulContainer}>
+            {userAnnouncements.map((car: any) => {
+              const price = car.price.toLocaleString("pt-BR", {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2,
+              });
+
+              return (
+                <CardAnnouncement
+                  key={car.id}
+                  user={false}
+                  carModel={car.model}
+                  carDescription={car.description}
+                  carImg={car.imagesUrl}
+                  carMiles={car.miles}
+                  carYear={car.year}
+                  price={price}
+                  isActive={car.isActive}
+                  setShowCarEditModal={setShowCarEditModal}
+                  setTargetCarData={setTargetCarData}
+                  car={car}
+                />
+              );
+            })}
+          </ul>
+        </div>
+        <div className={style.nextPrev}>
+          <span>1 de 2</span>
+          <a href="">Seguinte</a>
+        </div>
+      </div>
     }
       {modalIsOpen ? (
         <CreateAnnouncementModal

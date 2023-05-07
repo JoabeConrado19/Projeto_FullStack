@@ -9,6 +9,7 @@ interface ICardAnnouncementProps{
     carMiles: string,
     carYear: string,
     price: string,
+    user: boolean,
     isActive: boolean,
     setShowCarEditModal: Dispatch<SetStateAction<boolean>>,
     setTargetCarData: Dispatch<SetStateAction<ICar | undefined>>,
@@ -23,6 +24,7 @@ export default function CardAnnouncement({
  carYear,
  price,
  isActive,
+ user,
  setShowCarEditModal,
  setTargetCarData,
  car
@@ -47,12 +49,12 @@ export default function CardAnnouncement({
     </div>
     <p>{car.price.toLocaleString("pt-BR", {style:"currency", currency:"BRL"})}</p>
    </div>
-   <div className={style.divButtons}>
+   <div className={style.divButtons} style={{display: user ? 'flex' : 'none' }} >
     <button onClick={() => {
         setShowCarEditModal((prevState) => !prevState)
         setTargetCarData(car)
     }}>Editar</button>
-    <button >Ver Detalhes</button>
+    <button>Ver Detalhes</button>
    </div>
   </li>
  );

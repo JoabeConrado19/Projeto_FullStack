@@ -19,12 +19,15 @@ interface IAnnouncementProviderData {
   user: IUserData | null;
   setUser: Dispatch<SetStateAction<IUserData | null>>;
   router: NextRouter;
+  carUser: string
+  userCarData: IUserData | null;
 }
 
 export const AnnouncementPageProvider = ({ children }: IProviderProps) => {
   const [userAnnouncements, setUserAnnouncements] = useState([]);
   const [user, setUser] = useState<IUserData | null>(null);
-
+  const [carUser, setCarUser] = useState<string>("")
+  const [userCarData, setUserCarData] = useState<IUserData | null>(null);
   const router = useRouter();
 
   useEffect(() => {
@@ -39,8 +42,6 @@ export const AnnouncementPageProvider = ({ children }: IProviderProps) => {
           const { data }: { data: any } = await api.get(
             `/users/${tokenUserData.sub}`
           );
-
-          setUserAnnouncements(data.cars);
           setUser(data);
         } catch {
           destroyCookie(undefined, "tokenMotorsShop");
@@ -50,16 +51,30 @@ export const AnnouncementPageProvider = ({ children }: IProviderProps) => {
       }
     };
 
+    const getAnnouncement = async () => {
+      const userAnnouncement = router.query
+      try{
+        const { data }: { data: any } = await api.get(`/users/${userAnnouncement.id}`);
+        setCarUser(data.id)
+        setUserAnnouncements(data.cars);
+        setUserCarData(data)
+      }catch{
+      }
+    }
+
     getUser();
-  }, [user, router]);
+    getAnnouncement()
+  }, [ router ]);
 
   return (
     <announcementPage.Provider
       value={{
         userAnnouncements,
+        userCarData,
         user,
         setUser,
-        router
+        router,
+        carUser,
       }}
     >
       {children}
