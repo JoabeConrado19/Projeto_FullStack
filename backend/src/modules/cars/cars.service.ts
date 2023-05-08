@@ -1,12 +1,13 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { CarsRepository } from '../cars/_repositories/cars.repository';
 import { CreateCarsDto } from './dto/create-car.dto';
-import { UpdateCarsDto } from './dto/update-car.dto';
 import { CreateCommentDto } from './dto/create-comments.dto';
+import { UpdateCarsDto } from './dto/update-car.dto';
+import { UpdateCommentsDto } from './dto/update-comment.dto';
 
 @Injectable()
 export class CarsService {
-  constructor(private carsRepository: CarsRepository) {}
+  constructor(private carsRepository: CarsRepository) { }
 
   async create(userId: string, createCarsDto: CreateCarsDto) {
     const cars = await this.carsRepository.create(userId, createCarsDto);
@@ -85,5 +86,14 @@ export class CarsService {
       throw new NotFoundException('Comment not found');
     }
     return this.carsRepository.deleteComment(id);
+  }
+
+
+  async updateComment(id: string, data: UpdateCommentsDto) {
+    const findComment = await this.carsRepository.findComment(id);
+    if (!findComment) {
+      throw new NotFoundException('Comment not found');
+    }
+    return this.carsRepository.updateComment(id, data);
   }
 }
