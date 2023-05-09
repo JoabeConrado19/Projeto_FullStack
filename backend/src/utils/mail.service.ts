@@ -26,7 +26,7 @@ export class MailService {
         console.log('Aqui vai um toast de sucesso, email enviado');
       })
       .catch((err) => {
-        console.log(err);
+        console.error(err);
         throw new InternalServerErrorException(
           'Ops, algo deu errado ao enviar o e-mail',
         );
