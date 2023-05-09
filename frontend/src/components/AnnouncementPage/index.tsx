@@ -6,6 +6,8 @@ import { announcementPage } from "@/context/AnnouncementPageContext";
 import EditAnnouncementModal from "../Modals/EditAnnouncementModal";
 import { ICar } from "@/interfaces/car";
 import CardAnnouncement from "../AnnouncementCarCard";
+import Image from "next/image";
+import fundoVazio from "../../assets/carImages/fundo_vazio.png";
 
 export default function AnnouncementPage() {
  const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
@@ -52,7 +54,9 @@ export default function AnnouncementPage() {
 
      <div className={style.containerCards}>
       <ul className={style.ulContainer}>
-       {userAnnouncements.map((car: any) => {
+       {
+       userAnnouncements.length ?
+       userAnnouncements.map((car: any) => {
         const price = car.price.toLocaleString("pt-BR", {
          minimumFractionDigits: 2,
          maximumFractionDigits: 2,
@@ -74,13 +78,23 @@ export default function AnnouncementPage() {
           car={car}
          />
         );
-       })}
+       })
+       :
+       <>
+       <h2 style={{marginTop: '-6rem', marginLeft: '6rem', fontSize: '1.5rem'}}>Crie um anuncio no botão acima!</h2>
+       <Image style={{marginTop: '-8rem', width: '100%'}} src={fundoVazio} alt="Imagem espelho de anuncios"/>
+       </>
+    }
       </ul>
      </div>
+     {
+      userAnnouncements.length ?
      <div className={style.nextPrev}>
       <span>1 de 2</span>
       <a href="">Seguinte</a>
-     </div>
+     </div>:
+     null
+     }
     </div>
    ) : (
     <div className={style.containerGeral}>

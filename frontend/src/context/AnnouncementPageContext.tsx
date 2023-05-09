@@ -60,6 +60,7 @@ export const AnnouncementPageProvider = ({ children }: IProviderProps) => {
     setCarUser(data.id);
     setUserAnnouncements(data.cars);
     setUserCarData(data);
+    console.log(data)
    } catch {}
   };
 
