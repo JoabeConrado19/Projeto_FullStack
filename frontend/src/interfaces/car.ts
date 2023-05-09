@@ -1,6 +1,7 @@
 import { IUserData } from "./user";
 
 export interface IImages {
+  map(arg0: (image: any, index: number) => JSX.Element): import("react").ReactNode;
   id: string;
   url: string;
   carId: string;
