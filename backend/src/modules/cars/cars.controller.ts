@@ -100,9 +100,8 @@ export class CarsController {
     return this.carsService.deleteComment(id);
   }
 
-  @Patch(':id/comments/:Id')
+  @Patch('comments/:id')
   @UseGuards(JwtAuthGuard)
-  @ApiCreatedResponse({ type: Comment })
   updateComment(@Param('id') id: string, @Body() UpdateCommentsDto: UpdateCommentsDto) {
     return this.carsService.updateComment(id, UpdateCommentsDto);
   }

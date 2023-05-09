@@ -299,16 +299,15 @@ export class CarsPrismaRepository implements CarsRepository {
       where: { id },
     });
 
-    await this.prisma.cars.update({
+    await this.prisma.comments.update({
       where: { id },
       data: { description: data.description }
     })
 
-    const carsUpdated = await this.prisma.cars.findUnique({
+    const commentUpdated = await this.prisma.comments.findUnique({
       where: { id },
-      include: { comments: true },
     });
 
-    return plainToInstance(Comment, carsUpdated)
+    return commentUpdated
   }
 }
