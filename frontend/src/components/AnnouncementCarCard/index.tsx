@@ -1,6 +1,7 @@
 import { Dispatch, SetStateAction } from "react";
 import style from "./style.module.css";
 import { ICar } from "@/interfaces/car";
+import Link from "next/link";
 
 interface ICardAnnouncementProps {
  carImg: string;
@@ -64,7 +65,10 @@ export default function CardAnnouncement({
     >
      Editar
     </button>
+    
+    <Link href={`/cars/${car.id}`}>
     <button>Ver Detalhes</button>
+    </Link>
    </div>
   </li>
  );
