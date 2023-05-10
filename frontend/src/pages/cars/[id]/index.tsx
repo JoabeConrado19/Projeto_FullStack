@@ -4,11 +4,6 @@ import style from "@/styles/car_details_page/index.module.css";
 import buttonStyle from "@/components/Buttons/styles.module.css";
 import DetailContainerComponent from "@/components/DetailsContainer";
 import { Button } from "@mui/material";
-<<<<<<< HEAD
-import Image from "next/image";
-=======
-
->>>>>>> b8602793ee17a7d1f01e5038aa42f270a38e53f1
 import { useEffect, useState, useContext } from "react";
 import api from "@/services/api";
 import { ICar, IImages } from "@/interfaces/car";
@@ -17,13 +12,14 @@ import { parseCookies } from "nookies";
 import { parseJwt } from "@/utils/jwt";
 import moment from "moment";
 import "moment/locale/pt-br";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+import EditCommentModal from "@/components/Modals/EditCommentModal";
+
 
 export default function CarsDetailPage() {
-<<<<<<< HEAD
   moment.locale("pt-br");
   const now = moment();
-=======
->>>>>>> b8602793ee17a7d1f01e5038aa42f270a38e53f1
   const router = useRouter();
   const id = router.query.id;
   if (!id) {
@@ -32,6 +28,9 @@ export default function CarsDetailPage() {
   const [targerCarData, setTargetCarData] = useState<ICar>();
   const [commentInput, setCommentInput] = useState<string>();
   const [comments, setComments] = useState<any>([]);
+  const [comment, setComment] = useState<any>([]);
+  const [showEditModal, setShowEditModal] = useState<boolean>(false);
+
 
   function handleCommentInputChange(event: any) {
     setCommentInput(event.target.value);
@@ -40,10 +39,9 @@ export default function CarsDetailPage() {
   const { user } = useContext(announcementPage);
 
   useEffect(() => {
-    console.log(id);
+    console.log(user);
 
     const getAnnunc = async () => {
-<<<<<<< HEAD
       try {
         const { data }: { data: any } = await api.get(`/cars/${id}`);
 
@@ -59,31 +57,20 @@ export default function CarsDetailPage() {
     const getComments = async () => {
       try {
         const { data }: { data: any } = await api.get(`/cars/${id}`);
-=======
-      try {
-        const { data }: { data: any } = await api.get(`/cars/${id}`);
-        console.log(data);
-        setTargetCarData(data);
-        setComments([...data.comments]);
-      } catch {}
-    };
-    getAnnunc();
-  }, [id]);
-
-  useEffect(() => {
-    const getComments = async () => {
-      try {
-        const { data }: { data: any } = await api.get(`/cars/${id}`);
->>>>>>> b8602793ee17a7d1f01e5038aa42f270a38e53f1
 
         setComments([...data.comments]);
+        
       } catch {}
     };
-    getComments();
+    getComments()
+    
   }, [comments]);
 
   return (
     <>
+    {showEditModal ? (
+    <EditCommentModal closeModalFunc={setShowEditModal} comment={comment} user={user}/>
+   ) : null}
       <div className={style.page}>
         <div className={style.main_content}>
           <div className={style.wrap_container}>
@@ -180,27 +167,40 @@ export default function CarsDetailPage() {
 
                     return (
                       <li>
-                        <div className={style.perfil_infos}>
-                          <p
-                            className={style.comments_profile_pic}
-                            style={{ backgroundColor: comment.user.color }}
-                          >
-                            {comment.user.name
-                              .split(" ", 2)
-                              .map((name: string) => name.charAt(0))
-                              .join("")}
-                          </p>
-                          <p className="body-2-500">{comment.user.name}</p>
-                          <div className={style.gray_dot}></div>
-                          <span className="body-2-400">
-                            <p>
-                              {moment(comment.createdAt)
-                                .locale("pt-br")
-                                .fromNow()}
+                        <div className={style.perfil_infos2}>
+                          <div className={style.leftTitleComment}>
+                            <p
+                              className={style.comments_profile_pic}
+                              style={{ backgroundColor: comment.user.color }}
+                            >
+                              {comment.user.name
+                                .split(" ", 2)
+                                .map((name: string) => name.charAt(0))
+                                .join("")}
                             </p>
-                          </span>
+                            <p className="body-2-500">{comment.user.name}</p>
+                            <div className={style.gray_dot}></div>
+                            <span className="body-2-400">
+                              <p>
+                                {moment(comment.createdAt)
+                                  .locale("pt-br")
+                                  .fromNow()}
+                              </p>
+                            </span>
+                          </div>
+                          {comment.user.name === user?.name && (
+                            <div className={style.rigthTitleComment}>
+                              <EditIcon className={style.commentIcon} onClick={()=>{
+                                setShowEditModal((prevState) => !prevState)
+                                setComment(comment)
+                              }}
+                              
+                              />
+
+                            </div>
+                          )}
                         </div>
-                        <p className="body-2-400">{comment.description}</p>
+                        <p className="body-2-400">{comment.description} </p>
                       </li>
                     );
                   })
@@ -251,15 +251,7 @@ export default function CarsDetailPage() {
                           );
 
                           setComments(data2.comments);
-
-                          // setComments((prevComments :any) => [{}, ...prevComments]);
-
-                          // setUserAnnouncements(data.cars);
-                          // setUser(data);
-                        } catch {
-                          // destroyCookie(undefined, "tokenMotorsShop");
-                          // router.push("/login");
-                        }
+                        } catch {}
                       }
                     };
 

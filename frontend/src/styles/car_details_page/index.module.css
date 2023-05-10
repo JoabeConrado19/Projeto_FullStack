@@ -128,6 +128,15 @@
     margin-bottom: 24px;
 }
 
+.perfil_infos2 {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+
+    margin-bottom: 24px;
+}
+
 .perfil_infos > span {
     color: var(--gray-4);
 }
@@ -177,6 +186,41 @@
 
 .page_third_section > div {
     margin-bottom: 24px;
+}
+
+.leftTitleComment{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+
+.commentIcon{
+    margin-right: 15px;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 3px;
+    background-color: #1976d2;
+    color: white;
+}
+
+.commentIcon2{
+    margin-right: 15px;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 3px;
+    background-color: red;
+    color: white;
+}
+.commentIcon2:hover{
+    background-color: rgba(255, 0, 0, 0.678);
+
+}
+
+.commentIcon:hover{
+    background-color: #1976d2b9;;
+    
 }
 
 @media (min-width: 700px){
