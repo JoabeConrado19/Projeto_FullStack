@@ -31,6 +31,6 @@
 
 ## Links para a aplicação
 
-- ✅ [Frontend](https://github.com/grupo16-t13-felipe/Projeto_FullStack/tree/main/backend)
+- ✅ [Backend](https://github.com/grupo16-t13-felipe/Projeto_FullStack/tree/main/backend)
 
-- ✅ [Backend](https://github.com/grupo16-t13-felipe/Projeto_FullStack/tree/main/frontend)
+- ✅ [Frontend](https://github.com/grupo16-t13-felipe/Projeto_FullStack/tree/main/frontend)
