@@ -27,8 +27,7 @@ export default function EditCommentModal({
  const { setUser } = useContext(announcementPage);
 
  const editCommentRequest = async (data: any) => {
-    console.log(user)
-    console.log(comment)
+
 //   const { id } = userData;
 
   await api.patch(`/cars/comments/${comment.id}`, {
@@ -45,8 +44,7 @@ closeModalFunc((prevState:boolean) => {
  };
 
  const deleteCommentRequest = async (data: any) => {
-    console.log(user)
-    console.log(comment)
+
 
   await api.delete(`/cars/comments/${comment.id}`);
 

@@ -39,7 +39,6 @@ export default function CarsDetailPage() {
   const { user } = useContext(announcementPage);
 
   useEffect(() => {
-    console.log(user);
 
     const getAnnunc = async () => {
       try {
