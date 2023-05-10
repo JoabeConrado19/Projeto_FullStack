@@ -30,7 +30,7 @@ export default function CarsDetailPage() {
     const getAnnunc = async () => {
       try {
         const { data }: { data: any } = await api.get(`/cars/${id}`);
-        console.log(data)
+        console.log(data);
         setTargetCarData(data);
         setComments([...data.comments]);
       } catch {}
