@@ -2,10 +2,8 @@ import { useRouter } from "next/router";
 import React from "react";
 import style from "@/styles/car_details_page/index.module.css";
 import buttonStyle from "@/components/Buttons/styles.module.css";
-
 import DetailContainerComponent from "@/components/DetailsContainer";
 import { Button } from "@mui/material";
-
 import Image from "next/image";
 import { useEffect, useState, useContext } from "react";
 import api from "@/services/api";
@@ -13,11 +11,11 @@ import { ICar, IImages } from "@/interfaces/car";
 import { announcementPage } from "@/context/AnnouncementPageContext";
 import { destroyCookie, parseCookies } from "nookies";
 import { parseJwt } from "@/utils/jwt";
-import moment from 'moment'
+import moment from "moment";
 import "moment/locale/pt-br";
 
 export default function CarsDetailPage() {
-  moment.locale('pt-br');
+  moment.locale("pt-br");
   const now = moment();
   const router = useRouter();
   const id = router.query.id;
@@ -34,18 +32,9 @@ export default function CarsDetailPage() {
 
   const { user } = useContext(announcementPage);
 
-  // const nome = targerCarData?.user.name;
-  // const nomeSplit: any = nome?.split(" ");
-  // let novoNome:string = "";
-  // if (nomeSplit.length >= 1) {
-  //   novoNome = nomeSplit[0][0].toUpperCase();
-  //   if (nomeSplit.length >= 2) {
-  //     novoNome += nomeSplit[1][0].toUpperCase();
-  //   }
-  // }
-
   useEffect(() => {
     console.log(id);
+
     const getAnnunc = async () => {
       try {
         const { data }: { data: any } = await api.get(`/cars/${id}`);
@@ -123,8 +112,11 @@ export default function CarsDetailPage() {
               <DetailContainerComponent
                 customClassName={style.profile_container}
               >
-                <div className={style.profile_pic} style={{ backgroundColor: targerCarData?.user.color }}>
-                {targerCarData?.user.name
+                <div
+                  className={style.profile_pic}
+                  style={{ backgroundColor: targerCarData?.user.color }}
+                >
+                  {targerCarData?.user.name
                     .split(" ", 2)
                     .map((name: string) => name.charAt(0))
                     .join("")}
@@ -156,29 +148,35 @@ export default function CarsDetailPage() {
               <ul className={style.commentary_list}>
                 {comments ? (
                   comments.map((comment: any) => {
-                    moment.locale('pt-br');
+                    moment.locale("pt-br");
                     const date = moment(comment.createdAt);
 
-                    return(
-                    <li>
-                      <div className={style.perfil_infos}>
-                        <p className={style.comments_profile_pic} style={{ backgroundColor: comment.user.color }}>
-                          {comment.user.name
-                            .split(" ", 2)
-                            .map((name: string) => name.charAt(0))
-                            .join("")}
-                        </p>
-                        <p className="body-2-500">{comment.user.name}</p>
-                        <div className={style.gray_dot}></div>
-                        <span className="body-2-400">
-                  
-                          <p>{moment(comment.createdAt).locale('pt-br').fromNow()}</p>
-
-                        </span>
-                      </div>
-                      <p className="body-2-400">{comment.description}</p>
-                    </li>)
-})
+                    return (
+                      <li>
+                        <div className={style.perfil_infos}>
+                          <p
+                            className={style.comments_profile_pic}
+                            style={{ backgroundColor: comment.user.color }}
+                          >
+                            {comment.user.name
+                              .split(" ", 2)
+                              .map((name: string) => name.charAt(0))
+                              .join("")}
+                          </p>
+                          <p className="body-2-500">{comment.user.name}</p>
+                          <div className={style.gray_dot}></div>
+                          <span className="body-2-400">
+                            <p>
+                              {moment(comment.createdAt)
+                                .locale("pt-br")
+                                .fromNow()}
+                            </p>
+                          </span>
+                        </div>
+                        <p className="body-2-400">{comment.description}</p>
+                      </li>
+                    );
+                  })
                 ) : (
                   <p></p>
                 )}
@@ -186,7 +184,10 @@ export default function CarsDetailPage() {
             </DetailContainerComponent>
             <DetailContainerComponent>
               <div className={style.perfil_infos}>
-                <p className={style.comments_profile_pic} style={{ backgroundColor: user?.color }}>
+                <p
+                  className={style.comments_profile_pic}
+                  style={{ backgroundColor: user?.color }}
+                >
                   {user?.name
                     .split(" ", 2)
                     .map((name: string) => name.charAt(0))
