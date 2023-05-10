@@ -30,7 +30,7 @@ export default function CarsDetailPage() {
     const getAnnunc = async () => {
       try {
         const { data }: { data: any } = await api.get(`/cars/${id}`);
-
+        console.log(data);
         setTargetCarData(data);
         setComments([...data.comments]);
       } catch {}
@@ -73,13 +73,13 @@ export default function CarsDetailPage() {
                   </ul>
                   <span className="body-1-600">R$ {targerCarData?.price}</span>
                 </div>
-                <Button
+                <a
                   color="primary"
-                  variant="contained"
-                  className={buttonStyle.fit_content_button}
+                  className={`${buttonStyle.fit_content_button} ${buttonStyle.buyerButton}`}
+                  href={`https://wa.me/55${targerCarData?.user.phone}?text=Tenho%20interesse%20em%20comprar%20seu%20carro%20${targerCarData?.model}.`}
                 >
                   Comprar
-                </Button>
+                </a>
               </DetailContainerComponent>
               <DetailContainerComponent>
                 <p className="headline-6-600">Descrição</p>
