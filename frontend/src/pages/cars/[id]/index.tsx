@@ -144,17 +144,7 @@ export default function CarsDetailPage() {
         <div className={style.profile_pic}></div>
         <p className="headline-6-600">{targerCarData?.user.name}</p>
         <span className="body-1-400">{targerCarData?.user.description}</span>
-        <Button
-         className={`
-                                            ${buttonStyle.black_white_button} 
-                                            ${buttonStyle.fit_content_button}
-                                        `}
-         style={{
-          margin: "0 auto",
-         }}
-        >
-         Ver todos os anúncios
-        </Button>
+        <a style={{color: 'white', textDecoration: 'none', backgroundColor: 'black', padding: '10px 12px', width: '206px', borderRadius: '4px', margin: '0 auto'}}href={`${router.basePath}/announcement/${targerCarData?.userId}`}>Ver todos os anuncios</a>
        </DetailContainerComponent>
       </div>
      </div>

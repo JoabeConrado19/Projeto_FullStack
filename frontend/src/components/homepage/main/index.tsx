@@ -8,17 +8,18 @@ import { useContext, useEffect, useState } from "react";
 import { AnnouncementsList } from "@/interfaces/announcement";
 
 import kenzieKars from "@/services/kenzieKars";
-import fundoVazio from "../../../assets/carImages/fundo_vazio.png"
+
 
 import buttonStyle from "@/components/Buttons/styles.module.css";
 import Announcement from "../car";
 import api from "@/services/api";
 import { ICar } from "@/interfaces/car";
 import { FilterButtonComponent } from "@/components/Buttons";
-import Image from "next/image";
+
 import { useRouter } from "next/router";
 import { announcementPage } from "@/context/AnnouncementPageContext";
-import { IUserData } from "@/interfaces/user";
+
+import EmptyCard from "@/components/EmptyCard";
 
 export default function MainHome() {
  const [open, setOpen] = useState(false);
@@ -547,13 +548,13 @@ export default function MainHome() {
      ))
     : !filtered?.length && user?.accountType == "Vendedor" ?
     <>
-    <h2 style={{margin: '0 auto', fontSize: '1.5rem'}}>Sem anuncios no momento clique <a style={{textDecoration: 'underline', color: 'blue', }}href={`${route.basePath}/announcement/${user?.id}`}>aqui</a> para criar um anuncio</h2>
-    <Image src={fundoVazio} alt="Imagem espelho de anuncios"/>
+    <h2 style={{margin: '0 auto', fontSize: '1.5rem', width: '100%'}}>Sem anuncios no momento clique <a style={{textDecoration: 'underline', color: 'blue', }}href={`${route.basePath}/announcement/${user?.id}`}>aqui</a> para criar um anuncio</h2>
+    <EmptyCard/>
     </>
     :
     <>
-    <h2 style={{margin: '0 auto', fontSize: '1.5rem'}}>Sem anuncios no momento! espere até que algum <u>Vendedor</u> publique!</h2>
-    <Image src={fundoVazio} alt="Imagem espelho de anuncios"/>
+    <h2 style={{margin: '0 auto', fontSize: '1.5rem', width: '100%'}}>Sem anuncios no momento! espere até que algum <u>Vendedor</u> publique!</h2>
+    <EmptyCard/>
     </>
     }
     </ul>
