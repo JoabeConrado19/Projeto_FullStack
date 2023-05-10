@@ -124,3 +124,13 @@
     border: solid var(--gray-1) 2px;
     border-radius: 4px;
 }
+
+.divButtons > a > button{
+    padding: 8px 12px;
+    color: var(--gray-1);
+    background-color: var(--whiteFixed);
+    font-weight: 600;
+    font-size: 14px;
+    border: solid var(--gray-1) 2px;
+    border-radius: 4px;
+}
