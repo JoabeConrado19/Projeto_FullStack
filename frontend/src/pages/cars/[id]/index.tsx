@@ -79,7 +79,7 @@ export default function CarsDetailPage() {
                 <a
                   color="primary"
                   className={`${buttonStyle.fit_content_button} ${buttonStyle.buyerButton}`}
-                  href={`https://wa.me/21998202659?text=Tenho%20interesse%20em%20comprar%20seu%20carro%20${targerCarData?.model}.`}
+                  href={`https://wa.me/55${targerCarData?.user.phone}?text=Tenho%20interesse%20em%20comprar%20seu%20carro%20${targerCarData?.model}.`}
                 >
                   Comprar
                 </a>
