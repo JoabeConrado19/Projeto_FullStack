@@ -50,10 +50,10 @@ model Cars {
   model         String
   year          String
   fuelType      String
-  miles         String
+  miles         Int
   color         String
   description   String
-  price         Float
+  price         Int
   imagesUrl     String
   isActive      Boolean
   isPromotional Boolean  @default(false)
@@ -64,17 +64,18 @@ model Cars {
 
   comments Comments[]
   images   CarImages[]
-  brand    Brands?
+
+  brandName  String
+  brand    Brands @relation(fields: [brandName], references: [brandName], onDelete: Cascade)
 
   @@map("cars")
 }
 
 model Brands {
   id        String @id @default(uuid())
-  brandName String
+  brandName String @unique
 
-  carId String @unique
-  cars  Cars   @relation(fields: [carId], references: [id], onDelete: Cascade)
+  cars  Cars[]   
 
   @@map("brands")
 }

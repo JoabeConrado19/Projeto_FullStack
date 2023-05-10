@@ -1,9 +1,9 @@
 import {
-  createContext,
-  useEffect,
-  useState,
-  Dispatch,
-  SetStateAction,
+ createContext,
+ useEffect,
+ useState,
+ Dispatch,
+ SetStateAction,
 } from "react";
 import { IProviderProps } from "./RegisterLoginContext";
 import { destroyCookie, parseCookies } from "nookies";
@@ -15,54 +15,71 @@ import { parseJwt } from "@/utils/jwt";
 export const announcementPage = createContext({} as IAnnouncementProviderData);
 
 interface IAnnouncementProviderData {
-  userAnnouncements: [] | ICarsData[];
-  user: IUserData | null;
-  setUser: Dispatch<SetStateAction<IUserData | null>>;
-  router: NextRouter;
+ userAnnouncements: [] | ICarsData[];
+ user: IUserData | null;
+ setUser: Dispatch<SetStateAction<IUserData | null>>;
+ router: NextRouter;
+ carUser: string;
+ userCarData: IUserData | null;
 }
 
 export const AnnouncementPageProvider = ({ children }: IProviderProps) => {
-  const [userAnnouncements, setUserAnnouncements] = useState([]);
-  const [user, setUser] = useState<IUserData | null>(null);
+ const [userAnnouncements, setUserAnnouncements] = useState([]);
+ const [user, setUser] = useState<IUserData | null>(null);
+ const [carUser, setCarUser] = useState<string>("");
+ const [userCarData, setUserCarData] = useState<IUserData | null>(null);
+ const router = useRouter();
 
-  const router = useRouter();
+ useEffect(() => {
+  const getUser = async () => {
+   const userToken = parseCookies().tokenMotorsShop;
+   if (userToken) {
+    try {
+     api.defaults.headers.common.Authorization = `Bearer ${userToken}`;
 
-  useEffect(() => {
-    const getUser = async () => {
-      const userToken = parseCookies().tokenMotorsShop;
-      if (userToken) {
-        try {
-          api.defaults.headers.common.Authorization = `Bearer ${userToken}`;
+     const tokenUserData = parseJwt(userToken);
 
-          const tokenUserData = parseJwt(userToken);
+     const { data }: { data: any } = await api.get(
+      `/users/${tokenUserData.sub}`
+     );
+     setUser(data);
+    } catch {
+     destroyCookie(undefined, "tokenMotorsShop");
 
-          const { data }: { data: any } = await api.get(
-            `/users/${tokenUserData.sub}`
-          );
+     router.push("/login");
+    }
+   }
+  };
 
-          setUserAnnouncements(data.cars);
-          setUser(data);
-        } catch {
-          destroyCookie(undefined, "tokenMotorsShop");
+  const getAnnouncement = async () => {
+   const userAnnouncement = router.query;
+   try {
+    const { data }: { data: any } = await api.get(
+     `/users/${userAnnouncement.id}`
+    );
+    setCarUser(data.id);
+    setUserAnnouncements(data.cars);
+    setUserCarData(data);
+    console.log(data)
+   } catch {}
+  };
 
-          router.push("/login");
-        }
-      }
-    };
+  getUser();
+  getAnnouncement();
+ }, [router]);
 
-    getUser();
-  }, [user, router]);
-
-  return (
-    <announcementPage.Provider
-      value={{
-        userAnnouncements,
-        user,
-        setUser,
-        router
-      }}
-    >
-      {children}
-    </announcementPage.Provider>
-  );
+ return (
+  <announcementPage.Provider
+   value={{
+    userAnnouncements,
+    userCarData,
+    user,
+    setUser,
+    router,
+    carUser,
+   }}
+  >
+   {children}
+  </announcementPage.Provider>
+ );
 };

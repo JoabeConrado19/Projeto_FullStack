@@ -16,7 +16,7 @@ export interface ICar {
   model: string;
   year: string;
   fuelType: string | number;
-  miles: string;
+  miles: number;
   color: string;
   description: string;
   price: number;
@@ -41,4 +41,12 @@ export interface IKenzieKar {
   year: string;
   fuel: number;
   value: number;
+}
+
+export interface IKenzieKarParcial {
+  id?: string;
+  name?: string;
+  brand?: string;
+  year?: string;
+  value?: number;
 }

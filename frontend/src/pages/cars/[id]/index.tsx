@@ -4,19 +4,26 @@ import style from "@/styles/car_details_page/index.module.css";
 import buttonStyle from "@/components/Buttons/styles.module.css";
 import DetailContainerComponent from "@/components/DetailsContainer";
 import { Button } from "@mui/material";
+<<<<<<< HEAD
 import Image from "next/image";
+=======
+
+>>>>>>> b8602793ee17a7d1f01e5038aa42f270a38e53f1
 import { useEffect, useState, useContext } from "react";
 import api from "@/services/api";
 import { ICar, IImages } from "@/interfaces/car";
 import { announcementPage } from "@/context/AnnouncementPageContext";
-import { destroyCookie, parseCookies } from "nookies";
+import { parseCookies } from "nookies";
 import { parseJwt } from "@/utils/jwt";
 import moment from "moment";
 import "moment/locale/pt-br";
 
 export default function CarsDetailPage() {
+<<<<<<< HEAD
   moment.locale("pt-br");
   const now = moment();
+=======
+>>>>>>> b8602793ee17a7d1f01e5038aa42f270a38e53f1
   const router = useRouter();
   const id = router.query.id;
   if (!id) {
@@ -36,6 +43,7 @@ export default function CarsDetailPage() {
     console.log(id);
 
     const getAnnunc = async () => {
+<<<<<<< HEAD
       try {
         const { data }: { data: any } = await api.get(`/cars/${id}`);
 
@@ -51,6 +59,22 @@ export default function CarsDetailPage() {
     const getComments = async () => {
       try {
         const { data }: { data: any } = await api.get(`/cars/${id}`);
+=======
+      try {
+        const { data }: { data: any } = await api.get(`/cars/${id}`);
+        console.log(data);
+        setTargetCarData(data);
+        setComments([...data.comments]);
+      } catch {}
+    };
+    getAnnunc();
+  }, [id]);
+
+  useEffect(() => {
+    const getComments = async () => {
+      try {
+        const { data }: { data: any } = await api.get(`/cars/${id}`);
+>>>>>>> b8602793ee17a7d1f01e5038aa42f270a38e53f1
 
         setComments([...data.comments]);
       } catch {}
@@ -82,13 +106,13 @@ export default function CarsDetailPage() {
                   </ul>
                   <span className="body-1-600">R$ {targerCarData?.price}</span>
                 </div>
-                <Button
+                <a
                   color="primary"
-                  variant="contained"
-                  className={buttonStyle.fit_content_button}
+                  className={`${buttonStyle.fit_content_button} ${buttonStyle.buyerButton}`}
+                  href={`https://wa.me/55${targerCarData?.user.phone}?text=Tenho%20interesse%20em%20comprar%20seu%20carro%20${targerCarData?.model}.`}
                 >
                   Comprar
-                </Button>
+                </a>
               </DetailContainerComponent>
               <DetailContainerComponent>
                 <p className="headline-6-600">Descrição</p>
@@ -125,17 +149,20 @@ export default function CarsDetailPage() {
                 <span className="body-1-400">
                   {targerCarData?.user.description}
                 </span>
-                <Button
-                  className={`
-                                            ${buttonStyle.black_white_button} 
-                                            ${buttonStyle.fit_content_button}
-                                        `}
+                <a
                   style={{
+                    color: "white",
+                    textDecoration: "none",
+                    backgroundColor: "black",
+                    padding: "10px 12px",
+                    width: "206px",
+                    borderRadius: "4px",
                     margin: "0 auto",
                   }}
+                  href={`${router.basePath}/announcement/${targerCarData?.userId}`}
                 >
-                  Ver todos os anúncios
-                </Button>
+                  Ver todos os anuncios
+                </a>
               </DetailContainerComponent>
             </div>
           </div>

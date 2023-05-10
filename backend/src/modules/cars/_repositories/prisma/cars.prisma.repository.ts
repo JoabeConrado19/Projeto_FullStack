@@ -2,15 +2,16 @@ import { Injectable } from '@nestjs/common';
 import { plainToInstance } from 'class-transformer';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateCarsDto } from '../../dto/create-car.dto';
-import { UpdateCarsDto } from '../../dto/update-car.dto';
-import { Brand, Car } from '../../entities/car.entity';
-import { CarsRepository } from '../cars.repository';
-import { Comment } from '../../entities/comment.entity';
 import { CreateCommentDto } from '../../dto/create-comments.dto';
+import { UpdateCarsDto } from '../../dto/update-car.dto';
+import { UpdateCommentsDto } from '../../dto/update-comment.dto';
+import { Car } from '../../entities/car.entity';
+import { Comment } from '../../entities/comment.entity';
+import { CarsRepository } from '../cars.repository';
 
 @Injectable()
 export class CarsPrismaRepository implements CarsRepository {
-  constructor(private prisma: PrismaService) {}
+  constructor(private prisma: PrismaService) { }
 
   async create(user: string, data: CreateCarsDto): Promise<Car> {
     const car = new Car();
@@ -18,10 +19,16 @@ export class CarsPrismaRepository implements CarsRepository {
       ...data,
     });
 
-    const brand = new Brand();
-    Object.assign(brand, {
-      ...data.brand,
+    const findBrand = await this.prisma.brands.findUnique({
+      where: { brandName: data.brandName },
     });
+
+    if (!findBrand) {
+      await this.prisma.brands.create({
+        data: { brandName: data.brandName },
+      });
+    }
+
     const newCar = await this.prisma.cars.create({
       data: {
         color: data.color,
@@ -34,12 +41,9 @@ export class CarsPrismaRepository implements CarsRepository {
         price: data.price,
         year: data.year,
         userId: user,
+        brandName: data.brandName,
         isPromotional: data.isPromotional,
       },
-    });
-
-    await this.prisma.brands.create({
-      data: { ...brand, carId: newCar.id },
     });
 
     if (data.images.length) {
@@ -61,13 +65,27 @@ export class CarsPrismaRepository implements CarsRepository {
   async findAll(
     page: string,
     limit: string,
-    brand: string,
-    model: string,
-    color: string,
-    year: string,
-    fuelType: string,
+    brand?: string,
+    model?: string,
+    color?: string,
+    year?: string,
+    fuelType?: string,
+    priceMin?: number,
+    priceMax?: number,
+    kmMin?: number,
+    kmMax?: number,
   ): Promise<Car[]> {
-    if (brand || model || color || year || fuelType) {
+    if (
+      brand ||
+      model ||
+      color ||
+      year ||
+      fuelType ||
+      priceMin ||
+      priceMax ||
+      kmMin ||
+      kmMax
+    ) {
       const cars = await this.prisma.cars.findMany({
         take: parseInt(limit),
         skip: parseInt(page) * parseInt(limit),
@@ -77,6 +95,8 @@ export class CarsPrismaRepository implements CarsRepository {
           color: color,
           year: year,
           fuelType: fuelType,
+          price: { lte: Number(priceMax), gte: Number(priceMin) },
+          miles: { lte: Number(kmMax), gte: Number(kmMin) },
         },
         include: {
           images: {
@@ -86,20 +106,15 @@ export class CarsPrismaRepository implements CarsRepository {
           },
           comments: {
             select: {
-              id: true,
               description: true,
               createdAt: true,
+              id: true,
               user: {
                 select: {
                   name: true,
                   color: true,
                 },
               },
-            },
-          },
-          brand: {
-            select: {
-              brandName: true,
             },
           },
           user: {
@@ -188,6 +203,7 @@ export class CarsPrismaRepository implements CarsRepository {
             name: true,
             description: true,
             color: true,
+            phone: true
           },
         },
       },
@@ -197,6 +213,16 @@ export class CarsPrismaRepository implements CarsRepository {
   }
 
   async update(id: string, data: UpdateCarsDto): Promise<Car> {
+    const findBrand = await this.prisma.brands.findUnique({
+      where: { brandName: data.brandName },
+    });
+
+    if (!findBrand) {
+      await this.prisma.brands.create({
+        data: { brandName: data.brandName },
+      });
+    }
+
     await this.prisma.cars.update({
       where: { id },
       data: {
@@ -209,6 +235,7 @@ export class CarsPrismaRepository implements CarsRepository {
         model: data.model,
         price: data.price,
         year: data.year,
+        brandName: data.brandName,
       },
     });
 
@@ -260,10 +287,28 @@ export class CarsPrismaRepository implements CarsRepository {
       where: { id },
     });
   }
+
   async findComment(id: string): Promise<Comment> {
     const findComment = await this.prisma.comments.findUnique({
       where: { id },
     });
     return findComment;
+  }
+
+  async updateComment(id: string, data: UpdateCommentsDto): Promise<Comment> {
+    const findComment = await this.prisma.comments.findUnique({
+      where: { id },
+    });
+
+    await this.prisma.comments.update({
+      where: { id },
+      data: { description: data.description }
+    })
+
+    const commentUpdated = await this.prisma.comments.findUnique({
+      where: { id },
+    });
+
+    return commentUpdated
   }
 }

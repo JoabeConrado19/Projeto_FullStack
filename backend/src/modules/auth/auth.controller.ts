@@ -9,9 +9,9 @@ interface IUserLogin {
 }
 
 @Controller('login')
-@ApiTags("login")
+@ApiTags('login')
 export class AuthController {
-  constructor(private readonly authService: AuthService) { }
+  constructor(private readonly authService: AuthService) {}
 
   @Post()
   @UseGuards(LocalAuthGuard)

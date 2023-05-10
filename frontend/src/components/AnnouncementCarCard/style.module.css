@@ -1,0 +1,136 @@
+.cardImgContainer {
+    width: 100%;
+    height: 156px;
+    position: relative;
+    background-color: var(--gray-7);
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    flex-direction: row;
+
+    overflow: hidden;
+}
+
+.cardImgContainer>img{
+    width: 295px;
+    z-index: 0;
+    object-fit: scale-down;
+}
+
+.cardImgContainer>span{
+    z-index: 2;
+    position: absolute;
+    top: 0;
+    left: 0;
+    color: var(--gray-10);
+    padding: 5px;
+    background-color: var(--sucess-1);
+}
+
+.cardTextContainer {
+    height: 90px;
+}
+
+.cardTextContainer>h3 {
+    font-family: 'Lexend';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 20px;
+
+    /* Grey Scale/grey-1 */
+
+    color: #212529;
+    margin-bottom: 13px;
+    margin-top: 13px;
+}
+
+.cardTextContainer>p {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 22px;
+    /* or 171% */
+
+
+    /* Grey Scale/grey-2 */
+
+    color: #495057;
+
+
+    /* Inside auto layout */
+
+    flex: none;
+    order: 2;
+    flex-grow: 0;
+}
+
+.cardDataContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.cardDataContainer>p {
+    font-family: 'Lexend';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+    color: #212529;
+}
+
+.badge>button {
+    height: 32px;
+
+    /* Brand/brand4 */
+
+    background: #EDEAFD;
+    border-radius: 4px;
+
+    border: none;
+    cursor: pointer;
+    margin-right: 10px;
+
+    /* Text/body-2-500 */
+
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 24px;
+
+
+    color: #4529E6;
+
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+}
+
+.divButtons{
+    display: flex;
+    gap: 1rem;
+    font-family: 'inter';
+}
+
+.divButtons > button{
+    padding: 8px 12px;
+    color: var(--gray-1);
+    background-color: var(--whiteFixed);
+    font-weight: 600;
+    font-size: 14px;
+    border: solid var(--gray-1) 2px;
+    border-radius: 4px;
+}
+
+.divButtons > a > button{
+    padding: 8px 12px;
+    color: var(--gray-1);
+    background-color: var(--whiteFixed);
+    font-weight: 600;
+    font-size: 14px;
+    border: solid var(--gray-1) 2px;
+    border-radius: 4px;
+}

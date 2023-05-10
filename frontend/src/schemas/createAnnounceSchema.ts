@@ -2,16 +2,12 @@ import { IImageUrl } from "@/interfaces/announcement";
 import * as yup from "yup";
 import { Schema } from "yup";
 
-const brandSchema = yup.object().shape({
-  brandName: yup.string().required("Seleciona uma marca"),
-});
-
 const imagesUrlSchema: Schema<IImageUrl> = yup.object().shape({
   url: yup.string().required("Insira um link"),
 });
 
 export const formCreateAnnounceSchema = yup.object({
-  brand: brandSchema,
+  brandName: yup.string().required("Seleciona uma marca"),
   model: yup.string().required("Selecione um modelo"),
   year: yup.string().required("Selecione um ano"),
   fuelType: yup.string().required("Selecione o combustivel"),

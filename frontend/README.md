@@ -11,21 +11,21 @@
 - ✅ [Vercel](https://vercel.com/) - Ferramenta pra deploy da aplicação
 - ✅ [MUI](https://mui.com/pt/) - Lib de componentes
 
-### 🎲 Preparando o ambiente
+# 🎲 Preparando o ambiente
 
-# 1 - Faça o clone do repositório
+## 1 - Faça o clone do repositório
 
 ```bash
 $ git clone git@github.com:grupo16-t13-felipe/Projeto_FullStack.git
 ```
 
-# 2 - Instale as dependencias do projeto:
+## 2 - Instale as dependencias do projeto:
 
 ```bash
 npm install
 ```
 
-# 3 - Inicializando seu projeto:
+## 3 - Inicializando seu projeto:
 
 ```bash
 cd frontend
@@ -38,7 +38,7 @@ npm run dev
 - Prontinho, seu ambiente está totalmente configurado.
 
 ## Deploy on Vercel
- - Link para o vercel:
+ - https://projeto-full-stack-ashy.vercel.app/
 
 ## 👥 Desenvolvedores responsáveis 👥 ## 
 

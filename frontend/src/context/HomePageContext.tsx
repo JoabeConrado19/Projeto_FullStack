@@ -10,22 +10,21 @@ interface IHomePageProviderData {
 }
 
 export const HomePageProvider = ({ children }: IProviderProps) => {
-    const [announcements, setAnnouncements]
- = useState([])
+ const [announcements, setAnnouncements] = useState([]);
 
-    useEffect(() =>{
-        const listAllAnnouncements = async () => {
-            await api
-             .get("/cars")
-             .then((res) => {
-              setAnnouncements(res.data)
-             })
-             .catch((err) => {
-              console.error(err);
-             });
-        };
-        listAllAnnouncements()
-    },[])    
+ useEffect(() => {
+  const listAllAnnouncements = async () => {
+   await api
+    .get("/cars")
+    .then((res) => {
+     setAnnouncements(res.data);
+    })
+    .catch((err) => {
+     console.error(err);
+    });
+  };
+  listAllAnnouncements();
+ }, []);
 
  return (
   <PageContext.Provider
