@@ -165,22 +165,23 @@
   justify-content: start;
   align-items: center;
   flex-direction: row-reverse;
+  position: relative;
+}
+
+.cardImgContainer>span{
+  z-index: 2;
+  position: absolute;
+  color: var(--gray-10);
+  padding: 5px;
+  background-color: var(--sucess-1);
+  top: 0;
+  right: 0;
 }
 
 .cardImgContainer > img {
   width: 100%;
   height: 100%;
   z-index: 0;
-}
-
-.cardImgContainer > span {
-  z-index: 2;
-  position: relative;
-  right: 1.18rem;
-  color: var(--gray-10);
-  padding: 5px;
-  background-color: var(--sucess-1);
-  margin-top: -9.1rem;
 }
 
 .ulCard {

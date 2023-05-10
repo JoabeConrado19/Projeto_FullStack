@@ -6,12 +6,11 @@ import buttonStyle from "@/components/Buttons/styles.module.css";
 import DetailContainerComponent from "@/components/DetailsContainer";
 import { Button } from "@mui/material";
 
-import Image from "next/image";
 import { useEffect, useState, useContext } from "react";
 import api from "@/services/api";
 import { ICar } from "@/interfaces/car";
 import { announcementPage } from "@/context/AnnouncementPageContext";
-import { destroyCookie, parseCookies } from "nookies";
+import { parseCookies } from "nookies";
 import { parseJwt } from "@/utils/jwt";
 
 export default function CarsDetailPage() {
@@ -28,7 +27,6 @@ export default function CarsDetailPage() {
   const { user } = useContext(announcementPage);
 
   useEffect(() => {
-
     const getAnnunc = async () => {
       try {
         const { data }: { data: any } = await api.get(`/cars/${id}`);
@@ -37,7 +35,6 @@ export default function CarsDetailPage() {
         setComments([...data.comments]);
       } catch {}
     };
-
     getAnnunc();
   }, [id]);
 
@@ -146,23 +143,25 @@ export default function CarsDetailPage() {
               <DetailContainerComponent
                 customClassName={style.profile_container}
               >
-                <div className={style.profile_pic}>
-                </div>
+                <div className={style.profile_pic}></div>
                 <p className="headline-6-600">{targerCarData?.user.name}</p>
                 <span className="body-1-400">
                   {targerCarData?.user.description}
                 </span>
-                <Button
-                  className={`
-                                            ${buttonStyle.black_white_button} 
-                                            ${buttonStyle.fit_content_button}
-                                        `}
+                <a
                   style={{
+                    color: "white",
+                    textDecoration: "none",
+                    backgroundColor: "black",
+                    padding: "10px 12px",
+                    width: "206px",
+                    borderRadius: "4px",
                     margin: "0 auto",
                   }}
+                  href={`${router.basePath}/announcement/${targerCarData?.userId}`}
                 >
-                  Ver todos os anúncios
-                </Button>
+                  Ver todos os anuncios
+                </a>
               </DetailContainerComponent>
             </div>
           </div>
@@ -173,19 +172,17 @@ export default function CarsDetailPage() {
             >
               <p className="headline-6-600">Comentários</p>
               <ul className={style.commentary_list}>
-                {
-                  comments?.map((comment: any, index: number) => (
-                    <li key={index}>
-                      <div className={style.perfil_infos}>
-                        <p className={style.comments_profile_pic}>JL</p>
-                        <p className="body-2-500">{comment.user.name}</p>
-                        <div className={style.gray_dot}></div>
-                        <span className="body-2-400">há 3 dias</span>
-                      </div>
-                      <p className="body-2-400">{comment.description}</p>
-                    </li>
-                  ))
-                }
+                {comments?.map((comment: any, index: number) => (
+                  <li key={index}>
+                    <div className={style.perfil_infos}>
+                      <p className={style.comments_profile_pic}>JL</p>
+                      <p className="body-2-500">{comment.user.name}</p>
+                      <div className={style.gray_dot}></div>
+                      <span className="body-2-400">há 3 dias</span>
+                    </div>
+                    <p className="body-2-400">{comment.description}</p>
+                  </li>
+                ))}
               </ul>
             </DetailContainerComponent>
             <DetailContainerComponent>

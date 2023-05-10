@@ -17,6 +17,11 @@ import { ButtonComponent, FilterButtonComponent } from "@/components/Buttons";
 import { InputComponent } from "@/components/Input";
 import { useForm } from "react-hook-form";
 
+import { useRouter } from "next/router";
+import { announcementPage } from "@/context/AnnouncementPageContext";
+
+import EmptyCard from "@/components/EmptyCard";
+
 export default function MainHome() {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
@@ -35,7 +40,8 @@ export default function MainHome() {
   const [requestString, setRequestString] = useState<string | null>(null);
 
   const { announcements }: AnnouncementsList = useContext(PageContext);
-
+  const { user }: any = useContext(announcementPage);
+  const route = useRouter();
   const styleModal = {
     position: "absolute" as "absolute",
     top: "0%",
@@ -114,13 +120,18 @@ export default function MainHome() {
     getCarsFromApi();
   }, [requestString]);
 
-  const { register, handleSubmit } =
-    useForm();
+  const { register, handleSubmit } = useForm();
 
   const priceFilter = (data: any) => {
-    const { priceMin, priceMax } = data as { priceMin: string; priceMax: string };
+    const { priceMin, priceMax } = data as {
+      priceMin: string;
+      priceMax: string;
+    };
 
-    if (requestString?.includes(`priceMin`) || requestString?.includes(`priceMax`)) {
+    if (
+      requestString?.includes(`priceMin`) ||
+      requestString?.includes(`priceMax`)
+    ) {
       return setRequestString(() => {
         let prevStateArr = requestString?.split("&");
 
@@ -134,16 +145,15 @@ export default function MainHome() {
       });
     }
 
-    return setRequestString(`${requestString}&priceMin=${priceMin}&priceMax=${priceMax}`);
+    return setRequestString(
+      `${requestString}&priceMin=${priceMin}&priceMax=${priceMax}`
+    );
   };
 
   const milesFilter = (data: any) => {
     const { kmMin, kmMax } = data as { kmMin: string; kmMax: string };
 
-    if (
-      requestString?.includes(`kmMin`) ||
-      requestString?.includes(`kmMax`)
-    ) {
+    if (requestString?.includes(`kmMin`) || requestString?.includes(`kmMax`)) {
       return setRequestString(() => {
         let prevStateArr = requestString?.split("&");
 
@@ -157,9 +167,7 @@ export default function MainHome() {
       });
     }
 
-    return setRequestString(
-      `${requestString}&kmMin=${kmMin}&kmMax=${kmMax}`
-    );
+    return setRequestString(`${requestString}&kmMin=${kmMin}&kmMax=${kmMax}`);
   };
 
   return (
@@ -552,21 +560,51 @@ export default function MainHome() {
             </form>
           </div>
         </div>
+
         <ul className={style.rightContainer}>
-          {filtered?.map((announcement: any) => (
-            <Announcement key={announcement.id} announcement={announcement} />
-          ))}
+          {filtered?.length ? (
+            filtered?.map((announcement: any) => (
+              <Announcement key={announcement.id} announcement={announcement} />
+            ))
+          ) : !filtered?.length && user?.accountType == "Vendedor" ? (
+            <>
+              <h2
+                style={{ margin: "0 auto", fontSize: "1.5rem", width: "100%" }}
+              >
+                Sem anuncios no momento clique{" "}
+                <a
+                  style={{ textDecoration: "underline", color: "blue" }}
+                  href={`${route.basePath}/announcement/${user?.id}`}
+                >
+                  aqui
+                </a>{" "}
+                para criar um anuncio
+              </h2>
+              <EmptyCard />
+            </>
+          ) : (
+            <>
+              <h2
+                style={{ margin: "0 auto", fontSize: "1.5rem", width: "100%" }}
+              >
+                Sem anuncios no momento! espere até que algum <u>Vendedor</u>{" "}
+                publique!
+              </h2>
+              <EmptyCard />
+            </>
+          )}
         </ul>
-      </div>
 
-      <div className={style.filtersBtn}>
-        <button onClick={handleOpen}>Filtros</button>
+        <div className={style.filtersBtn}>
+          <button onClick={handleOpen}>Filtros</button>
+        </div>
       </div>
-
-      <div className={style.nextPrev}>
-        <span>1 de 2</span>
-        <a href="">Seguinte {">"}</a>
-      </div>
+        {filtered?.length ? (
+          <div className={style.nextPrev}>
+            <span>1 de 2</span>
+            <a href="">Seguinte {">"}</a>
+          </div>
+        ) : null}
     </>
   );
 }
