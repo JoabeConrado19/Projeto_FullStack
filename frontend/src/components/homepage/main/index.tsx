@@ -13,7 +13,9 @@ import buttonStyle from "@/components/Buttons/styles.module.css";
 import Announcement from "../car";
 import api from "@/services/api";
 import { ICar } from "@/interfaces/car";
-import { FilterButtonComponent } from "@/components/Buttons";
+import { ButtonComponent, FilterButtonComponent } from "@/components/Buttons";
+import { InputComponent } from "@/components/Input";
+import { useForm } from "react-hook-form";
 
 export default function MainHome() {
   const [open, setOpen] = useState(false);
@@ -112,6 +114,54 @@ export default function MainHome() {
     getCarsFromApi();
   }, [requestString]);
 
+  const { register, handleSubmit } =
+    useForm();
+
+  const priceFilter = (data: any) => {
+    const { priceMin, priceMax } = data as { priceMin: string; priceMax: string };
+
+    if (requestString?.includes(`priceMin`) || requestString?.includes(`priceMax`)) {
+      return setRequestString(() => {
+        let prevStateArr = requestString?.split("&");
+
+        prevStateArr = prevStateArr?.filter(
+          (elem) => !elem.includes(`priceMin`) && !elem.includes(`priceMax`)
+        ) as string[];
+
+        const newRequestString = prevStateArr?.join("&");
+
+        return `${newRequestString}&priceMin=${priceMin}&priceMax=${priceMax}`;
+      });
+    }
+
+    return setRequestString(`${requestString}&priceMin=${priceMin}&priceMax=${priceMax}`);
+  };
+
+  const milesFilter = (data: any) => {
+    const { kmMin, kmMax } = data as { kmMin: string; kmMax: string };
+
+    if (
+      requestString?.includes(`kmMin`) ||
+      requestString?.includes(`kmMax`)
+    ) {
+      return setRequestString(() => {
+        let prevStateArr = requestString?.split("&");
+
+        prevStateArr = prevStateArr?.filter(
+          (elem) => !elem.includes(`kmMin`) && !elem.includes(`kmMax`)
+        ) as string[];
+
+        const newRequestString = prevStateArr?.join("&");
+
+        return `${newRequestString}&kmMin=${kmMin}&kmMax=${kmMax}`;
+      });
+    }
+
+    return setRequestString(
+      `${requestString}&kmMin=${kmMin}&kmMax=${kmMax}`
+    );
+  };
+
   return (
     <>
       <Modal
@@ -152,6 +202,11 @@ export default function MainHome() {
                     {requestString
                       ?.split("&")
                       .slice(1)
+                      .filter((elem) => {
+                        if (!elem.includes("Max")) {
+                          return !elem.includes("Min");
+                        }
+                      })
                       .map((stringFragment, index) => {
                         const splitedArr = stringFragment.split("=");
 
@@ -278,58 +333,36 @@ export default function MainHome() {
 
               <div className={style.modalBtns}>
                 <h2>Km</h2>
-                <div>
-                  <button
-                    onClick={(e) => {
-                      e.preventDefault();
-                      const filter: any = announcements.filter(
-                        (item) => item.miles === "Poucas"
-                      );
-                      setFiltered(filter);
-                    }}
-                  >
-                    Mínima
-                  </button>
-                  <button
-                    onClick={(e) => {
-                      e.preventDefault();
-                      const filter: any = announcements.filter(
-                        (item) => item.miles === "Muitas"
-                      );
-                      setFiltered(filter);
-                    }}
-                  >
-                    Máxima
-                  </button>
-                </div>
+                <form onSubmit={handleSubmit(priceFilter)}>
+                  <InputComponent
+                    inputId="min-price"
+                    label="Mínima"
+                    register={register("priceMin")}
+                  />
+                  <InputComponent
+                    inputId="max-price"
+                    label="Máxima"
+                    register={register("priceMax")}
+                  />
+                  <ButtonComponent type="submit">Filtrar</ButtonComponent>
+                </form>
               </div>
 
               <div className={style.modalBtns}>
                 <h2>Preço</h2>
-                <div>
-                  <button
-                    onClick={(e) => {
-                      e.preventDefault();
-                      const filter: any = announcements
-                        .slice()
-                        .sort((a, b) => a.price - b.price);
-                      setFiltered(filter);
-                    }}
-                  >
-                    Mínima
-                  </button>
-                  <button
-                    onClick={(e) => {
-                      e.preventDefault();
-                      const filter: any = announcements
-                        .slice()
-                        .sort((a, b) => b.price - a.price);
-                      setFiltered(filter);
-                    }}
-                  >
-                    Máxima
-                  </button>
-                </div>
+                <form onSubmit={handleSubmit(milesFilter)}>
+                  <InputComponent
+                    inputId="min-km"
+                    label="Mínima"
+                    register={register("kmMin")}
+                  />
+                  <InputComponent
+                    inputId="max-km"
+                    label="Máxima"
+                    register={register("kmMax")}
+                  />
+                  <ButtonComponent type="submit">Filtrar</ButtonComponent>
+                </form>
               </div>
               <div className={style.modalBottom}>
                 <button>Ver anúncios</button>
@@ -357,6 +390,11 @@ export default function MainHome() {
               {requestString
                 ?.split("&")
                 .slice(1)
+                .filter((elem) => {
+                  if (!elem.includes("Max")) {
+                    return !elem.includes("Min");
+                  }
+                })
                 .map((stringFragment, index) => {
                   const splitedArr = stringFragment.split("=");
 
@@ -482,58 +520,36 @@ export default function MainHome() {
 
           <div className={style.asideButtons}>
             <h2>Km</h2>
-            <div>
-              <button
-                onClick={(e) => {
-                  e.preventDefault();
-                  const filter: any = announcements.filter(
-                    (item) => item.miles === "Poucas"
-                  );
-                  setFiltered(filter);
-                }}
-              >
-                Mínima
-              </button>
-              <button
-                onClick={(e) => {
-                  e.preventDefault();
-                  const filter: any = announcements.filter(
-                    (item) => item.miles === "Muitas"
-                  );
-                  setFiltered(filter);
-                }}
-              >
-                Máxima
-              </button>
-            </div>
+            <form onSubmit={handleSubmit(priceFilter)}>
+              <InputComponent
+                inputId="min-price"
+                label="Mínima"
+                register={register("priceMin")}
+              />
+              <InputComponent
+                inputId="max-price"
+                label="Máxima"
+                register={register("priceMax")}
+              />
+              <ButtonComponent type="submit">Filtrar</ButtonComponent>
+            </form>
           </div>
 
           <div className={style.asideButtons}>
             <h2>Preço</h2>
-            <div>
-              <button
-                onClick={(e) => {
-                  e.preventDefault();
-                  const filter: any = announcements
-                    .slice()
-                    .sort((a, b) => a.price - b.price);
-                  setFiltered(filter);
-                }}
-              >
-                Mínima
-              </button>
-              <button
-                onClick={(e) => {
-                  e.preventDefault();
-                  const filter: any = announcements
-                    .slice()
-                    .sort((a, b) => b.price - a.price);
-                  setFiltered(filter);
-                }}
-              >
-                Máxima
-              </button>
-            </div>
+            <form onSubmit={handleSubmit(milesFilter)}>
+              <InputComponent
+                inputId="min-km"
+                label="Mínima"
+                register={register("kmMin")}
+              />
+              <InputComponent
+                inputId="max-km"
+                label="Máxima"
+                register={register("kmMax")}
+              />
+              <ButtonComponent type="submit">Filtrar</ButtonComponent>
+            </form>
           </div>
         </div>
         <ul className={style.rightContainer}>
