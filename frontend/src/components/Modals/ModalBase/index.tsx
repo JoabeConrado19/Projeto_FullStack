@@ -7,48 +7,47 @@ import { IModalBase } from "@/interfaces/components/modal";
 import { useEffect } from "react";
 
 export default function ModalBase({
-  children,
-  modalTitle,
-  closeModal,
-  ...rest
+ children,
+ modalTitle,
+ closeModal,
+ ...rest
 }: IModalBase) {
+ useEffect(() => {
+  document.body.style.overflow = "hidden";
 
-  useEffect(() => {
-    document.body.style.overflow = "hidden"
+  return () => {
+   document.body.style.overflow = "unset";
+  };
+ }, []);
 
-    return () => {
-      document.body.style.overflow = "unset"
-    }
-  }, [])
-
-  return (
-    <div
-      className={style.modal_background}
+ return (
+  <div
+   className={style.modal_background}
+   onClick={() => {
+    closeModal((prevState) => !prevState);
+   }}
+   {...rest}
+  >
+   <div
+    className={style.modal_container}
+    onClick={(e) => {
+     e.stopPropagation();
+    }}
+   >
+    <div className={style.modal_header}>
+     <p className="headline-6-600">{modalTitle}</p>
+     <Button
       onClick={() => {
-        closeModal((prevState) => !prevState);
+       closeModal((prevState) => !prevState);
       }}
-      {...rest}
-    >
-      <div
-        className={style.modal_container}
-        onClick={(e) => {
-          e.stopPropagation();
-        }}
-      >
-        <div className={style.modal_header}>
-          <p className="headline-6-600">{modalTitle}</p>
-          <Button
-            onClick={() => {
-              closeModal((prevState) => !prevState);
-            }}
-            className={buttonStyle.modal_header_button}
-            disableRipple={true}
-          >
-            X
-          </Button>
-        </div>
-        <div className={style.modal_body}>{children}</div>
-      </div>
+      className={buttonStyle.modal_header_button}
+      disableRipple={true}
+     >
+      X
+     </Button>
     </div>
-  );
+    <div className={style.modal_body}>{children}</div>
+   </div>
+  </div>
+ );
 }

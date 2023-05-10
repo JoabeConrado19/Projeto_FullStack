@@ -2,17 +2,18 @@ import { Dispatch, SetStateAction } from "react";
 import style from "./style.module.css";
 import { ICar } from "@/interfaces/car";
 
-interface ICardAnnouncementProps{
-    carImg: string,
-    carModel: string,
-    carDescription: string,
-    carMiles: string,
-    carYear: string,
-    price: string,
-    isActive: boolean,
-    setShowCarEditModal: Dispatch<SetStateAction<boolean>>,
-    setTargetCarData: Dispatch<SetStateAction<ICar | undefined>>,
-    car: ICar
+interface ICardAnnouncementProps {
+ carImg: string;
+ carModel: string;
+ carDescription: string;
+ carMiles: string;
+ carYear: string;
+ price: string;
+ user: boolean;
+ isActive: boolean;
+ setShowCarEditModal: Dispatch<SetStateAction<boolean>>;
+ setTargetCarData: Dispatch<SetStateAction<ICar | undefined>>;
+ car: ICar;
 }
 
 export default function CardAnnouncement({
@@ -23,17 +24,19 @@ export default function CardAnnouncement({
  carYear,
  price,
  isActive,
+ user,
  setShowCarEditModal,
  setTargetCarData,
- car
+ car,
 }: ICardAnnouncementProps) {
-    
  return (
   <li>
    <div className={style.cardImgContainer}>
-    {
-     isActive ? <span style={{background: '#4529E6' }}>Ativo</span> : <span style={{ background: '#ADB5BD'}}>Inativo</span>
-    }
+    {isActive ? (
+     <span style={{ background: "#4529E6" }}>Ativo</span>
+    ) : (
+     <span style={{ background: "#ADB5BD" }}>Inativo</span>
+    )}
     <img src={carImg} alt="Carro" />
    </div>
    <div className={style.cardTextContainer}>
@@ -45,14 +48,23 @@ export default function CardAnnouncement({
      <button>{carMiles} KM</button>
      <button>{carYear}</button>
     </div>
-    <p>{car.price.toLocaleString("pt-BR", {style:"currency", currency:"BRL"})}</p>
+    <p>
+     {car.price.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}
+    </p>
    </div>
-   <div className={style.divButtons}>
-    <button onClick={() => {
-        setShowCarEditModal((prevState) => !prevState)
-        setTargetCarData(car)
-    }}>Editar</button>
-    <button >Ver Detalhes</button>
+   <div
+    className={style.divButtons}
+    style={{ display: user ? "flex" : "none" }}
+   >
+    <button
+     onClick={() => {
+      setShowCarEditModal((prevState) => !prevState);
+      setTargetCarData(car);
+     }}
+    >
+     Editar
+    </button>
+    <button>Ver Detalhes</button>
    </div>
   </li>
  );
