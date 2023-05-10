@@ -2,15 +2,16 @@ import { Injectable } from '@nestjs/common';
 import { plainToInstance } from 'class-transformer';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateCarsDto } from '../../dto/create-car.dto';
-import { UpdateCarsDto } from '../../dto/update-car.dto';
-import { Car } from '../../entities/car.entity';
-import { CarsRepository } from '../cars.repository';
-import { Comment } from '../../entities/comment.entity';
 import { CreateCommentDto } from '../../dto/create-comments.dto';
+import { UpdateCarsDto } from '../../dto/update-car.dto';
+import { UpdateCommentsDto } from '../../dto/update-comment.dto';
+import { Car } from '../../entities/car.entity';
+import { Comment } from '../../entities/comment.entity';
+import { CarsRepository } from '../cars.repository';
 
 @Injectable()
 export class CarsPrismaRepository implements CarsRepository {
-  constructor(private prisma: PrismaService) {}
+  constructor(private prisma: PrismaService) { }
 
   async create(user: string, data: CreateCarsDto): Promise<Car> {
     const car = new Car();
@@ -202,6 +203,7 @@ export class CarsPrismaRepository implements CarsRepository {
             name: true,
             description: true,
             color: true,
+            phone: true
           },
         },
       },
@@ -285,10 +287,28 @@ export class CarsPrismaRepository implements CarsRepository {
       where: { id },
     });
   }
+
   async findComment(id: string): Promise<Comment> {
     const findComment = await this.prisma.comments.findUnique({
       where: { id },
     });
     return findComment;
+  }
+
+  async updateComment(id: string, data: UpdateCommentsDto): Promise<Comment> {
+    const findComment = await this.prisma.comments.findUnique({
+      where: { id },
+    });
+
+    await this.prisma.comments.update({
+      where: { id },
+      data: { description: data.description }
+    })
+
+    const commentUpdated = await this.prisma.comments.findUnique({
+      where: { id },
+    });
+
+    return commentUpdated
   }
 }
