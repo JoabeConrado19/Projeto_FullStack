@@ -6,7 +6,6 @@ export default function Announcement({announcement}:any) {
   const price = announcement.price.toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2})
 
   const route = useRouter()
-  console.log(`${route.basePath}/cars/${announcement.id}`);
   
   
   const profilePic = (userName: string) => {

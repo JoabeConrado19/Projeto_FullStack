@@ -63,9 +63,6 @@ export default function EditAnnouncementModal({
   }, []);
 
   const updateCarFunc = async (data: any) => {
-    console.log(carActualData.id);
-    
-
     let { carPriceChart, ...filteredData } = data as ICarRequest;
 
     filteredData.miles = Math.trunc(data.miles);

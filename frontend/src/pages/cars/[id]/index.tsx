@@ -38,8 +38,6 @@ export default function CarsDetailPage() {
       } catch {}
     };
 
-    console.log(id);
-
     getAnnunc();
   }, [id]);
 
