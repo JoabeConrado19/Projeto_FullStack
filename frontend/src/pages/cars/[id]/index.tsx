@@ -22,7 +22,12 @@ export default function CarsDetailPage() {
   const [showEditModal, setShowEditModal] = useState<boolean>(false);
   const [comment, setComment] = useState<any>([]);
   const [comments, setComments] = useState<any>([]);
+
   const { user } = useContext(announcementPage);
+
+  const router = useRouter();
+
+  const id = router.query.id;
   
   useEffect(() => {
 
@@ -36,7 +41,7 @@ export default function CarsDetailPage() {
     };
 
     getAnnunc();
-  }, []);
+  }, [id]);
   
   useEffect(() => {
     const getComments = async () => {
@@ -53,18 +58,14 @@ export default function CarsDetailPage() {
   
   moment.locale("pt-br");
   const now = moment();
-  const router = useRouter();
-  const id = router.query.id;
-  if (!id) {
-    return <div>Carregando...</div>;
-  }
-
 
   function handleCommentInputChange(event: any) {
     setCommentInput(event.target.value);
   }
 
-
+  if (!id) {
+    return <div>Carregando...</div>;
+  }
 
   return (
     <>
