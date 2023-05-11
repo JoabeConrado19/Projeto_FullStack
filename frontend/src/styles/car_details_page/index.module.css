@@ -28,7 +28,8 @@
 }
 
 .mainCarImage {
-    width: fit-content;
+    object-fit: contain;
+    width: 100%;
     height: fit-content;
 
     margin: 0 auto;

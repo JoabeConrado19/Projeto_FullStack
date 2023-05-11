@@ -183,7 +183,7 @@ export default function CarsDetailPage() {
                             <div className={style.gray_dot}></div>
                             <span className="body-2-400">
                               <p>
-                                {moment(comment.createdAt)
+                                {moment(comment.updatedAt)
                                   .locale("pt-br")
                                   .fromNow()}
                               </p>
