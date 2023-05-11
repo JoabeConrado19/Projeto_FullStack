@@ -135,3 +135,10 @@
   font-size: 0.9rem;
   padding: 6px 0px;
 }
+/*Button buy car*/
+.buyerButton {
+  background-color: var(--brand-1);
+  color: var(--whiteFixed);
+  border-radius: var(--radius-1);
+  text-decoration: none;
+}

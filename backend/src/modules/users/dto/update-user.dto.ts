@@ -1,5 +1,5 @@
 import { PartialType } from '@nestjs/mapped-types';
-import { CreateAddressDto, CreateUserDto } from './create-user.dto';
+import { CreateAddressDto } from './create-user.dto';
 import {
   IsEmail,
   IsNotEmpty,

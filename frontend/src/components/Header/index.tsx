@@ -7,7 +7,6 @@ import Link from "next/link";
 import EditUserInfosModal from "../Modals/EditUserInfosModal";
 
 import { ButtonComponent } from "../Buttons";
-import { useRouter } from "next/router";
 import EditUserAddressModal from "../Modals/EditUserAddressModal";
 
 import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
@@ -20,7 +19,7 @@ export default function HeaderComponent() {
   const [showEditModal, setShowEditModal] = useState<boolean>(false);
   const [showAddressModal, setShowAddressModal] = useState<boolean>(false);
 
-  const { user } = useContext(announcementPage)
+  const { user } = useContext(announcementPage);
 
   useEffect(() => {
     window.addEventListener("resize", () => {
@@ -112,6 +111,7 @@ export default function HeaderComponent() {
                   <ButtonComponent
                     onClick={() => {
                       setShowEditModal(true);
+                      setShowMenu((prevState) => !prevState);
                     }}
                     className={buttonStyle.hidden_menu_buttons}
                   >
@@ -123,6 +123,7 @@ export default function HeaderComponent() {
                     className={buttonStyle.hidden_menu_buttons}
                     onClick={() => {
                       setShowAddressModal((prevState) => !prevState);
+                      setShowMenu((prevState) => !prevState);
                     }}
                   >
                     Editar endereço
@@ -130,9 +131,12 @@ export default function HeaderComponent() {
                 </li>
                 {user.accountType === "Anunciante" ? (
                   <li>
-                    <Link href="/announcement">
+                    <Link href={`/announcement/${user.id}`}>
                       <ButtonComponent
                         className={buttonStyle.hidden_menu_buttons}
+                        onClick={() => {
+                          setShowMenu((prevState) => !prevState);
+                        }}
                       >
                         Meus anúncios
                       </ButtonComponent>
@@ -144,8 +148,9 @@ export default function HeaderComponent() {
                     className={buttonStyle.hidden_menu_buttons}
                     onClick={() => {
                       destroyCookie(undefined, "tokenMotorsShop");
+                      setShowMenu((prevState) => !prevState);
 
-                      location.assign("/login")
+                      location.assign("/login");
                     }}
                   >
                     Sair
@@ -164,7 +169,9 @@ export default function HeaderComponent() {
                 </ButtonComponent>
               </Link>
               <Link href="/register">
-                <ButtonComponent className={buttonStyle.none_black_button}>
+                <ButtonComponent
+                  className={buttonStyle.none_black_button}
+                >
                   Cadastrar
                 </ButtonComponent>
               </Link>

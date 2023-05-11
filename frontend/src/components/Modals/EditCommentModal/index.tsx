@@ -11,83 +11,82 @@ import DeleteUserConfirmModal from "../DeleteUserConfirmModal";
 import { IEditUserInfosModal } from "@/interfaces/components/modal";
 import { announcementPage } from "@/context/AnnouncementPageContext";
 
-export default function EditUserInfosModal({
- closeModalFunc,
- userData,
-}: IEditUserInfosModal) {
+export default function EditCommentModal({
+ closeModalFunc, comment, user
+
+}: any) {
  const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
 
  const { register, handleSubmit } = useForm();
 
+ const [newComment, setNewComment] = useState<string>("");
+
+
+ 
+
  const { setUser } = useContext(announcementPage);
 
- const editUserRequest = async (data: any) => {
-  const { id } = userData;
+ const editCommentRequest = async (data: any) => {
 
-  await api.patch(`/users/${id}`, data);
+//   const { id } = userData;
 
-  setUser(null);
+  await api.patch(`/cars/comments/${comment.id}`, {
+	"description": newComment
+});
 
-  closeModalFunc((prevState) => !prevState);
+closeModalFunc((prevState:boolean) => {
+    return !prevState;
+   });
+
+//   setUser(null);
+
+//   closeModalFunc((prevState) => !prevState);
  };
+
+ const deleteCommentRequest = async (data: any) => {
+
+
+  await api.delete(`/cars/comments/${comment.id}`);
+
+closeModalFunc((prevState:boolean) => {
+    return !prevState;
+   });
+
+ };
+
 
  return (
   <>
-   <ModalBase modalTitle="Editar perfil" closeModal={closeModalFunc}>
-    <form onSubmit={handleSubmit(editUserRequest)}>
-     <p className="headline-7-600">Informações pessoais</p>
-     <InputComponent
-      inputId="user_name"
-      label="Nome"
-      register={register("name")}
-      defaultValue={userData.name}
-     />
-     <InputComponent
-      inputId="user_email"
-      label="Email"
-      register={register("email")}
-      defaultValue={userData.email}
-     />
-     <InputComponent
-      inputId="user_cpf"
-      label="CPF"
-      register={register("cpf")}
-      defaultValue={userData.cpf}
-     />
-     <InputComponent
-      inputId="user_phone"
-      label="Celular"
-      register={register("phone")}
-      defaultValue={userData.phone}
-     />
-     <InputComponent
-      inputId="user_birthdate"
-      label="Data de nascimento"
-      register={register("birthdate")}
-      defaultValue={userData.birthdate}
-     />
+   <ModalBase modalTitle="Editar Comentário" closeModal={closeModalFunc}>
+    <form onSubmit={handleSubmit(editCommentRequest)}>
+     <p className="headline-7-600">Escreva o seu comentário</p>
+     
+    
+
      <TextAreaInputComponent
       inputId="user_description"
-      label="Descrição"
+      label="Comentário"
       register={register("description")}
-      defaultValue={userData.description}
+      defaultValue={comment.description}
+      onChange={(event) => {
+        const value = event.target.value;
+        setNewComment(value);
+      }}
      />
      <div className={style.buttons_container}>
       <div className={style.delete_button_container}>
        <ButtonComponent
         type="button"
         className={buttonStyle.alert1_white_button}
-        onClick={() => {
-         setShowDeleteModal(true);
-        }}
+        onClick={deleteCommentRequest}
        >
-        Deletar usuário
+        Deletar comentário
        </ButtonComponent>
       </div>
       <div className={style.confirm_cancel_button_container}>
        <ButtonComponent
         onClick={() => {
-         closeModalFunc((prevState) => {
+         closeModalFunc((prevState:boolean) => {
           return !prevState;
          });
         }}
@@ -105,12 +104,7 @@ export default function EditUserInfosModal({
      </div>
     </form>
    </ModalBase>
-   {showDeleteModal ? (
-    <DeleteUserConfirmModal
-     closeModalFunc={setShowDeleteModal}
-     userData={userData}
-    />
-   ) : null}
+   
   </>
  );
 }

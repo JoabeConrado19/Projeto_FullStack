@@ -14,59 +14,63 @@ import { Address } from '../entities/user.entity';
 export class CreateUserDto {
   @IsString()
   @IsNotEmpty()
-  @ApiProperty({ example: "Nome Completo" })
+  @ApiProperty({ example: 'Nome Completo' })
   name: string;
 
   @IsEmail()
   @ApiProperty({
-    example: "email@mail.com",
-    description: "Usar email válido para recebimento da senha se for necessária a recuperação!"
+    example: 'email@mail.com',
+    description:
+      'Usar email válido para recebimento da senha se for necessária a recuperação!',
   })
   email: string;
 
   @IsString()
   @IsNotEmpty()
   @MinLength(11)
-  @ApiProperty({ example: "123.456.789-10" })
+  @ApiProperty({ example: '123.456.789-10' })
   cpf: string;
 
   @IsString()
   @IsNotEmpty()
-  @ApiProperty({ example: "00912345678" })
+  @ApiProperty({ example: '00912345678' })
   phone: string;
 
   @IsString()
   @IsNotEmpty()
-  @ApiProperty({ example: "01/01/01" })
+  @ApiProperty({ example: '01/01/01' })
   birthdate: string;
 
   @IsString()
   @IsNotEmpty()
-  @ApiProperty({ example: "Usuário para teste" })
+  @ApiProperty({ example: 'Usuário para teste' })
   description: string;
 
   @IsString()
   @IsNotEmpty()
-  @ApiProperty({ example: "Vendedor", description: "Este campo define se o usuário será Anunciante ou Comprador" })
+  @ApiProperty({
+    example: 'Vendedor',
+    description: 'Este campo define se o usuário será Anunciante ou Comprador',
+  })
   accountType: string;
 
   @IsObject()
   @IsNotEmpty()
   @ApiProperty({
     example: {
-      "cep": "15000-000",
-      "state": "São Paulo",
-      "city": "São Paulo",
-      "street": "Rua Teste",
-      "number": 1,
-      "complement": "Se houver"
+      cep: '15000-000',
+      state: 'São Paulo',
+      city: 'São Paulo',
+      street: 'Rua Teste',
+      number: 1,
+      complement: 'Se houver',
     },
   })
   address: Address;
 
   @IsNotEmpty()
   @MinLength(6)
-  @ApiProperty({ example: "senhateste123" })
+  @ApiProperty({ example: 'senhateste123' })
   @Transform(({ value }: { value: string }) => hashSync(value, 10), {
     groups: ['transform'],
   })

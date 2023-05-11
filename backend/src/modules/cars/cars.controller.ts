@@ -16,14 +16,15 @@ import { ApiCreatedResponse, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../auth/jwt.auth.guard';
 import { CarsService } from './cars.service';
 import { CreateCarsDto } from './dto/create-car.dto';
-import { UpdateCarsDto } from './dto/update-car.dto';
-import { Car } from './entities/car.entity';
 import { CreateCommentDto } from './dto/create-comments.dto';
+import { UpdateCarsDto } from './dto/update-car.dto';
+import { UpdateCommentsDto } from './dto/update-comment.dto';
+import { Car } from './entities/car.entity';
 
 @Controller('cars')
 @ApiTags('cars')
 export class CarsController {
-  constructor(private readonly carsService: CarsService) {}
+  constructor(private readonly carsService: CarsService) { }
 
   @UseGuards(JwtAuthGuard)
   @Post('user/:id')
@@ -97,5 +98,11 @@ export class CarsController {
   @UseGuards(JwtAuthGuard)
   deleteComment(@Param('id') id: string) {
     return this.carsService.deleteComment(id);
+  }
+
+  @Patch('comments/:id')
+  @UseGuards(JwtAuthGuard)
+  updateComment(@Param('id') id: string, @Body() UpdateCommentsDto: UpdateCommentsDto) {
+    return this.carsService.updateComment(id, UpdateCommentsDto);
   }
 }
