@@ -16,26 +16,14 @@ import { useContext, useEffect, useState } from "react";
 
 
 export default function CarsDetailPage() {
-  moment.locale("pt-br");
-  const now = moment();
-  const router = useRouter();
-  const id = router.query.id;
-  if (!id) {
-    return <div>Carregando...</div>;
-  }
+
   const [targerCarData, setTargetCarData] = useState<ICar>();
   const [commentInput, setCommentInput] = useState<string>();
-  const [comments, setComments] = useState<any>([]);
-  const [comment, setComment] = useState<any>([]);
   const [showEditModal, setShowEditModal] = useState<boolean>(false);
-
-
-  function handleCommentInputChange(event: any) {
-    setCommentInput(event.target.value);
-  }
-
+  const [comment, setComment] = useState<any>([]);
+  const [comments, setComments] = useState<any>([]);
   const { user } = useContext(announcementPage);
-
+  
   useEffect(() => {
 
     const getAnnunc = async () => {
@@ -49,19 +37,34 @@ export default function CarsDetailPage() {
 
     getAnnunc();
   }, []);
-
+  
   useEffect(() => {
     const getComments = async () => {
       try {
         const { data }: { data: any } = await api.get(`/cars/${id}`);
-
+        
         setComments([...data.comments]);
-
+        
       } catch { }
     };
     getComments()
-
+    
   }, [comments]);
+  
+  moment.locale("pt-br");
+  const now = moment();
+  const router = useRouter();
+  const id = router.query.id;
+  if (!id) {
+    return <div>Carregando...</div>;
+  }
+
+
+  function handleCommentInputChange(event: any) {
+    setCommentInput(event.target.value);
+  }
+
+
 
   return (
     <>
@@ -110,7 +113,7 @@ export default function CarsDetailPage() {
                   {targerCarData?.imagesUrl &&
                     targerCarData.images.map(
                       (image: IImages, index: number) => (
-                        <li>
+                        <li key={index}>
                           <img src={image.url} alt="Car image" />
                         </li>
                       )
@@ -163,7 +166,7 @@ export default function CarsDetailPage() {
                     const date = moment(comment.createdAt);
 
                     return (
-                      <li>
+                      <li key={comment.id}>
                         <div className={style.perfil_infos2}>
                           <div className={style.leftTitleComment}>
                             <p
