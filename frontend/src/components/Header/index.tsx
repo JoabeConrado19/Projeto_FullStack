@@ -111,6 +111,7 @@ export default function HeaderComponent() {
          <ButtonComponent
           onClick={() => {
            setShowEditModal(true);
+           setShowMenu((prevState) => !prevState)
           }}
           className={buttonStyle.hidden_menu_buttons}
          >
@@ -122,6 +123,7 @@ export default function HeaderComponent() {
           className={buttonStyle.hidden_menu_buttons}
           onClick={() => {
            setShowAddressModal((prevState) => !prevState);
+           setShowMenu((prevState) => !prevState)
           }}
          >
           Editar endereço
@@ -130,7 +132,7 @@ export default function HeaderComponent() {
         {user.accountType === "Anunciante" ? (
          <li>
           <Link href={`/announcement/${user.id}`}>
-           <ButtonComponent className={buttonStyle.hidden_menu_buttons}>
+           <ButtonComponent className={buttonStyle.hidden_menu_buttons} onClick={() => {setShowMenu((prevState) => !prevState)}}>
             Meus anúncios
            </ButtonComponent>
           </Link>
@@ -141,6 +143,7 @@ export default function HeaderComponent() {
           className={buttonStyle.hidden_menu_buttons}
           onClick={() => {
            destroyCookie(undefined, "tokenMotorsShop");
+           setShowMenu((prevState) => !prevState)
 
            location.assign("/login");
           }}

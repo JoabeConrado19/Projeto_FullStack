@@ -264,12 +264,16 @@
         display: flex;
     }
 
+    .page_first_section {
+        width: 70%;
+    }
+
     .page_second_section > div {
         width: 95%;
         margin-left: auto;
     }
 
     .page_third_section {
-        width: 60%;
+        width: 70%;
     }
 }
