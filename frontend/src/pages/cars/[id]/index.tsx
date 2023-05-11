@@ -1,20 +1,18 @@
-import { useRouter } from "next/router";
-import React from "react";
-import style from "@/styles/car_details_page/index.module.css";
 import buttonStyle from "@/components/Buttons/styles.module.css";
 import DetailContainerComponent from "@/components/DetailsContainer";
-import { Button } from "@mui/material";
-import { useEffect, useState, useContext } from "react";
-import api from "@/services/api";
-import { ICar, IImages } from "@/interfaces/car";
+import EditCommentModal from "@/components/Modals/EditCommentModal";
 import { announcementPage } from "@/context/AnnouncementPageContext";
-import { parseCookies } from "nookies";
+import { ICar, IImages } from "@/interfaces/car";
+import api from "@/services/api";
+import style from "@/styles/car_details_page/index.module.css";
 import { parseJwt } from "@/utils/jwt";
+import EditIcon from "@mui/icons-material/Edit";
+import { Button } from "@mui/material";
 import moment from "moment";
 import "moment/locale/pt-br";
-import EditIcon from "@mui/icons-material/Edit";
-import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
-import EditCommentModal from "@/components/Modals/EditCommentModal";
+import { useRouter } from "next/router";
+import { parseCookies } from "nookies";
+import { useContext, useEffect, useState } from "react";
 
 
 export default function CarsDetailPage() {
@@ -46,7 +44,7 @@ export default function CarsDetailPage() {
 
         setTargetCarData(data);
         setComments([...data.comments]);
-      } catch {}
+      } catch { }
     };
 
     getAnnunc();
@@ -58,18 +56,18 @@ export default function CarsDetailPage() {
         const { data }: { data: any } = await api.get(`/cars/${id}`);
 
         setComments([...data.comments]);
-        
-      } catch {}
+
+      } catch { }
     };
     getComments()
-    
+
   }, [comments]);
 
   return (
     <>
-    {showEditModal ? (
-    <EditCommentModal closeModalFunc={setShowEditModal} comment={comment} user={user}/>
-   ) : null}
+      {showEditModal ? (
+        <EditCommentModal closeModalFunc={setShowEditModal} comment={comment} user={user} />
+      ) : null}
       <div className={style.page}>
         <div className={style.main_content}>
           <div className={style.wrap_container}>
@@ -189,11 +187,11 @@ export default function CarsDetailPage() {
                           </div>
                           {comment.user.name === user?.name && (
                             <div className={style.rigthTitleComment}>
-                              <EditIcon className={style.commentIcon} onClick={()=>{
+                              <EditIcon className={style.commentIcon} onClick={() => {
                                 setShowEditModal((prevState) => !prevState)
                                 setComment(comment)
                               }}
-                              
+
                               />
 
                             </div>
@@ -250,7 +248,7 @@ export default function CarsDetailPage() {
                           );
 
                           setComments(data2.comments);
-                        } catch {}
+                        } catch { }
                       }
                     };
 
