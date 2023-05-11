@@ -1,24 +1,34 @@
-import { useRouter } from "next/router";
-
-import style from "@/styles/car_details_page/index.module.css";
 import buttonStyle from "@/components/Buttons/styles.module.css";
-
 import DetailContainerComponent from "@/components/DetailsContainer";
-import { Button } from "@mui/material";
-
-import { useEffect, useState, useContext } from "react";
-import api from "@/services/api";
-import { ICar } from "@/interfaces/car";
+import EditCommentModal from "@/components/Modals/EditCommentModal";
 import { announcementPage } from "@/context/AnnouncementPageContext";
-import { parseCookies } from "nookies";
+import { ICar, IImages } from "@/interfaces/car";
+import api from "@/services/api";
+import style from "@/styles/car_details_page/index.module.css";
 import { parseJwt } from "@/utils/jwt";
+import EditIcon from "@mui/icons-material/Edit";
+import { Button } from "@mui/material";
+import moment from "moment";
+import "moment/locale/pt-br";
+import { useRouter } from "next/router";
+import { parseCookies } from "nookies";
+import { useContext, useEffect, useState } from "react";
+
 
 export default function CarsDetailPage() {
+  moment.locale("pt-br");
+  const now = moment();
   const router = useRouter();
-  const { id } = router.query;
+  const id = router.query.id;
+  if (!id) {
+    return <div>Carregando...</div>;
+  }
   const [targerCarData, setTargetCarData] = useState<ICar>();
   const [commentInput, setCommentInput] = useState<string>();
   const [comments, setComments] = useState<any>([]);
+  const [comment, setComment] = useState<any>([]);
+  const [showEditModal, setShowEditModal] = useState<boolean>(false);
+
 
   function handleCommentInputChange(event: any) {
     setCommentInput(event.target.value);
@@ -27,16 +37,18 @@ export default function CarsDetailPage() {
   const { user } = useContext(announcementPage);
 
   useEffect(() => {
+
     const getAnnunc = async () => {
       try {
         const { data }: { data: any } = await api.get(`/cars/${id}`);
-        console.log(data);
+
         setTargetCarData(data);
         setComments([...data.comments]);
-      } catch {}
+      } catch { }
     };
+
     getAnnunc();
-  }, [id]);
+  }, []);
 
   useEffect(() => {
     const getComments = async () => {
@@ -44,13 +56,18 @@ export default function CarsDetailPage() {
         const { data }: { data: any } = await api.get(`/cars/${id}`);
 
         setComments([...data.comments]);
-      } catch {}
+
+      } catch { }
     };
-    getComments();
+    getComments()
+
   }, [comments]);
 
   return (
     <>
+      {showEditModal ? (
+        <EditCommentModal closeModalFunc={setShowEditModal} comment={comment} user={user} />
+      ) : null}
       <div className={style.page}>
         <div className={style.main_content}>
           <div className={style.wrap_container}>
@@ -90,60 +107,28 @@ export default function CarsDetailPage() {
               <DetailContainerComponent containerPadding="32px">
                 <p className="headline-6-600">Fotos</p>
                 <ul className={style.car_images_list}>
-                  <li>
-                    <img
-                      src={targerCarData?.imagesUrl}
-                      width={2048}
-                      height={1536}
-                      alt="Car image"
-                    />
-                  </li>
-                  <li>
-                    <img
-                      src={targerCarData?.imagesUrl}
-                      width={2048}
-                      height={1536}
-                      alt="Car image"
-                    />
-                  </li>
-                  <li>
-                    <img
-                      src={targerCarData?.imagesUrl}
-                      width={2048}
-                      height={1536}
-                      alt="Car image"
-                    />
-                  </li>
-                  <li>
-                    <img
-                      src={targerCarData?.imagesUrl}
-                      width={2048}
-                      height={1536}
-                      alt="Car image"
-                    />
-                  </li>
-                  <li>
-                    <img
-                      src={targerCarData?.imagesUrl}
-                      width={2048}
-                      height={1536}
-                      alt="Car image"
-                    />
-                  </li>
-                  <li>
-                    <img
-                      src={targerCarData?.imagesUrl}
-                      width={2048}
-                      height={1536}
-                      alt="Car image"
-                    />
-                  </li>
+                  {targerCarData?.imagesUrl &&
+                    targerCarData.images.map(
+                      (image: IImages, index: number) => (
+                        <li>
+                          <img src={image.url} alt="Car image" />
+                        </li>
+                      )
+                    )}
                 </ul>
               </DetailContainerComponent>
               <DetailContainerComponent
                 customClassName={style.profile_container}
               >
-                <div className={style.profile_pic}></div>
+                <div
+                  className={style.profile_pic}
+                  style={{ backgroundColor: targerCarData?.user.color }}
+                >
+                  {targerCarData?.user.name
+                    .split(" ", 2)
+                    .map((name: string) => name.charAt(0))
+                    .join("")}
+                </div>
                 <p className="headline-6-600">{targerCarData?.user.name}</p>
                 <span className="body-1-400">
                   {targerCarData?.user.description}
@@ -172,22 +157,66 @@ export default function CarsDetailPage() {
             >
               <p className="headline-6-600">Comentários</p>
               <ul className={style.commentary_list}>
-                {comments?.map((comment: any, index: number) => (
-                  <li key={index}>
-                    <div className={style.perfil_infos}>
-                      <p className={style.comments_profile_pic}>JL</p>
-                      <p className="body-2-500">{comment.user.name}</p>
-                      <div className={style.gray_dot}></div>
-                      <span className="body-2-400">há 3 dias</span>
-                    </div>
-                    <p className="body-2-400">{comment.description}</p>
-                  </li>
-                ))}
+                {comments ? (
+                  comments.map((comment: any) => {
+                    moment.locale("pt-br");
+                    const date = moment(comment.createdAt);
+
+                    return (
+                      <li>
+                        <div className={style.perfil_infos2}>
+                          <div className={style.leftTitleComment}>
+                            <p
+                              className={style.comments_profile_pic}
+                              style={{ backgroundColor: comment.user.color }}
+                            >
+                              {comment.user.name
+                                .split(" ", 2)
+                                .map((name: string) => name.charAt(0))
+                                .join("")}
+                            </p>
+                            <p className="body-2-500">{comment.user.name}</p>
+                            <div className={style.gray_dot}></div>
+                            <span className="body-2-400">
+                              <p>
+                                {moment(comment.createdAt)
+                                  .locale("pt-br")
+                                  .fromNow()}
+                              </p>
+                            </span>
+                          </div>
+                          {comment.user.name === user?.name && (
+                            <div className={style.rigthTitleComment}>
+                              <EditIcon className={style.commentIcon} onClick={() => {
+                                setShowEditModal((prevState) => !prevState)
+                                setComment(comment)
+                              }}
+
+                              />
+
+                            </div>
+                          )}
+                        </div>
+                        <p className="body-2-400">{comment.description} </p>
+                      </li>
+                    );
+                  })
+                ) : (
+                  <p></p>
+                )}
               </ul>
             </DetailContainerComponent>
             <DetailContainerComponent>
               <div className={style.perfil_infos}>
-                <p className={style.comments_profile_pic}>JL</p>
+                <p
+                  className={style.comments_profile_pic}
+                  style={{ backgroundColor: user?.color }}
+                >
+                  {user?.name
+                    .split(" ", 2)
+                    .map((name: string) => name.charAt(0))
+                    .join("")}
+                </p>
                 <p className="body-2-500">{user?.name}</p>
               </div>
               <div className={style.comment_textarea}>
@@ -219,15 +248,7 @@ export default function CarsDetailPage() {
                           );
 
                           setComments(data2.comments);
-
-                          // setComments((prevComments :any) => [{}, ...prevComments]);
-
-                          // setUserAnnouncements(data.cars);
-                          // setUser(data);
-                        } catch {
-                          // destroyCookie(undefined, "tokenMotorsShop");
-                          // router.push("/login");
-                        }
+                        } catch { }
                       }
                     };
 
