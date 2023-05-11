@@ -567,9 +567,9 @@ export default function MainHome() {
               <Announcement key={announcement.id} announcement={announcement} />
             ))
           ) : !filtered?.length && user?.accountType == "Vendedor" ? (
-            <>
+            <div style={{display: 'flex', flexDirection: 'column', gap: '1.5rem'}}>
               <h2
-                style={{ margin: "0 auto", fontSize: "1.5rem", width: "100%" }}
+                style={{ margin: "0 auto", fontSize: "1.5rem", width: "100%", textAlign: 'center' }}
               >
                 Sem anuncios no momento clique{" "}
                 <a
@@ -581,17 +581,17 @@ export default function MainHome() {
                 para criar um anuncio
               </h2>
               <EmptyCard />
-            </>
+            </div>
           ) : (
-            <>
+            <div style={{display: 'flex', flexDirection: 'column',  gap: '1.5rem'}}>
               <h2
-                style={{ margin: "0 auto", fontSize: "1.5rem", width: "100%" }}
+                style={{ margin: "0 auto", fontSize: "1.5rem", width: "100%", textAlign: 'center' }}
               >
                 Sem anuncios no momento! espere até que algum <u>Vendedor</u>{" "}
                 publique!
               </h2>
               <EmptyCard />
-            </>
+            </div>
           )}
         </ul>
 

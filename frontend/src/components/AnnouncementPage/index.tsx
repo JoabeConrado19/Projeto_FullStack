@@ -80,10 +80,10 @@ export default function AnnouncementPage() {
         );
        })
        :
-       <>
-       <h2 style={{marginTop: '-6rem', fontSize: '1.5rem', width: '100%'}}>Crie um anuncio no botão acima!</h2>
-       <EmptyCard/>
-       </>
+       <div style={{display: 'flex', flexDirection: 'column', marginTop: '6rem', textAlign: 'center', alignItems: 'inherit', gap: '2rem', width: '95%'}}>
+        <h2 style={{marginTop: '-6rem', fontSize: '1.5rem', width: '100%'}}>Crie um anuncio no botão acima!</h2>
+        <EmptyCard/>
+       </div>
     }
       </ul>
      </div>
@@ -141,10 +141,12 @@ export default function AnnouncementPage() {
         );
        })
       :
-       <>
+       <div style={{display: 'flex', flexDirection: 'column'}}>
        <h2 style={{ fontSize: '1.5rem', width: '100%', textAlign: 'center' }}>Este vendedor não possui anuncios criados no momento!</h2>
-       <EmptyCard/>
-       </>
+       <div style={{display: 'flex', flexDirection: 'row'}}>
+        <EmptyCard/>
+       </div>
+       </div>
       }
       </ul>
      </div>

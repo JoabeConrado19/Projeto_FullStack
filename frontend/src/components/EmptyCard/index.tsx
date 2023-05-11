@@ -1,12 +1,12 @@
 export default function EmptyCard() {
  const repeat = [1, 2, 3, 4, 5, 6, 7, 8];
  return (
-  <>
+  <div style={{display: 'flex', flexWrap: 'wrap', gap: '1.5rem', justifyContent: 'center'}}>
    {repeat.map((x) => {
     return (
      <div key={x}
       style={{
-       width: "312px",
+       width: "290px",
        height: "356px",
        display: "flex",
        flexDirection: "column",
@@ -15,7 +15,7 @@ export default function EmptyCard() {
      >
       <div
        style={{
-        width: "312px",
+        width: "290px",
         height: "150px",
         backgroundColor: "#CED4DA",
         borderRadius: "6px",
@@ -23,7 +23,7 @@ export default function EmptyCard() {
       ></div>
       <div
        style={{
-        width: "312px",
+        width: "290px",
         height: "20px",
         backgroundColor: "#CED4DA",
         borderRadius: "6px",
@@ -31,7 +31,7 @@ export default function EmptyCard() {
       ></div>
       <div
        style={{
-        width: "312px",
+        width: "290px",
         height: "20px",
         backgroundColor: "#CED4DA",
         borderRadius: "6px",
@@ -76,6 +76,6 @@ export default function EmptyCard() {
      </div>
     );
    })}
-  </>
+  </div>
  );
 }
